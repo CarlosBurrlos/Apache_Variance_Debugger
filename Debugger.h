@@ -1,6 +1,7 @@
 /**
  * Debugger tool Prototype:w
  **/
+#include    "Results.h"
 
 #include    <stdio.h>
 #include    <ostream>
@@ -102,23 +103,35 @@ namespace Dbugr {
         //What do we need for the parser?
 
         public:
+            Parser(Scanner * s)
+            :scanner(s)
+            {  }
 
-            Parser();
-            ~Parser();
-
-            void parseFunc();
-
-            void parseScope();
-
+            ~Parser();  //TODO
+            //Checks scanners curr str type & parses
+            void parse();
+            //Creates new function, adds to set
+            void parseFunc(std::string);
+            //Creates new scope, adds to set
+            void parseScope(std::string);
+            //Completes curr scope and exits
             void done();
 
         private:
-            void enterNScope();
+
+            Scope * enterNScope();
+
             void exitScope();
+
             void addNScope();
+
             void addNFun();
+
             void checkIfParsed();
+
             Scope * scp;
+
+            Scanner * scanner;
     };
     
     //Might not need this
@@ -126,7 +139,7 @@ namespace Dbugr {
 
     class Scope {
         public:
-            Scope(char * name) 
+            Scope(std::string name) 
             : name(name)
             {}
             ~Scope() 
@@ -134,23 +147,26 @@ namespace Dbugr {
             std::string getScope() {
                 return this->name;
             }
+            void addFunc(std::pair <std::string, Func*> p) {
+                this->funcs.insert(p);
+            }
         private:
             std::unordered_map<std::string, Func*> funcs;
-            char * name;
+            std::string name;
     };
 
     class Func {
         public:
-            Func(char * name)
+            Func(std::string name)
                 :name(name)
             {}
             ~Func()
             {} //TODO
-            char * getFunc() {
+            std::string getFunc() {
                 return this->name;
             }
         private:
-            char * name;
+            std::string name;
     };
 
     class Debugger {
