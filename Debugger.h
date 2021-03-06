@@ -102,10 +102,14 @@ namespace Dbugr {
         //What do we need for the parser?
 
         public:
+
             Parser();
             ~Parser();
+
             void parseFunc();
+
             void parseScope();
+
             void done();
 
         private:
@@ -122,10 +126,14 @@ namespace Dbugr {
 
     class Scope {
         public:
-            Scope(char *);
-            ~Scope();
-            std::string getScope();
-            std::string getScopePtr();
+            Scope(char * name) 
+            : name(name)
+            {}
+            ~Scope() 
+            {} //TODO
+            std::string getScope() {
+                return this->name;
+            }
         private:
             std::unordered_map<std::string, Func*> funcs;
             char * name;
@@ -133,10 +141,14 @@ namespace Dbugr {
 
     class Func {
         public:
-            Func();
-            ~Func();
-            char * getFunc();
-            Func * getFuncPtr();
+            Func(char * name)
+                :name(name)
+            {}
+            ~Func()
+            {} //TODO
+            char * getFunc() {
+                return this->name;
+            }
         private:
             char * name;
     };
