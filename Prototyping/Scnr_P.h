@@ -1,5 +1,6 @@
 #include <ostream>
 #include <cstdio>
+#include <istream>
 
 class Scnr {
     public:
@@ -11,7 +12,7 @@ class Scnr {
         }
 
         int openFile();     //(Success) ? 1 : -1
-        int closeFile();    //(Success) ? 1 : -1
+        static int closeFile();    //(Success) ? 1 : -1
 
         int nxtChar();      //(Success) ? 1 : 0
         int nxtStrng();     //(Success) ? nChars Read : -1
@@ -34,16 +35,18 @@ class Scnr {
         void updateBytes();
 
         int open();
-        int close();
+        static int close();
         int readChar();
         int readStr();
         int readLine();
 
-        int nBytes;
-        int gBytes;
+        int nBytes{};
+        int gBytes{};
         
-        char currChar;
+        char currChar{};
         char * file;
+
+        std::istream in;
 
         std::string currStr;
         

@@ -30,8 +30,7 @@ void Scnr::clearBytes() {
 }
 
 int Scnr::open() {
-    FILE * f =
-    freopen(this->file, "r", stdin);
+    FILE * f = freopen(this->file, "r", stdin);
     if (!f) return -1;
     return 1;
 }
