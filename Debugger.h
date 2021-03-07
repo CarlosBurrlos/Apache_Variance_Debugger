@@ -119,7 +119,7 @@ namespace Dbugr {
 
         private:
 
-            Scope * enterNScope();
+            Scope * enterNScope(std::string name);
 
             void exitScope();
 

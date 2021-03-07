@@ -28,29 +28,29 @@ void Parser::parseScope(std::string s) {
     //is enter a new scope and swap out the old
     if (!this->scp) {
         //If we haven't processed a scope yet, we will handle this
+        this->scp = enterNScope(this->scanner->getCurrStr());
     }
     else {
         //Add the current scope to the Scopes table
         Scopes.push_back(this->scp);
-        this->scp = enterNScope();
+        this->scp = enterNScope(this->scanner->getCurrStr());
     }
-
-    enterNScope();
 }
 
 void Parser::done() {
     exitScope();
 }
 
-Scope * Parser::enterNScope() {
+Scope * Parser::enterNScope(std::string name) {
 
+    Scope * s = new Scope(name);
+    this->scp = s;
 
-
-    return nullptr;
+    return s;
 }
 
 void Parser::exitScope() {
-
+    
 }
 
 void addNScope() {
