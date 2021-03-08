@@ -1,14 +1,17 @@
 #include "Header.h"
+#include "Debugger.h"
+
 
 #include <regex>
 
 using namespace Dbugr;
 
 Scanner::Scanner(const char * file)
-:   c(NULL),
-    file(file),
-    cStr(NULL)
-{}
+{
+    std::string f = "../";
+    f += file;
+    this->file = f;
+}
 
 Scanner::~Scanner() {
     close();
@@ -86,13 +89,8 @@ int Scanner::nextFunc() {
  * then return False.
  * Else, return True.
  */
-bool Scanner::hasChar() {
-
-    if ((*this->getCurrChar() == EOF) ||
-        (*this->getCurrChar() == '^') ||
-        (!this->getCurrChar()))
-        return 0;
-    return 1;
+bool Scanner::hasChar() const {
+    return (this->c == EOF);
 }
 
 /*
@@ -102,19 +100,12 @@ bool Scanner::hasChar() {
  * Else, return 1
  */
 int Scanner::readChar() {
-    if (readCheck() != 1)
-        return -1;
-    *this->c = in.get();
-    if (this->in.fail()) {
-        *this->c = '^';
-        this->in.clear();
-        return -1;
+    if (!readCheck()) {
+        this->c = EOF;
+        return 0;
     }
-    else if (this->in.eof()) {
-        *this->c = EOF;
-        this->in.clear();
-        return -1;
-    }
+    this->c = in.get();
+    this->cStr += this->c;
     return 1;
 
 }
@@ -127,14 +118,10 @@ int Scanner::readChar() {
  * else returns -1
  */
 int Scanner::readCheck() {
-    char c = this->in.peek();
-    if (c == EOF) {
-        return -1;
+    if (this->in.peek() == EOF) {
+        return 0;
     }
-    if (c == '^') {
-        return -2;
-    }
-    //TODO
+    //TODO check which flags are set
     return 1;
 }
 
@@ -146,45 +133,38 @@ int Scanner::readCheck() {
 int Scanner::readLine() {
 
     int n = 0;
-    if (readCheck())
-        readChar();
-    while ((*this->c != '\n') &&
-            ((*this->c != '^') ||
-              (*this->c != EOF)))
-    {
-        readChar();
+    while ((readChar()) && ((this->c != '\n') || (this->c != EOF)))
         n++;
+    if (!readCheck()) {
+        if (this->in.eof()) this->eof = 1;
+        else this->flr = 1;
     }
-    n--;
-    if ((*this->c == '^') ||
-            (*this->c == EOF)) {
-        return -1;
-    }
-    return 1;
-
+    return n;
 }
 
 /*
  * [Private] Reads in a word from ifstream (file)
- * Returns -1 if EOF or Failure
+ * Returns 0 if EOF or Failure after putback all
  * Returns n chars read
  */
 int Scanner::readWord() {
     
     int n = 0;
-    if (readCheck())
-        readChar();
-    while ((*this->c != ' ') || (*this->c != '\n') ||
-          (*this->c != '\t') || (*this->c != '^') ||
-          (*this->c != EOF))
-    {
-        readChar();
+    while ((readChar())) {
+        if (this->c == ' ' || this->c == '\n' || this->c == '\t') {
+            break;
+        }
         n++;
     }
-    n--;
-    if ((*this->c == '^') ||
-            (*this->c == EOF))
-        return -1;
+    if (this->in.eof() || this->in.fail()) {
+        for (int i = 0; i < n; i++) {
+            this->in.putback(this->cStr.at(this->cStr.length()));
+            this->cStr.pop_back();
+        }
+        n = 0;
+    }
+    this->in.putback(this->c);
+    this->cStr.pop_back();
     return n;
 }
 
@@ -195,13 +175,12 @@ int Scanner::readWord() {
  */
 int Scanner::readTill(char cc) {
     int n = 0;
-    if (readCheck())
-        readChar();
-    while ((*this->c != cc) || (*this->c != '^') ||
-          (*this->c != EOF))
-    {
-        readChar();
+    while(readChar())
+        if (this->c == cc) {
+            break;
+        }
         n++;
-    }
     return n;
+void Scanner::scan() {
+
 }

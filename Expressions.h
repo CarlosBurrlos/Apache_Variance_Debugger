@@ -8,12 +8,12 @@ std::string ret         = "return";
 std::string word        = "[\\w]+";
 std::string params      = "\\(" + word + "\\)";
 
-std::regex  eScp(entrScp);
+/*std::regex  eScp(entrScp);
 std::regex  exScp(extScp);
 std::regex  fCall(funcCall);
 std::regex  wrd(word);
 std::regex  rt(ret);
-std::regex  prms(params);
+std::regex  prms(params);*/
 
-std::regex regs [] = {eScp, exScp, fCall, wrd, rt, prms};
+//std::regex regs [] = {eScp, exScp, fCall, wrd, rt, prms};
 

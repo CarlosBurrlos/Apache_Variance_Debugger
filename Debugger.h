@@ -7,6 +7,8 @@
 #include    <ostream>
 #include    <fstream>
 #include    <unordered_map>
+#include    <unistd.h>
+#include    <filesystem> //For Debug purposes
 
 namespace Dbugr {
 
@@ -40,7 +42,7 @@ namespace Dbugr {
             Scanner(const char * file);
             ~Scanner();
 
-            char * getCurrChar() {
+            char getCurrChar() {
                 return this->c;
             }
             std::string getCurrStr() {
@@ -53,7 +55,13 @@ namespace Dbugr {
    
             bool openStream();
             bool closeStream();
-            bool hasChar();
+            bool hasChar() const;
+            bool atEnd() const {
+                return this->eof;
+            }
+            bool failed() const {
+                return this->flr;
+            }
 
             void scan();
 
@@ -66,9 +74,11 @@ namespace Dbugr {
         private:
 
             int open() {
-                in.open(file);
-                if (in.is_open()) return 1;
-                return 0;
+                this->in = std::ifstream(this->file, std::ifstream::in);
+                if (in.is_open())
+                {return 1;}
+                else
+                {return 0;}
             }
             
             int close() {
@@ -83,14 +93,14 @@ namespace Dbugr {
             int readWord();
             int readTill(char);
 
-            bool            eof;
-            bool            flr;
+            bool           eof;
+            bool           flr;
 
-            char*           c;
-            const char *    file;
+            char           c;
 
-            std::string     cStr;
-            std::ifstream in;
+            std::string    file;
+            std::string    cStr;
+            std::ifstream  in;
     };
 
     class Parser {
