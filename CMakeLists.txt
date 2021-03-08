@@ -3,10 +3,4 @@ project(beta)
 
 set(CMAKE_CXX_STANDARD 14)
 
-include_directories(.)
-include_directories(Prototyping)
-
-add_executable(beta
-        Prototyping/main.cpp
-        Prototyping/Scnr_P.cpp
-        Prototyping/Scnr_P.h)
+add_executable(beta main.cpp)

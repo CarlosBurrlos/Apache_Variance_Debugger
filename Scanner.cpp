@@ -6,120 +6,202 @@ using namespace Dbugr;
 
 Scanner::Scanner(const char * file)
 :   c(NULL),
-    cStr(NULL),
     file(file),
-    currStrType(0)
-{
-   freopen(file, "r", stdin);
-}
+    cStr(NULL)
+{}
 
 Scanner::~Scanner() {
-   fclose(stdin);
+    close();
 }
 
-/**
- *  Calls private method r() which reads a char from
- *  field file ifstream
- **/
-int Scanner::read() {
-    int charsRead = 0;
-    charsRead = r();
-    return charsRead;
+bool Scanner::openStream() {
+    if (open())
+        return 1;
+    return 0;
 }
 
-/**
- *  int readNChars()
- **/
-int Scanner::readNChars(int N){
-    int charsRead = 0;
-    for (; charsRead < N && read(); charsRead++)
-        ;
-    (charsRead == N) ? : charsRead = -1;
-    return charsRead;
+bool Scanner::closeStream() {
+    if (close())
+        return 1;
+    return 0;
 }
 
-/**
- *  int readFunc()
- **/
-int Scanner::readFunc() {
-    int charsRead = readTill(';');
-    r();
-    charsRead++;
-    return charsRead;
+/*
+ * Reads a char from Scanners ifstream (file)
+ * Returns 1 if char was read successfully
+ * Returns 0 otherwise
+ */
+int Scanner::nextChar() {
+    if (readChar()) return 1;
+    return 0;
 }
 
-/**
- *  int readLine()
- **/
-int Scanner::readLine() {
-    int charsRead = 0;
-    while ((charsRead = r())) {
-        charsRead ++;
-        if (*getCurrChar() == '\n')
-            break;
-    }
-    return charsRead;
+/*
+ * Reads in a line from Scanners ifstream (file)
+ * Returns n chars successfully read
+ * Returns 0 if no chars read
+ */
+int Scanner::nextLine() {
+    int n = 0;
+    if ((n = readLine())) return n;
+    return n;
 }
 
-/**
- *  int readTill()
- **/
-int Scanner::readTill(char c) {
-    bool read = 0;
-    if (c != ';' || c != '{' || c != '}')
-        return -1;
-    int charsRead = 0;
-    while ((charsRead = r())) {
-        if (*getCurrChar() == c) {
-            read = 1;
-            break;
-        }
-        if (*getCurrChar() == ';' && c != ';') {
-            ;//TODO:: err
-        }
-        if ((*getCurrChar() == '{' || *getCurrChar() == '}') &&
-                (*getCurrChar() == ';')) {
-            ;//TODO:: err
-        }
-        charsRead++;
-    }
-    if (!read) {
-        //TODO:: no c 
-    }
-    return charsRead;
+/*
+ * Reads in next word from Scanners ifstream (file)
+ * Returns n chars successfully read
+ * Returns 0 if no chars read
+ */
+int Scanner::nextWord() {
+    int n = 0;
+    if ((n = readWord())) return n;
+    return n;
 }
 
-/**
- *  bool hasChar()
- **/
+/*
+ * Reads till specified char
+ * Returns n chars successfully read
+ * Returns 0 otherwise
+ */
+int Scanner::scanTill(char c) {
+    int n = 0;
+    if ((n = readTill(c)))
+        return n;
+    return n;
+}
+
+/*
+ *
+ */
+int Scanner::nextFunc() {
+    int n = 0;
+    if ((n = readTill(';')))
+        return n;
+    return n;
+}
+
+/*
+ * Checks if the ifstream has just read a char
+ * If it has read EOF or Failed to read ('^')
+ * then return False.
+ * Else, return True.
+ */
 bool Scanner::hasChar() {
-    return atEnd();
-}
 
-/**
- *  int r()
- **/
-int Scanner::r() {
-    char c = '0'; 
-    c = getchar_unlocked();
-    
-    if(c == EOF) {
-        this->end = true;
-        return EOFERR;
-    }
-
-    this-> c = &c; 
-    this->cStr+= c;
+    if ((*this->getCurrChar() == EOF) ||
+        (*this->getCurrChar() == '^') ||
+        (!this->getCurrChar()))
+        return 0;
     return 1;
 }
 
-int Scanner::setcurrStrType() {
-    int i = 0;
-    for (std::regex r : regs) {
-        if (regex_match(this->cStr, r)) {
-            this->currStrType = i;    
-        }
-        i++;
+/*
+ * [Private] Reads in char from ifstream (file)
+ * Checks the EOF or Fail bits. If failed to read
+ * then return -1
+ * Else, return 1
+ */
+int Scanner::readChar() {
+    if (readCheck() != 1)
+        return -1;
+    *this->c = in.get();
+    if (this->in.fail()) {
+        *this->c = '^';
+        this->in.clear();
+        return -1;
     }
-    return 0;
+    else if (this->in.eof()) {
+        *this->c = EOF;
+        this->in.clear();
+        return -1;
+    }
+    return 1;
+
+}
+
+/*
+ * [Private] Safer method for reading in char
+ * firom ifstream. First peeks if the stream
+ * has char.
+ * Returns 1 if peek and read
+ * else returns -1
+ */
+int Scanner::readCheck() {
+    char c = this->in.peek();
+    if (c == EOF) {
+        return -1;
+    }
+    if (c == '^') {
+        return -2;
+    }
+    //TODO
+    return 1;
+}
+
+/*
+ * [Private] Reads in line from ifstream (file)
+ * Returns -1 if EOF or Failure
+ * Returns n chars read from ifstream
+ */
+int Scanner::readLine() {
+
+    int n = 0;
+    if (readCheck())
+        readChar();
+    while ((*this->c != '\n') &&
+            ((*this->c != '^') ||
+              (*this->c != EOF)))
+    {
+        readChar();
+        n++;
+    }
+    n--;
+    if ((*this->c == '^') ||
+            (*this->c == EOF)) {
+        return -1;
+    }
+    return 1;
+
+}
+
+/*
+ * [Private] Reads in a word from ifstream (file)
+ * Returns -1 if EOF or Failure
+ * Returns n chars read
+ */
+int Scanner::readWord() {
+    
+    int n = 0;
+    if (readCheck())
+        readChar();
+    while ((*this->c != ' ') || (*this->c != '\n') ||
+          (*this->c != '\t') || (*this->c != '^') ||
+          (*this->c != EOF))
+    {
+        readChar();
+        n++;
+    }
+    n--;
+    if ((*this->c == '^') ||
+            (*this->c == EOF))
+        return -1;
+    return n;
+}
+
+/*
+ * [Private] Reads till a certain char
+ * Returns -1 if EOF or Failure
+ * Returns n chars read
+ */
+int Scanner::readTill(char cc) {
+    int n = 0;
+    if (readCheck())
+        readChar();
+    while ((*this->c != cc) || (*this->c != '^') ||
+          (*this->c != EOF))
+    {
+        readChar();
+        n++;
+    }
+    return n;
 }

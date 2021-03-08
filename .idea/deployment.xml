@@ -5,7 +5,7 @@
       <paths name="Data (88abfc7b-2a1e-4517-b682-28c7648a3cbc)">
         <serverdata>
           <mappings>
-            <mapping deploy="/tmp/tmp.zkFRQdcfPq" local="$PROJECT_DIR$" />
+            <mapping deploy="/tmp/tmp.aMVXI3gp5q" local="$PROJECT_DIR$" />
           </mappings>
           <excludedPaths>
             <excludedPath local="true" path="$PROJECT_DIR$/cmake-build-debug" />

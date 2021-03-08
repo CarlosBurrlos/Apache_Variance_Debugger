@@ -1,1 +1,1 @@
-/usr/bin/c++  -g   CMakeFiles/beta.dir/Prototyping/main.cpp.o CMakeFiles/beta.dir/Prototyping/Scnr_P.cpp.o  -o beta 
+/usr/bin/c++  -g   CMakeFiles/beta.dir/main.cpp.o  -o beta 

@@ -8,34 +8,32 @@
 		<Option virtualFolders="CMake Files\;"/>
 		<Build>
 			<Target title="all">
-				<Option working_dir="/tmp/tmp.zkFRQdcfPq/cmake-build-debug"/>
+				<Option working_dir="/tmp/tmp.aMVXI3gp5q/cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j208 -f &quot;/tmp/tmp.zkFRQdcfPq/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
-					<CompileFile command="/usr/bin/make -j208 -f &quot;/tmp/tmp.zkFRQdcfPq/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j208 -f &quot;/tmp/tmp.zkFRQdcfPq/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j208 -f &quot;/tmp/tmp.zkFRQdcfPq/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j208 -f &quot;/tmp/tmp.aMVXI3gp5q/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="/usr/bin/make -j208 -f &quot;/tmp/tmp.aMVXI3gp5q/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j208 -f &quot;/tmp/tmp.aMVXI3gp5q/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j208 -f &quot;/tmp/tmp.aMVXI3gp5q/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="rebuild_cache">
-				<Option working_dir="/tmp/tmp.zkFRQdcfPq/cmake-build-debug"/>
+				<Option working_dir="/tmp/tmp.aMVXI3gp5q/cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j208 -f &quot;/tmp/tmp.zkFRQdcfPq/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
-					<CompileFile command="/usr/bin/make -j208 -f &quot;/tmp/tmp.zkFRQdcfPq/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j208 -f &quot;/tmp/tmp.zkFRQdcfPq/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j208 -f &quot;/tmp/tmp.zkFRQdcfPq/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j208 -f &quot;/tmp/tmp.aMVXI3gp5q/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="/usr/bin/make -j208 -f &quot;/tmp/tmp.aMVXI3gp5q/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j208 -f &quot;/tmp/tmp.aMVXI3gp5q/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j208 -f &quot;/tmp/tmp.aMVXI3gp5q/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="beta">
-				<Option output="/tmp/tmp.zkFRQdcfPq/cmake-build-debug/beta" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="/tmp/tmp.zkFRQdcfPq/cmake-build-debug"/>
+				<Option output="/tmp/tmp.aMVXI3gp5q/cmake-build-debug/beta" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/tmp/tmp.aMVXI3gp5q/cmake-build-debug"/>
 				<Option object_output="./"/>
 				<Option type="1"/>
 				<Option compiler="gcc"/>
 				<Compiler>
-					<Add directory="/tmp/tmp.zkFRQdcfPq/."/>
-					<Add directory="/tmp/tmp.zkFRQdcfPq/Prototyping"/>
 					<Add directory="/usr/include/c++/7"/>
 					<Add directory="/usr/include/x86_64-linux-gnu/c++/7"/>
 					<Add directory="/usr/include/c++/7/backward"/>
@@ -46,21 +44,19 @@
 					<Add directory="/usr/include"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j208 -f &quot;/tmp/tmp.zkFRQdcfPq/cmake-build-debug/Makefile&quot;  VERBOSE=1 beta"/>
-					<CompileFile command="/usr/bin/make -j208 -f &quot;/tmp/tmp.zkFRQdcfPq/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j208 -f &quot;/tmp/tmp.zkFRQdcfPq/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j208 -f &quot;/tmp/tmp.zkFRQdcfPq/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j208 -f &quot;/tmp/tmp.aMVXI3gp5q/cmake-build-debug/Makefile&quot;  VERBOSE=1 beta"/>
+					<CompileFile command="/usr/bin/make -j208 -f &quot;/tmp/tmp.aMVXI3gp5q/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j208 -f &quot;/tmp/tmp.aMVXI3gp5q/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j208 -f &quot;/tmp/tmp.aMVXI3gp5q/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="beta/fast">
-				<Option output="/tmp/tmp.zkFRQdcfPq/cmake-build-debug/beta" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="/tmp/tmp.zkFRQdcfPq/cmake-build-debug"/>
+				<Option output="/tmp/tmp.aMVXI3gp5q/cmake-build-debug/beta" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/tmp/tmp.aMVXI3gp5q/cmake-build-debug"/>
 				<Option object_output="./"/>
 				<Option type="1"/>
 				<Option compiler="gcc"/>
 				<Compiler>
-					<Add directory="/tmp/tmp.zkFRQdcfPq/."/>
-					<Add directory="/tmp/tmp.zkFRQdcfPq/Prototyping"/>
 					<Add directory="/usr/include/c++/7"/>
 					<Add directory="/usr/include/x86_64-linux-gnu/c++/7"/>
 					<Add directory="/usr/include/c++/7/backward"/>
@@ -71,33 +67,27 @@
 					<Add directory="/usr/include"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j208 -f &quot;/tmp/tmp.zkFRQdcfPq/cmake-build-debug/Makefile&quot;  VERBOSE=1 beta/fast"/>
-					<CompileFile command="/usr/bin/make -j208 -f &quot;/tmp/tmp.zkFRQdcfPq/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j208 -f &quot;/tmp/tmp.zkFRQdcfPq/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j208 -f &quot;/tmp/tmp.zkFRQdcfPq/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j208 -f &quot;/tmp/tmp.aMVXI3gp5q/cmake-build-debug/Makefile&quot;  VERBOSE=1 beta/fast"/>
+					<CompileFile command="/usr/bin/make -j208 -f &quot;/tmp/tmp.aMVXI3gp5q/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j208 -f &quot;/tmp/tmp.aMVXI3gp5q/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j208 -f &quot;/tmp/tmp.aMVXI3gp5q/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="edit_cache">
-				<Option working_dir="/tmp/tmp.zkFRQdcfPq/cmake-build-debug"/>
+				<Option working_dir="/tmp/tmp.aMVXI3gp5q/cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j208 -f &quot;/tmp/tmp.zkFRQdcfPq/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
-					<CompileFile command="/usr/bin/make -j208 -f &quot;/tmp/tmp.zkFRQdcfPq/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j208 -f &quot;/tmp/tmp.zkFRQdcfPq/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j208 -f &quot;/tmp/tmp.zkFRQdcfPq/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j208 -f &quot;/tmp/tmp.aMVXI3gp5q/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="/usr/bin/make -j208 -f &quot;/tmp/tmp.aMVXI3gp5q/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j208 -f &quot;/tmp/tmp.aMVXI3gp5q/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j208 -f &quot;/tmp/tmp.aMVXI3gp5q/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 		</Build>
-		<Unit filename="/tmp/tmp.zkFRQdcfPq/Prototyping/Scnr_P.cpp">
+		<Unit filename="/tmp/tmp.aMVXI3gp5q/main.cpp">
 			<Option target="beta"/>
 		</Unit>
-		<Unit filename="/tmp/tmp.zkFRQdcfPq/Prototyping/Scnr_P.h">
-			<Option target="beta"/>
-		</Unit>
-		<Unit filename="/tmp/tmp.zkFRQdcfPq/Prototyping/main.cpp">
-			<Option target="beta"/>
-		</Unit>
-		<Unit filename="/tmp/tmp.zkFRQdcfPq/CMakeLists.txt">
+		<Unit filename="/tmp/tmp.aMVXI3gp5q/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\"/>
 		</Unit>
 	</Project>

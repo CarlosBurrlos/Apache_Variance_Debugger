@@ -1,6 +1,5 @@
 file(REMOVE_RECURSE
-  "CMakeFiles/beta.dir/Prototyping/main.cpp.o"
-  "CMakeFiles/beta.dir/Prototyping/Scnr_P.cpp.o"
+  "CMakeFiles/beta.dir/main.cpp.o"
   "beta.pdb"
   "beta"
 )

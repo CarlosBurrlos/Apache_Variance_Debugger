@@ -48,10 +48,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /tmp/tmp.zkFRQdcfPq
+CMAKE_SOURCE_DIR = /tmp/tmp.aMVXI3gp5q
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /tmp/tmp.zkFRQdcfPq/cmake-build-debug
+CMAKE_BINARY_DIR = /tmp/tmp.aMVXI3gp5q/cmake-build-debug
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -80,9 +80,9 @@ edit_cache/fast: edit_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /tmp/tmp.zkFRQdcfPq/cmake-build-debug/CMakeFiles /tmp/tmp.zkFRQdcfPq/cmake-build-debug/CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /tmp/tmp.aMVXI3gp5q/cmake-build-debug/CMakeFiles /tmp/tmp.aMVXI3gp5q/cmake-build-debug/CMakeFiles/progress.marks
 	$(MAKE) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /tmp/tmp.zkFRQdcfPq/cmake-build-debug/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /tmp/tmp.aMVXI3gp5q/cmake-build-debug/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -123,59 +123,32 @@ beta/fast:
 	$(MAKE) -f CMakeFiles/beta.dir/build.make CMakeFiles/beta.dir/build
 .PHONY : beta/fast
 
-Prototyping/Scnr_P.o: Prototyping/Scnr_P.cpp.o
+main.o: main.cpp.o
 
-.PHONY : Prototyping/Scnr_P.o
-
-# target to build an object file
-Prototyping/Scnr_P.cpp.o:
-	$(MAKE) -f CMakeFiles/beta.dir/build.make CMakeFiles/beta.dir/Prototyping/Scnr_P.cpp.o
-.PHONY : Prototyping/Scnr_P.cpp.o
-
-Prototyping/Scnr_P.i: Prototyping/Scnr_P.cpp.i
-
-.PHONY : Prototyping/Scnr_P.i
-
-# target to preprocess a source file
-Prototyping/Scnr_P.cpp.i:
-	$(MAKE) -f CMakeFiles/beta.dir/build.make CMakeFiles/beta.dir/Prototyping/Scnr_P.cpp.i
-.PHONY : Prototyping/Scnr_P.cpp.i
-
-Prototyping/Scnr_P.s: Prototyping/Scnr_P.cpp.s
-
-.PHONY : Prototyping/Scnr_P.s
-
-# target to generate assembly for a file
-Prototyping/Scnr_P.cpp.s:
-	$(MAKE) -f CMakeFiles/beta.dir/build.make CMakeFiles/beta.dir/Prototyping/Scnr_P.cpp.s
-.PHONY : Prototyping/Scnr_P.cpp.s
-
-Prototyping/main.o: Prototyping/main.cpp.o
-
-.PHONY : Prototyping/main.o
+.PHONY : main.o
 
 # target to build an object file
-Prototyping/main.cpp.o:
-	$(MAKE) -f CMakeFiles/beta.dir/build.make CMakeFiles/beta.dir/Prototyping/main.cpp.o
-.PHONY : Prototyping/main.cpp.o
+main.cpp.o:
+	$(MAKE) -f CMakeFiles/beta.dir/build.make CMakeFiles/beta.dir/main.cpp.o
+.PHONY : main.cpp.o
 
-Prototyping/main.i: Prototyping/main.cpp.i
+main.i: main.cpp.i
 
-.PHONY : Prototyping/main.i
+.PHONY : main.i
 
 # target to preprocess a source file
-Prototyping/main.cpp.i:
-	$(MAKE) -f CMakeFiles/beta.dir/build.make CMakeFiles/beta.dir/Prototyping/main.cpp.i
-.PHONY : Prototyping/main.cpp.i
+main.cpp.i:
+	$(MAKE) -f CMakeFiles/beta.dir/build.make CMakeFiles/beta.dir/main.cpp.i
+.PHONY : main.cpp.i
 
-Prototyping/main.s: Prototyping/main.cpp.s
+main.s: main.cpp.s
 
-.PHONY : Prototyping/main.s
+.PHONY : main.s
 
 # target to generate assembly for a file
-Prototyping/main.cpp.s:
-	$(MAKE) -f CMakeFiles/beta.dir/build.make CMakeFiles/beta.dir/Prototyping/main.cpp.s
-.PHONY : Prototyping/main.cpp.s
+main.cpp.s:
+	$(MAKE) -f CMakeFiles/beta.dir/build.make CMakeFiles/beta.dir/main.cpp.s
+.PHONY : main.cpp.s
 
 # Help Target
 help:
@@ -186,12 +159,9 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... beta"
 	@echo "... edit_cache"
-	@echo "... Prototyping/Scnr_P.o"
-	@echo "... Prototyping/Scnr_P.i"
-	@echo "... Prototyping/Scnr_P.s"
-	@echo "... Prototyping/main.o"
-	@echo "... Prototyping/main.i"
-	@echo "... Prototyping/main.s"
+	@echo "... main.o"
+	@echo "... main.i"
+	@echo "... main.s"
 .PHONY : help
 
 

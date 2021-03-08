@@ -6,5 +6,5 @@ CXX_FLAGS = -g   -std=gnu++14
 
 CXX_DEFINES = 
 
-CXX_INCLUDES = -I/tmp/tmp.zkFRQdcfPq/. -I/tmp/tmp.zkFRQdcfPq/Prototyping 
+CXX_INCLUDES = 
 

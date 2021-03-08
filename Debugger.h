@@ -37,67 +37,62 @@ namespace Dbugr {
 
         public:
 
-            //Construct
             Scanner(const char * file);
-            //Destruct
             ~Scanner();
 
-            //Gets current character
             char * getCurrChar() {
                 return this->c;
             }
-
-            //Gets current string
             std::string getCurrStr() {
                 return this->cStr;
             }
-
-            //Gets name of filed being read
+ 
             std::string getFile() {
                 return this->file;
             }
-
-            int getCurrType() {
-                return this->currStrType;
-            }
-
-            bool atEnd() {
-                return this->end;
-            }
-
-            //Reads in chars
-            int read();
-
-            //Reads in N chars
-            int readNChars(int);
-
-            //Reads in stream till ';'
-            int readFunc();
-
-            //Reads complete line
-            int readLine();
-
-            //Read till char
-            int readTill(char);
-
-            //ifstream has char
+   
+            bool openStream();
+            bool closeStream();
             bool hasChar();
 
-        private:
-            
-            //Prvt methods for reading
-            int r();
-        
-            int setcurrStrType();
-            
-            //Private fields
-            char*           c;
-            std::string     cStr;
-            const char *    file;
-            int             currStrType;
-            bool            end;
+            void scan();
 
+            int nextChar();
+            int nextLine();
+            int nextWord();
+            int nextFunc();
+            int scanTill(char);
+
+        private:
+
+            int open() {
+                in.open(file);
+                if (in.is_open()) return 1;
+                return 0;
+            }
+            
+            int close() {
+                in.close();
+                if (in.is_open()) return 0;
+                return 1;
+            }
+
+            int readChar();
+            int readCheck();
+            int readLine();
+            int readWord();
+            int readTill(char);
+
+            bool            eof;
+            bool            flr;
+
+            char*           c;
+            const char *    file;
+
+            std::string     cStr;
+            std::ifstream in;
     };
+
     class Parser {
 
         //What do we need for the parser?

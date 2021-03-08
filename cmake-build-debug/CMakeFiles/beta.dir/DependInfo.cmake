@@ -4,15 +4,12 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/tmp/tmp.zkFRQdcfPq/Prototyping/Scnr_P.cpp" "/tmp/tmp.zkFRQdcfPq/cmake-build-debug/CMakeFiles/beta.dir/Prototyping/Scnr_P.cpp.o"
-  "/tmp/tmp.zkFRQdcfPq/Prototyping/main.cpp" "/tmp/tmp.zkFRQdcfPq/cmake-build-debug/CMakeFiles/beta.dir/Prototyping/main.cpp.o"
+  "/tmp/tmp.aMVXI3gp5q/main.cpp" "/tmp/tmp.aMVXI3gp5q/cmake-build-debug/CMakeFiles/beta.dir/main.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 
 # The include file search paths:
 set(CMAKE_CXX_TARGET_INCLUDE_PATH
-  "../."
-  "../Prototyping"
   )
 
 # Targets to which this target links.
