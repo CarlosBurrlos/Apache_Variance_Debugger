@@ -8,11 +8,14 @@
 
 void readEmptyLines();
 void consumeProtos();
+void readMain();
 
 using namespace Dbugr;
 Scanner * s = new Scanner("");
 Parser  * p = new Parser(s);
 int main() {
+
+    /*
     auto *s = new Scanner("tmp.txt");
     if (!s->openStream()) {
         printf("ERR::FAILED TO OPEN %s :: Scanner Failure\n", s->getFile().c_str());
@@ -31,8 +34,13 @@ int main() {
         printf("ERR::FAILED TO CLOSE %s :: Scanner Failure\n", s->getFile().c_str());
         return SCNFAILURE;
     }
+    */
+
     return 0;
 }
+
+//TODO::Consider adding this to our parser class. This seems that it could be accomplished
+//  >> There too
 
 void run() {
     //first check if there is anything to read
@@ -45,15 +53,48 @@ void run() {
             //There could possibly be empty lines interspersed
             readEmptyLines();
         }
+
         //Read Lines before reading protos
         readEmptyLines();
         //Consume our protos
         consumeProtos();
         //Read Empty lines
         readEmptyLines();
+
         while (s->peekChar() != EOF) {
             //Now we being reading our actual file
+            s->clearStr();
+            s->nextWord();
+            //This should be handled by the parser shouldn't it?
+            if (std::regex_match(s->getCurrStr(), returnTypes)){
+                //TODO Handle reading Nu Scps
+                s->nextWord();
+                if (std::regex_match(s->getCurrStr(), mainRegx)) {
+                    //TODO Handle reading main
+                    s->nextChar();
+                }
+                else {
 
+                }
+                s->nextChar();  //TODO Create field to show us we are in a new scope
+                continue;
+            }
+            else if (std::regex_match(s->getCurrStr(), scopeProtoRegx)) {
+                //TODO add to main's funcs
+            }
+            else if (std::regex_match(s->getCurrStr(), func)) {
+
+            }
+            else if (std::regex_match(s->getCurrStr(), printfRegx)) {
+
+            }
+            else if (std::regex_match(s->getCurrStr(), ext)) {
+
+            }
+            else {
+                //TODO Print failure message
+                //  >> We cant read in this format
+            }
         }
     }
     printf("EOF REACHED::%d-CHARS READ\n", s->getNCharsRead());

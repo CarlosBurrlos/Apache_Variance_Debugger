@@ -55,7 +55,11 @@ namespace Dbugr {
             std::string getFile() {
                 return this->file;
             }
-   
+
+            void clearStr() {
+                this->cStr.clear();
+            }
+
             bool openStream();
             bool closeStream();
             bool hasChar() const;
@@ -106,6 +110,7 @@ namespace Dbugr {
 
             std::string    file;
             std::string    cStr;
+            std::string    str;
             std::ifstream  in;
     };
 
@@ -117,15 +122,11 @@ namespace Dbugr {
             Parser(Scanner * s)
             :scanner(s)
             {  }
-
-            ~Parser();  //TODO
-            //Checks scanners curr str type & parses
+            ~Parser();
             void parse();
-            //Creates new function, adds to set
+            void parseMain();
             void parseFunc(std::string);
-            //Creates new scope, adds to set
             void parseScope(std::string);
-            //Completes curr scope and exits
             void done();
 
         private:
@@ -134,10 +135,11 @@ namespace Dbugr {
 
             void exitScope();
 
+            void createScope();
+            void createFunc();
+            void createMain();
             void addNScope();
-
             void addNFun();
-
             void checkIfParsed();
 
             Scope * scp;
@@ -162,8 +164,18 @@ namespace Dbugr {
                 this->funcs.insert(p);
             }
         private:
-            std::unordered_map<std::string, Func*> funcs;
+            bool malformedScope;    //If scope is malformed
+
+            int lod;        //Line Of Declaration
+            int scopeNumb;  //Scope numb designator
+            int nCalls;     //Number of calls to this scope
+            int nFuncs;     //Number of funcs that called in scope
+
+            std::unordered_map<std::string, Func*>          funcs;
+            std::unordered_map<std::string, std::string>    nestedFuncs;
+
             std::string name;
+
     };
 
     class Func {
