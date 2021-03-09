@@ -1,8 +1,6 @@
 /**
  * Debugger tool Prototype:w
  **/
-#include    "Results.h"
-
 #include    <stdio.h>
 #include    <ostream>
 #include    <fstream>
@@ -119,32 +117,28 @@ namespace Dbugr {
         //What do we need for the parser?
 
         public:
-            Parser(Scanner * s)
-            :scanner(s)
+            Parser(Scanner * scanner)
+            :s(scanner)
             {  }
             ~Parser();
             void parse();
-            void parseMain();
-            void parseFunc(std::string);
-            void parseScope(std::string);
-            void done();
+            void parseFunc(std::string,int);
+            void readEmptyLines();
+            void consumeProtos();
 
         private:
 
-            Scope * enterNScope(std::string name);
-
+            void enterScope(Scope *);
             void exitScope();
 
-            void createScope();
-            void createFunc();
-            void createMain();
-            void addNScope();
-            void addNFun();
-            void checkIfParsed();
+            Scope *     createScope(std::string);
+            Scope *     createMain(std::string);
+
+            bool        nScp;
 
             Scope * scp;
-
-            Scanner * scanner;
+            Scope * main;
+            Scanner * s;
     };
     
     //Might not need this
@@ -163,19 +157,22 @@ namespace Dbugr {
             void addFunc(std::pair <std::string, Func*> p) {
                 this->funcs.insert(p);
             }
+            int contains(std::string s) {
+                std::unordered_map<std::string, Func*>::const_iterator i =
+                        this->funcs.find(s);
+                if (i == this->funcs.end())
+                    return 0;
+                return 1;
+            }
+
         private:
             bool malformedScope;    //If scope is malformed
-
-            int lod;        //Line Of Declaration
-            int scopeNumb;  //Scope numb designator
             int nCalls;     //Number of calls to this scope
             int nFuncs;     //Number of funcs that called in scope
 
             std::unordered_map<std::string, Func*>          funcs;
-            std::unordered_map<std::string, std::string>    nestedFuncs;
 
             std::string name;
-
     };
 
     class Func {
@@ -189,16 +186,8 @@ namespace Dbugr {
                 return this->name;
             }
         private:
+            int nRefs;
+
             std::string name;
-    };
-
-    class Debugger {
-        friend class Scanner;
-        
-        public:
-
-        private:
-            //char buff [50];
-            //char errBuff [100];
     };
 }
