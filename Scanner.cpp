@@ -93,6 +93,10 @@ bool Scanner::hasChar() const {
     return (this->c == EOF);
 }
 
+int Scanner::peekChar() {
+    return this->in.peek();
+}
+
 /*
  * [Private] Reads in char from ifstream (file)
  * Checks the EOF or Fail bits. If failed to read
@@ -106,8 +110,8 @@ int Scanner::readChar() {
     }
     this->c = in.get();
     this->cStr += this->c;
+    this->glblCharCount++;
     return 1;
-
 }
 
 /*
@@ -181,6 +185,14 @@ int Scanner::readTill(char cc) {
         }
         n++;
     return n;
+}
+/*
+ * Begins scanning of the file and continues till EOF is reached
+ */
 void Scanner::scan() {
-
+    //We will begin by checking that there is a character to read
+    if (this->in.peek() != EOF) {
+        ;
+    }
+    printf("EOF REACHED"); printf("N:: %d CHARS READ\n", this->glblCharCount);
 }

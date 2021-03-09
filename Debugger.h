@@ -48,6 +48,9 @@ namespace Dbugr {
             std::string getCurrStr() {
                 return this->cStr;
             }
+            int getNCharsRead() {
+                return this->glblCharCount;
+            }
  
             std::string getFile() {
                 return this->file;
@@ -70,6 +73,7 @@ namespace Dbugr {
             int nextWord();
             int nextFunc();
             int scanTill(char);
+            int peekChar();
 
         private:
 
@@ -97,6 +101,8 @@ namespace Dbugr {
             bool           flr;
 
             char           c;
+
+            int             glblCharCount;
 
             std::string    file;
             std::string    cStr;
