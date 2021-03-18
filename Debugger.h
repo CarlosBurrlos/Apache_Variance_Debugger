@@ -1,21 +1,16 @@
 /**
  * Debugger tool Prototype:w
  **/
+//#include    "ctre.hpp"
 #include    "tokens.h"
+
 #include    <iostream>
-#include    <sys/stat.h>
-#include    <sys/types.h>
-#include    <sys/mman.h>
 #include    <fcntl.h>
-#include    <unistd.h>
-#include    <cstdio>
-#include    <ostream>
-#include    <fstream>
+#include    <sys/stat.h>
+#include    <sys/mman.h>
+
 #include    <unordered_map>
-#include    <unistd.h>
-#include    <filesystem> //For Debug purposes
 #include    <unordered_set>
-#include    <regex>
 
 namespace Dbugr {
 
@@ -25,35 +20,30 @@ namespace Dbugr {
     class Func;
 
     std::unordered_map<std::string/*scpName*/, Scope *> allScopes;
-    //TODO::Reuse this for other scopes
+    std::unordered_map<std::string/*Name*/,Func *> allFuncs;
 
     class Scanner {
 
         friend class Dbugr::Parser;
-
-        enum Types {
-            inScp, leavScp, func, rts, w, parms
-        };
 
         public:
 
             explicit Scanner(const char * file);
             ~Scanner();
 
-            char getCurrChar();
-            int readChar();            int readLine();
-            int readWord();            int readTill(char);
-            int currStrCmp(char *);    int printCurrStr();
+            char getCurrChar();        char * getWordStart();
+            int readChar();            int readWord();
+            int readTill(char);        int currStrCmp(char *);
+            int printCurrStr();        int getCurrStrSize();
 
         private:
             int        wf_idx;         int             we_idx;
 			int		   fileDescpt;     int 			   fIdx;
 			int		   eofIdx;
-			bool       nuWord;
+			bool       nuWord;         bool            atEnd;
 
 			char *	   file;           char **      currWord;
     };
-    std::unordered_map<std::string/*Name*/,Func *> allFuncs;
 
     class Parser {
 
@@ -66,11 +56,12 @@ namespace Dbugr {
                 void parseProto();       void parseFunc(); //TODO::Change args to void
                 bool parseFuncBody();    bool parseFuncCall();
 
+                int consume();
+
                 std::unordered_set<char*> parseArgs();
 
             private:
                 void enterScope(Scope *);       void exitScope();
-                char * getCurrToken();          char  getCurrTokenC();
 
                 Scope * scope;                    Scanner * scanner;
                 bool checkAndConsume(std::__1::basic_regex<char>);

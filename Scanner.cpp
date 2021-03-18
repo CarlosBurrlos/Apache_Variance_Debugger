@@ -1,5 +1,6 @@
 #include "Debugger.h"
-#include <regex>
+
+#include <unistd.h>
 
 #define isEndWord(ptr) ({    \
     bool ret;                \
@@ -32,7 +33,7 @@ using namespace Dbugr;
 
 Scanner::Scanner(const char * fName)
 : wf_idx(0), we_idx(0), fIdx(0),
-  nuWord(true)
+  nuWord(true), atEnd(false)
 {
     fileDescpt = open(fName, O_RDONLY);
     assert(fileDescpt != -1);
@@ -66,6 +67,7 @@ int Scanner::readWord () {
 
 int Scanner::readChar() {
     if (atEOF(fIdx, eofIdx)) {
+        set(atEnd);
         return END;
     }
     //We are at new word
@@ -94,6 +96,10 @@ char Scanner::getCurrChar() {
     return file[fIdx];
 }
 
+char * Scanner::getWordStart() {
+    return &file[wf_idx];
+}
+
 int Scanner::printCurrStr() {
     std::cout.flush();
 
@@ -104,6 +110,10 @@ int Scanner::printCurrStr() {
         return OK;
     }
     return ERR;
+}
+
+int Scanner::getCurrStrSize() {
+    return (we_idx - wf_idx) + 1;
 }
 
 int Scanner::currStrCmp(char * w) {

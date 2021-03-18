@@ -1,6 +1,5 @@
 #include <cstring>
 #include <unordered_set>
-
 using namespace Dbugr;
 
 void Parser::parse() {
@@ -9,9 +8,9 @@ void Parser::parse() {
 
     //Parse the preproc items
    //First parse prototype items
-
-
-
+    parsePreProc();
+    while (!(scanner->nuWord))  parseProto();    //Parse all of our funcs
+    while (!(scanner->atEnd)) parseFunc();
 }
 
 //Gets a the new func string and creates func itm and stores it
@@ -24,7 +23,6 @@ void Parser::parseFunc() {
     scanner->readChar();
     std::unordered_set<char *> args = parseArgs();
     //TODO add args to func item
-    scanner->readLine();
     auto * scope = new Scope(func);
     enterScope(scope); parseFuncBody(); exitScope();
 }
@@ -41,40 +39,18 @@ void Parser::exitScope() {
     }
 }
 
-char Parser::getCurrTokenC() {
-    return this->scanner->getCurrChar();
-}
-
-
 bool Parser::checkAndConsume(std::regex r) {
-    if (std::regex_match(this->getCurrToken(), r)) {
-        this->scanner->readWord();
-        return 1;
-    } else return 0;
+    return 0;
 }
 
 bool Parser::check(std::regex r) {
-    return (std::regex_match(this->getCurrToken(), r));
+    return 0;
 }
 
 //need to get next char first
 void Parser::parsePreProc() {
     //preproc -> # preprocprime word;
-    if (getCurrTokenC() == *POUND) {
-        this->scanner->readWord();
-        if (parsePreProcPrime()) {
-            this->scanner->readLine();    //We dont care about the word
-            return;
-        }
-        else {
-            //TODO::Throw an ERROR
-            return;
-        }
-    }
-    else {
-        //TODO::Throw an ERROR
-        return;
-    }
+
 }
 bool Parser::parsePreProcPrime() {
     //preProcPrime -> include | define
@@ -85,21 +61,7 @@ bool Parser::parsePreProcPrime() {
     }
 }
 void Parser::parseProto() {
-    //prototype -> rettype funcname;
-    if (check(PPROC)) {
-       char * retType;
-       strncpy(retType, reinterpret_cast<const char *>(scanner->f[scanner->wordStrt]), scanner->getCurrStr());
-       this->scanner->readWord();
-       char * funcN;
-       strncpy(funcN, reinterpret_cast<const char *>(scanner->f[scanner->wordStrt]), scanner->getCurrStr());
-       Func * func = new Func(funcN);
-       //TODO::Add to global funcs
-       //TODO:: Func should let retype passing
-       return;
-    }
-    else {
-        //TODO::
-    }
+
 }
 bool Parser::parseFuncBody() {
     //funcbody -> funCall funcBody    
@@ -117,7 +79,6 @@ bool Parser::parseFuncCall() {
     //funcCall -> funcName ( args );
     char *func = nullptr;
     this->scanner->readTill('('); this->scanner->fIdx--;
-    strncpy(func, reinterpret_cast <const char *>(scanner->f[scanner->wordStrt]), scanner->getCurrStr());
     if (scope->hasFunc(func)) {
         //Scope->funcs.push_back(glblFuncs->get(func))//
     }
@@ -133,11 +94,12 @@ std::unordered_set<char * /*args*/> Parser::parseArgs() {
         int fr, e;
         char * arg;
         this->scanner->readTill(*COM); this->scanner->fIdx--;
-        e = this->scanner->fIdx; fr = e - this->scanner->getCurrChar();
-        strncpy(arg, reinterpret_cast <const char *> (this->scanner->f[fr]), e - fr);
         args.insert(arg);
-        this->scanner->readChar();
-        this->scanner->wordStrt = scanner->fIdx;
     }
     return args;
+}
+
+int Parser::consume() {
+    if(scanner->readWord() == ERR)      return ERR;
+    else                                return OK;
 }
