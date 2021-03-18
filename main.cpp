@@ -1,20 +1,15 @@
 #include    <iostream>
-#include    "Debugger.h"
 #include    "Scanner.cpp"
 #include    "Parser.cpp"
-#include    "Expressions.h"
 #include    "Invar.cpp"
 
-#define     SCNFAILURE  -4
-
-void readEmptyLines();
-void consumeProtos();
-void readMain();
-
 using namespace Dbugr;
-Scanner * s = new Scanner("");
-Parser  * p = new Parser(s);
 int main() {
+
+    Parser  * p = new Parser();
+    Scanner * s = new Scanner("../tmp.txt");
+    int start = s->nextWord();
+    int end = start + s->getCurrStr();
 
     /*
     auto *s = new Scanner("tmp.txt");

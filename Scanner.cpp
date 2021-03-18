@@ -1,198 +1,126 @@
-#include "Header.h"
 #include "Debugger.h"
-
-
 #include <regex>
+
+#define isEndWord(ptr) ({    \
+    bool ret;                \
+    (*(ptr) == ' ' || *(ptr) == '\n' || *(ptr) == '\t')\
+        ? ret = 1 : ret = 0; \
+    ret;                     \
+ })
+
+#define atEOF(fIdx, fEnd) ({ \
+    bool ret = false;        \
+    if(fIdx == fEnd)         \
+        ret = true;          \
+    ret;                     \
+})
+
+#define set(nuWord) (nuWord = nuWord^nuWord)
+
+#define END         -5
+#define BADWORD     -4
+#define ENDWORD     -2
+#define ERR         -1
+#define NOTEQUAL    -1
+#define NONE         0
+#define OK           1
+#define EQUAL        1
+#define STARTWORD    2
+
 
 using namespace Dbugr;
 
-Scanner::Scanner(const char * file)
+Scanner::Scanner(const char * fName)
+: wf_idx(0), we_idx(0), fIdx(0),
+  nuWord(true)
 {
-    std::string f = "../";
-    f += file;
-    this->file = f;
+    fileDescpt = open(fName, O_RDONLY);
+    assert(fileDescpt != -1);
+	struct stat sb{}; fstat(fileDescpt, &sb);
+	eofIdx = sb.st_size;
+	file = (char *)
+	        mmap(nullptr, sb.st_size,PROT_READ,MAP_PRIVATE, fileDescpt, 0);
+	assert(file);
+    currWord = (char **) malloc(sizeof(char *) * 2);
+    currWord[0] = &file[0];
 }
 
 Scanner::~Scanner() {
-    close();
+	close(fileDescpt);
+	fileDescpt = -1;
+	free(currWord); currWord = nullptr;
+	munmap(file, eofIdx); //May have to decrememnt by 1
+	file = nullptr;
 }
 
-bool Scanner::openStream() {
-    if (open())
-        return 1;
-    return 0;
+int Scanner::readWord () {
+    while (true) {
+        int check = readChar();
+
+        if (check == END)               return ERR;
+        else if (check == ENDWORD)      break;
+        else if (check == STARTWORD)    set(nuWord);
+    }
+    return OK;
 }
 
-bool Scanner::closeStream() {
-    if (close())
-        return 1;
-    return 0;
-}
-
-/*
- * Reads a char from Scanners ifstream (file)
- * Returns 1 if char was read successfully
- * Returns 0 otherwise
- */
-int Scanner::nextChar() {
-    if (readChar()) return 1;
-    return 0;
-}
-
-/*
- * Reads in a line from Scanners ifstream (file)
- * Returns n chars successfully read
- * Returns 0 if no chars read
- */
-int Scanner::nextLine() {
-    int n = 0;
-    if ((n = readLine())) return n;
-    return n;
-}
-
-/*
- * Reads in next word from Scanners ifstream (file)
- * Returns n chars successfully read
- * Returns 0 if no chars read
- */
-int Scanner::nextWord() {
-    int n = 0;
-    if ((n = readWord())) return n;
-    return n;
-}
-
-/*
- * Reads till specified char
- * Returns n chars successfully read
- * Returns 0 otherwise
- */
-int Scanner::scanTill(char c) {
-    int n = 0;
-    if ((n = readTill(c)))
-        return n;
-    return n;
-}
-
-/*
- *
- */
-int Scanner::nextFunc() {
-    int n = 0;
-    if ((n = readTill(';')))
-        return n;
-    return n;
-}
-
-/*
- * Checks if the ifstream has just read a char
- * If it has read EOF or Failed to read ('^')
- * then return False.
- * Else, return True.
- */
-bool Scanner::hasChar() const {
-    return (this->c == EOF);
-}
-
-int Scanner::peekChar() {
-    return this->in.peek();
-}
-
-/*
- * [Private] Reads in char from ifstream (file)
- * Checks the EOF or Fail bits. If failed to read
- * then return -1
- * Else, return 1
- */
 int Scanner::readChar() {
-    if (!readCheck()) {
-        this->c = EOF;
-        return 0;
+    if (atEOF(fIdx, eofIdx)) {
+        return END;
     }
-    this->c = in.get();
-    this->cStr += this->c;
-    this->glblCharCount++;
-    return 1;
+    //We are at new word
+    if (!(nuWord) && fIdx - 2 >= 0 && fIdx - 2 == we_idx) {
+        wf_idx = fIdx;
+        fIdx++;
+        currWord[0] = &file[wf_idx];
+        return STARTWORD;
+    }
+    //Reached end of word
+    else if (isEndWord(&file[fIdx])) {
+        we_idx = fIdx-1;
+        fIdx++;
+        currWord[1] = &file[we_idx];
+        set(nuWord);
+        return ENDWORD;
+    }
+    //Just read next char
+    else {
+        fIdx++;
+        return OK;
+    }
 }
 
-/*
- * [Private] Safer method for reading in char
- * firom ifstream. First peeks if the stream
- * has char.
- * Returns 1 if peek and read
- * else returns -1
- */
-int Scanner::readCheck() {
-    if (this->in.peek() == EOF) {
-        return 0;
-    }
-    //TODO check which flags are set
-    return 1;
+char Scanner::getCurrChar() {
+    return file[fIdx];
 }
 
-/*
- * [Private] Reads in line from ifstream (file)
- * Returns -1 if EOF or Failure
- * Returns n chars read from ifstream
- */
-int Scanner::readLine() {
+int Scanner::printCurrStr() {
+    std::cout.flush();
 
-    int n = 0;
-    while ((readChar()) && ((this->c != '\n') || (this->c != EOF)))
-        n++;
-    if (!readCheck()) {
-        if (this->in.eof()) this->eof = 1;
-        else this->flr = 1;
+    if (!(nuWord)) {
+        int n = 0;
+        do { std::cout << file[wf_idx + n]; }
+        while (n++ < (we_idx - wf_idx));
+        return OK;
     }
-    return n;
+    return ERR;
 }
 
-/*
- * [Private] Reads in a word from ifstream (file)
- * Returns 0 if EOF or Failure after putback all
- * Returns n chars read
- */
-int Scanner::readWord() {
-    
-    int n = 0;
-    while ((readChar())) {
-        if (this->c == ' ' || this->c == '\n' || this->c == '\t') {
-            break;
+int Scanner::currStrCmp(char * w) {
+    int f = 0, e = we_idx - wf_idx, w_size = strlen(w) - 1;
+    if (e != w_size) return BADWORD;
+    for (; f <= e;) {
+        if ((file[wf_idx + f] == w[f]) &&
+            (file[wf_idx + e] == w[e])) {
+            f++; e--;
         }
-        n++;
-    }
-    if (this->in.eof() || this->in.fail()) {
-        for (int i = 0; i < n; i++) {
-            this->in.putback(this->cStr.at(this->cStr.length()));
-            this->cStr.pop_back();
+        else {
+            return NOTEQUAL;
         }
-        n = 0;
     }
-    this->in.putback(this->c);
-    this->cStr.pop_back();
-    return n;
+    return EQUAL;
 }
 
-/*
- * [Private] Reads till a certain char
- * Returns -1 if EOF or Failure
- * Returns n chars read
- */
 int Scanner::readTill(char cc) {
-    int n = 0;
-    while(readChar())
-        if (this->c == cc) {
-            break;
-        }
-        n++;
-    return n;
-}
-/*
- * Begins scanning of the file and continues till EOF is reached
- */
-void Scanner::scan() {
-    //We will begin by checking that there is a character to read
-    if (this->in.peek() != EOF) {
-        ;
-    }
-    printf("EOF REACHED"); printf("N:: %d CHARS READ\n", this->glblCharCount);
+    return 0;
 }

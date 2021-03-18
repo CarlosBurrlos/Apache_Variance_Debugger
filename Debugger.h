@@ -1,35 +1,35 @@
 /**
  * Debugger tool Prototype:w
  **/
-#include    <stdio.h>
+#include    "tokens.h"
+#include    <iostream>
+#include    <sys/stat.h>
+#include    <sys/types.h>
+#include    <sys/mman.h>
+#include    <fcntl.h>
+#include    <unistd.h>
+#include    <cstdio>
 #include    <ostream>
 #include    <fstream>
 #include    <unordered_map>
 #include    <unistd.h>
 #include    <filesystem> //For Debug purposes
+#include    <unordered_set>
+#include    <regex>
 
 namespace Dbugr {
 
-//TODO::Determine errors and create their messages
-    
-    enum Errs{ E1, E2, E3, E4, E5 };
-    const char * errs[] = {
-        [E1] = "",
-        [E2] = "",
-        [E3] = "",
-        [E4] = "",
-        [E5] = ""
-    };
-
-    class Debugger;
-    class Scanner;
     class Parser;
+    class Scanner;
     class Scope;
     class Func;
 
+    std::unordered_map<std::string/*scpName*/, Scope *> allScopes;
+    //TODO::Reuse this for other scopes
+
     class Scanner {
 
-        friend class Parser;
+        friend class Dbugr::Parser;
 
         enum Types {
             inScp, leavScp, func, rts, w, parms
@@ -37,157 +37,127 @@ namespace Dbugr {
 
         public:
 
-            Scanner(const char * file);
+            explicit Scanner(const char * file);
             ~Scanner();
 
-            char getCurrChar() {
-                return this->c;
-            }
-            std::string getCurrStr() {
-                return this->cStr;
-            }
-            int getNCharsRead() {
-                return this->glblCharCount;
-            }
- 
-            std::string getFile() {
-                return this->file;
-            }
-
-            void clearStr() {
-                this->cStr.clear();
-            }
-
-            bool openStream();
-            bool closeStream();
-            bool hasChar() const;
-            bool atEnd() const {
-                return this->eof;
-            }
-            bool failed() const {
-                return this->flr;
-            }
-
-            void scan();
-
-            int nextChar();
-            int nextLine();
-            int nextWord();
-            int nextFunc();
-            int scanTill(char);
-            int peekChar();
+            char getCurrChar();
+            int readChar();            int readLine();
+            int readWord();            int readTill(char);
+            int currStrCmp(char *);    int printCurrStr();
 
         private:
+            int        wf_idx;         int             we_idx;
+			int		   fileDescpt;     int 			   fIdx;
+			int		   eofIdx;
+			bool       nuWord;
 
-            int open() {
-                this->in = std::ifstream(this->file, std::ifstream::in);
-                if (in.is_open())
-                {return 1;}
-                else
-                {return 0;}
-            }
-            
-            int close() {
-                in.close();
-                if (in.is_open()) return 0;
-                return 1;
-            }
-
-            int readChar();
-            int readCheck();
-            int readLine();
-            int readWord();
-            int readTill(char);
-
-            bool           eof;
-            bool           flr;
-
-            char           c;
-
-            int             glblCharCount;
-
-            std::string    file;
-            std::string    cStr;
-            std::string    str;
-            std::ifstream  in;
+			char *	   file;           char **      currWord;
     };
+    std::unordered_map<std::string/*Name*/,Func *> allFuncs;
 
     class Parser {
 
-        //What do we need for the parser?
-
         public:
-            Parser(Scanner * scanner)
-            :s(scanner)
-            {  }
-            ~Parser();
-            void parse();
-            void parseFunc(std::string,int);
-            void readEmptyLines();
-            void consumeProtos();
+                Parser(){}
+                ~Parser(){}
 
-        private:
+                void parse();            void parseWord();
+                void parsePreProc();     bool parsePreProcPrime();
+                void parseProto();       void parseFunc(); //TODO::Change args to void
+                bool parseFuncBody();    bool parseFuncCall();
 
-            void enterScope(Scope *);
-            void exitScope();
+                std::unordered_set<char*> parseArgs();
 
-            Scope *     createScope(std::string);
-            Scope *     createMain(std::string);
+            private:
+                void enterScope(Scope *);       void exitScope();
+                char * getCurrToken();          char  getCurrTokenC();
 
-            bool        nScp;
-
-            Scope * scp;
-            Scope * main;
-            Scanner * s;
+                Scope * scope;                    Scanner * scanner;
+                bool checkAndConsume(std::__1::basic_regex<char>);
+                bool check(std::__1::basic_regex<char>);
     };
-    
-    //Might not need this
-    class MasterScope{    };
 
     class Scope {
         public:
-            Scope(std::string name) 
-            : name(name)
-            {}
-            ~Scope() 
-            {} //TODO
-            std::string getScope() {
-                return this->name;
+            Scope(char * name)
+            :nFuncOccurs(0), scopeArgs(nullptr),
+             scopeName(name),retType(nullptr),
+             isScope(0) {}
+
+            ~Scope() {
+                this->nFuncOccurs = 0;
+                scopeArgs = nullptr;
+                scopeName = nullptr;
+                retType = nullptr;
+                isScope = 0;
+            }
+            char * getScope() {
+                return this->scopeName;
+            }
+            char * getRetType() {
+                return this->retType;
+            }
+            char * getScopeArgs() {
+                return this->scopeArgs;
             }
             void addFunc(std::pair <std::string, Func*> p) {
                 this->funcs.insert(p);
             }
-            int contains(std::string s) {
+            bool contains(std::string s) {
                 std::unordered_map<std::string, Func*>::const_iterator i =
                         this->funcs.find(s);
                 if (i == this->funcs.end())
                     return 0;
                 return 1;
             }
+            void set() {
+                this->isScope = !(this->isScope);
+            }
+            bool hasFunc(char * func) {
+                return (funcs.find(func) == funcs.end());
+            }
 
         private:
-            bool malformedScope;    //If scope is malformed
-            int nCalls;     //Number of calls to this scope
-            int nFuncs;     //Number of funcs that called in scope
-
-            std::unordered_map<std::string, Func*>          funcs;
-
-            std::string name;
+            int nFuncOccurs;
+            char * scopeArgs;           char * scopeName;
+            char * retType;
+            bool isScope;
+            std::unordered_map<std::string/*funcName*/, Func *> funcs;
     };
 
     class Func {
         public:
-            Func(std::string name)
-                :name(name)
-            {}
-            ~Func()
-            {} //TODO
-            std::string getFunc() {
-                return this->name;
-            }
-        private:
-            int nRefs;
+            Func(char * name)
+            :nFuncOccurs(0), funcArgs(nullptr),
+            funcName(name),  isFuncCall(0){}
 
-            std::string name;
+            ~Func()
+            {
+                nFuncOccurs = 0;        isFuncCall = 0;
+                funcArgs = nullptr;     funcName = nullptr;
+            }
+
+            char * getName() {
+                return this->funcName;
+            }
+            char * getArgs() {
+                return this->funcArgs;
+            }
+            int getNOccurs() {
+                return this->nFuncOccurs;
+            }
+            void set() {
+               this->isFuncCall = !(this->isFuncCall);
+            }
+
+        private:
+
+            int nFuncOccurs;
+            char * funcArgs;        char * funcName;
+            bool isFuncCall;
+    };
+    class Errors{
+        //TODO:: construct an error class that will allow us to throw -> STDERR
+        //Question to consider, do we want to output to a file or just to STDOUT
     };
 }
