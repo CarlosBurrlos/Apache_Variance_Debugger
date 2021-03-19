@@ -40,11 +40,14 @@ namespace Dbugr {
         private:
             int        wf_idx;         int             we_idx;
 			int		   fileDescpt;     int 			   fIdx;
-			int		   eofIdx;
+			int		   eofIdx;         int             token;
+
 			bool       nuWord;         bool            atEnd;
 			bool       nuLine;
 
 			char *	   file;           char **      currWord;
+
+			NFAs *      nfa;
     };
 
     class Parser {
@@ -54,11 +57,14 @@ namespace Dbugr {
                 ~Parser(){}
 
                 void parse();            void parseWord();
-                void parsePreProc();     bool parsePreProcPrime();
+                void parsePreProc();
                 void parseProto();       void parseFunc(); //TODO::Change args to void
                 bool parseFuncBody();    bool parseFuncCall();
 
-                int consume();
+                int consume();          void  consumeLine();
+                int getToken() {
+                    return scanner->token;
+                }
 
                 std::unordered_set<char*> parseArgs();
 

@@ -16,15 +16,15 @@ void Parser::parse() {
 //Gets a the new func string and creates func itm and stores it
 void Parser::parseFunc() {
     //func->retType funcName ( args ) { funcBody }
-    scanner->readWord(); scanner->readChar();
-    char * func;
-    this->scanner->readTill('('); this->scanner->fIdx--;
-    //strncpy(func, reinterpret_cast <const char *>(scanner->f[scanner->wordStrt]), scanner->getCurrStr());
-    scanner->readChar();
-    std::unordered_set<char *> args = parseArgs();
-    //TODO add args to func item
-    auto * scope = new Scope(func);
-    enterScope(scope); parseFuncBody(); exitScope();
+    if (getToken() == RETINT || getToken() == RETVOID) {
+        consume();  //Will have to change our NFA to accept this funcbody
+        //Implement how ot get our scope name
+        Scope * s = new Scope("\\");
+        enterScope(s);
+        parseFuncBody();
+        exitScope();
+        consume();
+    }
 }
 
 void Parser::enterScope(Scope * scope) {
@@ -50,30 +50,26 @@ bool Parser::check(std::regex r) {
 //need to get next char first
 void Parser::parsePreProc() {
     //preproc -> # preprocprime word;
+    if (getToken() == PREPROC) {
+        consumeLine();
+    }
 
 }
-bool Parser::parsePreProcPrime() {
-    //preProcPrime -> include | define
-    if (checkAndConsume(PPROC)) return 1;
-    else {
-        //TODO:: Throw an ERROR
-        return 0;
-    }
-}
+
 void Parser::parseProto() {
 
 }
+
 bool Parser::parseFuncBody() {
-    //funcbody -> funCall funcBody    
-    if (parseFuncCall()) {
-        if (parseFuncBody()){
-            return 1;
-        }
+    //funcbody -> funCall funcBody
+    if (getToken() == FUNC) {
+        parseFuncCall();
+        parseFuncBody();
     }
     else {
-        //TODO::
+        return 0;
     }
-    return 0;
+    return 1;
 }
 bool Parser::parseFuncCall() {
     //funcCall -> funcName ( args );
@@ -102,4 +98,8 @@ std::unordered_set<char * /*args*/> Parser::parseArgs() {
 int Parser::consume() {
     if(scanner->readWord() == ERR)      return ERR;
     else                                return OK;
+}
+
+void Parser::consumeLine() {
+    scanner->readLine();
 }

@@ -1,4 +1,5 @@
 #include "Debugger.h"
+#include "NFAs.h"
 
 #include <unistd.h>
 
@@ -50,6 +51,7 @@ Scanner::Scanner(const char * fName)
 	assert(file);
     currWord = (char **) malloc(sizeof(char *) * 2);
     currWord[0] = &file[0];
+    nfa = new NFAs();
 }
 
 Scanner::~Scanner() {
@@ -68,6 +70,8 @@ int Scanner::readWord () {
         else if (check == ENDWORD)      break;
         else if (check == STARTWORD)    set(nuWord);
     }
+    nfa->setWordStart(getWordStart());
+    token = nfa->compute();
     return OK;
 }
 
