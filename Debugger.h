@@ -35,12 +35,14 @@ namespace Dbugr {
             int readChar();            int readWord();
             int readTill(char);        int currStrCmp(char *);
             int printCurrStr();        int getCurrStrSize();
+            int readLine();
 
         private:
             int        wf_idx;         int             we_idx;
 			int		   fileDescpt;     int 			   fIdx;
 			int		   eofIdx;
 			bool       nuWord;         bool            atEnd;
+			bool       nuLine;
 
 			char *	   file;           char **      currWord;
     };

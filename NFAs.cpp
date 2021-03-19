@@ -11,9 +11,9 @@
 #define RETRN   6
 
 #define a_z(c) ({\
-    bool ret;               \
-    ( c >= 65 || c <= 90||  \
-      c >= 97 || c <= 122)  \
+    bool ret;                 \
+    ( (c >= 65 && c <= 90) || \
+      (c >= 97 && c <= 122))  \
       ? ret = true : ret = false; \
       ret;\
     })
@@ -48,13 +48,16 @@ class NFAs {
                 return RETRN;
             return BAD;
         }
+        bool test() {
+            if (a_z(*wordStart)) return true;
+            return false;
+        }
 
         int getPreProc() {
             if (*(wordStart) != '#')  return -1;
             wordStart++;
-            while (a_z(*(wordStart++))) ;
-            if (*wordStart != ' ') {
-                return -1;
+            while (a_z(*wordStart)) {
+                wordStart++;
             }
             //Read rest of line automatically
             return 1;

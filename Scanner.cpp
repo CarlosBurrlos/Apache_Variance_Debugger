@@ -2,9 +2,12 @@
 
 #include <unistd.h>
 
+//TODO::NEED TO IMPLEMENT RECIEVING OUR TOKENS WITHIN
+    // >> READWORD();
+
 #define isEndWord(ptr) ({    \
     bool ret;                \
-    (*(ptr) == ' ' || *(ptr) == '\n' || *(ptr) == '\t')\
+    (*(ptr) == ' ' || *(ptr) == '\t')\
         ? ret = 1 : ret = 0; \
     ret;                     \
  })
@@ -16,7 +19,7 @@
     ret;                     \
 })
 
-#define set(nuWord) (nuWord = nuWord^nuWord)
+#define set(nuWord) (nuWord = !nuWord)
 
 #define END         -5
 #define BADWORD     -4
@@ -27,13 +30,16 @@
 #define OK           1
 #define EQUAL        1
 #define STARTWORD    2
+#define NEWLINE      3
+
+char debuggingChar;
 
 
 using namespace Dbugr;
 
 Scanner::Scanner(const char * fName)
 : wf_idx(0), we_idx(0), fIdx(0),
-  nuWord(true), atEnd(false)
+  nuWord(true), atEnd(false), nuLine(false)
 {
     fileDescpt = open(fName, O_RDONLY);
     assert(fileDescpt != -1);
@@ -87,6 +93,7 @@ int Scanner::readChar() {
     }
     //Just read next char
     else {
+        if (file[fIdx] == '\n') set(nuLine);
         fIdx++;
         return OK;
     }
@@ -132,5 +139,16 @@ int Scanner::currStrCmp(char * w) {
 }
 
 int Scanner::readTill(char cc) {
+
     return 0;
+}
+
+int Scanner::readLine() {
+    int val;
+    while ((val = readChar())){
+        if (nuLine) break;
+        if (val == END) return ERR;
+    }
+    set(nuLine);
+    return OK;
 }

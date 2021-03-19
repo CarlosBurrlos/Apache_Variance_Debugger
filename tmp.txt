@@ -1,3 +1,4 @@
+nL T
 #include "stdio.h"
 
 void scope1();

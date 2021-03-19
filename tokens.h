@@ -20,10 +20,10 @@ const char * LBRACKET        = "{";
 const char * RBRACKET        = "}";
 const char * INCLUDE         = "include";
 const char * DEFINE          = "define";
-const char * PREPROC         = "#(include|define)";
+const char * PROC         = "#(include|define)";
 
 std::regex WORD("\\w+");
 std::regex RET("int | void");
-std::regex PPROC(PREPROC);
+std::regex PPROC(PROC);
 
 #endif //INC_408DEBUGGER_TOKENS_H
