@@ -1,9 +1,14 @@
 #include    <iostream>
 #include    "Scanner.cpp"
 #include    "Parser.cpp"
-#include    "ctre.hpp"
 
 using namespace Dbugr;
+
+static constexpr auto pattern = ctll::fixed_string{ "h.*" };
+
+constexpr auto match(std::string_view sv) noexcept {
+    return ctre::match<"h.*">(sv);
+}
 
 int main() {
 
@@ -12,9 +17,6 @@ int main() {
     s->readWord();
     size_t len = s->getCurrStrSize();
     std::string_view sub(s->getWordStart(), len);
-    if (auto m = ctre::match<"[a-z]+)">(sub)) {
-
-    }
 
     return 0;
 }
