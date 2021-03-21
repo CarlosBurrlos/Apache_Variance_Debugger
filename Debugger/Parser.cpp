@@ -1,7 +1,11 @@
-#include "../Headers/Debugger.h"
+#include "../Headers/All.h"
 
 #include <cstring>
 #include <unordered_set>
+
+const char * SEMICOL         = ";";
+const char * LPAREN          = "(";
+const char * RPAREN          = ")";
 
 #define  equals(t, tokens, n) ({\
     bool retVal;                \
@@ -13,8 +17,6 @@
     retVal = false;             \
     retval;\
 })
-
-using namespace Dbugr;
 
 void Parser::parse() {
 
@@ -109,6 +111,7 @@ bool Parser::parseFuncCall() {
         scope->addFunc(std::pair<std::string_view, Func *>(f->getName(), f));
     }
     consume();
+    return 1;
 }
 
 bool Parser::parseArgs(Func * f) {

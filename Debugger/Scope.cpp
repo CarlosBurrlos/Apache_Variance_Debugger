@@ -1,4 +1,4 @@
-#include "../Headers/Scope.h"
+#include "../Headers/All.h"
 
 Scope::Scope(std::string_view name)
         :nOccurs(0),   scopeArgs(nullptr),

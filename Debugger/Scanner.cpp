@@ -8,6 +8,10 @@
 #include    <cstring>
 #include    <iostream>
 
+int Token = 0;
+
+std::unordered_map<std::string_view/*scpName*/, Scope *> allScopes;
+std::unordered_map<std::string_view/*Name*/,Func *> allFuncs;
 
 #define isEndWord(ptr) ({    \
     bool ret;                \
