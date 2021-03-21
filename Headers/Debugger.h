@@ -1,13 +1,9 @@
-#include    "NFAs.h"
-#include    "Scanner.h"
-
-#include    <iostream>
-#include    <fcntl.h>
-#include    <sys/stat.h>
-#include    <sys/mman.h>
+#ifndef INC_408DEBUGGER_DEBUGGER_H
+#define INC_408DEBUGGER_DEBUGGER_H
 
 #include    <unordered_map>
 #include    <unordered_set>
+#include    <string_view>
 
 const char * SEMICOL         = ";";
 const char * LPAREN          = "(";
@@ -33,43 +29,11 @@ class Func;
 std::unordered_map<std::string_view/*scpName*/, Scope *> allScopes;
 std::unordered_map<std::string_view/*Name*/,Func *> allFuncs;
 
-static int Token;
-
-//    class Scanner {
-//
-//        friend class Dbugr::Parser;
-//
-//        public:
-//
-//            explicit Scanner(const char * file);
-//            ~Scanner();
-//
-//        [[maybe_unused]] char getCurrChar();        char * getWordStart();
-//            int readChar();            int readWord();
-//            static int readTill([[maybe_unused]] char);
-//
-//        [[maybe_unused]] int currStrCmp(char *);
-//
-//        [[maybe_unused]] int printCurrStr();        int getCurrStrSize() const;
-//            int readLine();
-//
-//        private:
-//
-//            int        wf_idx;         int             we_idx;
-//			int		   fileDescpt;     int 			   fIdx;
-//			int		   eofIdx;
-//
-//			bool       nuWord;         bool            atEnd;
-//			bool       nuLine;
-//
-//			char *	   file;           char **      currWord;
-//
-//			NFAs *      nfa;
-//    };
-
-
+extern int Token;
 
 class Errors{
         //TODO:: construct an error class that will allow us to throw -> STDERR
         //Question to consider, do we want to output to a file or just to STDOUT
 };
+
+#endif

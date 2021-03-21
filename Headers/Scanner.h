@@ -1,6 +1,7 @@
 #ifndef INC_408DEBUGGER_SCANNER_H
 #define INC_408DEBUGGER_SCANNER_H
 
+
 class Scanner {
 
     friend class Parser;

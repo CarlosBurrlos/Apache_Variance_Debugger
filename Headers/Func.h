@@ -29,4 +29,4 @@ private:
     std::string_view funcName;
 };
 
-#endif //INC_408DEBUGGER_FUNC_H
+#endif
