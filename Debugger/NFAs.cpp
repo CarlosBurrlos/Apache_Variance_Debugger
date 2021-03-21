@@ -1,7 +1,4 @@
-//
-// Created by Carlos on 3/18/21.
-//
-#include "NFAs.h"
+#include "../Headers/All.h"
 
 #define a_z(c) ({\
     bool ret;                 \
@@ -36,10 +33,6 @@ int NFAs::compute() {
     else if (getReturn())
         return RETRN;
     return BAD;
-}
-bool NFAs::test() {
-    if (a_z(*wordStart)) return true;
-    return false;
 }
 
 int NFAs::getPreProc() {

@@ -3,6 +3,10 @@ Parser  [ ]
 
 Testing [ ]
 
+IMPORTANT NOTE::
+We only have to "free" memory once
+    -> this would be when we do munmap
+    No other time do we have to free memory pointed to by char *
 
 
 

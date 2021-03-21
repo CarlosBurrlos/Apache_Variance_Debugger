@@ -1,14 +1,18 @@
-#include "Debugger.h"
-#include "NFAs.h"
+#include    "../Headers/All.h"
 
-#include <unistd.h>
+#include    <cassert>
+#include    <fcntl.h>
+#include    <sys/stat.h>
+#include    <sys/mman.h>
+#include    <unistd.h>
+#include    <cstring>
+#include    <iostream>
 
-//TODO::NEED TO IMPLEMENT RECIEVING OUR TOKENS WITHIN
-    // >> READWORD();
 
 #define isEndWord(ptr) ({    \
     bool ret;                \
-    (*(ptr) == ' ' || *(ptr) == '\t')\
+    (*(ptr) == ' ' || *(ptr) == '\t' || *(ptr) == '(' \
+     || *(ptr) == ')')\
         ? ret = 1 : ret = 0; \
     ret;                     \
  })
@@ -27,20 +31,15 @@
 #define ENDWORD     -2
 #define ERR         -1
 #define NOTEQUAL    -1
-#define NONE         0
 #define OK           1
 #define EQUAL        1
 #define STARTWORD    2
-#define NEWLINE      3
 
-char debuggingChar;
-
-
-using namespace Dbugr;
+[[maybe_unused]] char debuggingChar;
 
 Scanner::Scanner(const char * fName)
-: wf_idx(0), we_idx(0), fIdx(0),
-  nuWord(true), atEnd(false), nuLine(false)
+: wf_idx(0), we_idx(0), fIdx(0), nuWord(true),
+  atEnd(false), nuLine(false), nfa(nullptr)
 {
     fileDescpt = open(fName, O_RDONLY);
     assert(fileDescpt != -1);
@@ -71,7 +70,7 @@ int Scanner::readWord () {
         else if (check == STARTWORD)    set(nuWord);
     }
     nfa->setWordStart(getWordStart());
-    token = nfa->compute();
+    Token = nfa->compute();
     return OK;
 }
 
@@ -103,7 +102,7 @@ int Scanner::readChar() {
     }
 }
 
-char Scanner::getCurrChar() {
+[[maybe_unused]] char Scanner::getCurrChar() {
     return file[fIdx];
 }
 
@@ -111,7 +110,7 @@ char * Scanner::getWordStart() {
     return &file[wf_idx];
 }
 
-int Scanner::printCurrStr() {
+[[maybe_unused]] int Scanner::printCurrStr() {
     std::cout.flush();
 
     if (!(nuWord)) {
@@ -123,12 +122,12 @@ int Scanner::printCurrStr() {
     return ERR;
 }
 
-int Scanner::getCurrStrSize() {
+int Scanner::getCurrStrSize() const {
     return (we_idx - wf_idx) + 1;
 }
 
-int Scanner::currStrCmp(char * w) {
-    int f = 0, e = we_idx - wf_idx, w_size = strlen(w) - 1;
+[[maybe_unused]] int Scanner::currStrCmp(char * w) {
+    int f = 0, e = we_idx - wf_idx, w_size = (int)strlen(w) - 1;
     if (e != w_size) return BADWORD;
     for (; f <= e;) {
         if ((file[wf_idx + f] == w[f]) &&
@@ -142,8 +141,7 @@ int Scanner::currStrCmp(char * w) {
     return EQUAL;
 }
 
-int Scanner::readTill(char cc) {
-
+int Scanner::readTill([[maybe_unused]] char cc) {
     return 0;
 }
 
