@@ -25,7 +25,6 @@ private:
     int		   eofIdx;
 
     bool       nuWord;         bool            atEnd;
-    bool       nuLine;
 
     char *	   file;
 

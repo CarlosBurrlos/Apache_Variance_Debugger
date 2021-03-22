@@ -43,7 +43,7 @@ std::unordered_map<std::string_view/*Name*/,Func *> allFuncs;
 
 Scanner::Scanner(const char * fName)
 : wf_idx(0), we_idx(0), fIdx(0), nuWord(false),
-  atEnd(false), nuLine(false), nfa(nullptr)
+  atEnd(false),  nfa(nullptr)
 {
     fileDescpt = open(fName, O_RDONLY);
     assert(fileDescpt != -1);
@@ -72,8 +72,8 @@ int Scanner::readWord () {
     word = std::string_view (&file[wf_idx], getCurrStrSize());
 
     std::cout << word << '\n';
-    //nfa->setWordStart(getWordStart());
-    //if ((Token = nfa->compute()) == PREPROC) if(readLine() == END) return END;
+    nfa->setWordStart(&file[wf_idx], &file[we_idx]);
+    Token = nfa->compute();
     if (check == END)   return END;
     return OK;
 }
@@ -121,16 +121,17 @@ int Scanner::getCurrStrSize() const {
 
 int Scanner::readLine() {
     while (1) {
-        if (file[fIdx] == '\n'){
+        if (file[fIdx] != '\n'){
             break;
         }
         if (fIdx == eofIdx) {
+            we_idx = fIdx - 1;
+            set(atEnd);
             return END;
         }
         fIdx++;
     }
     fIdx++;
-    set(nuLine);
-    wf_idx = fIdx++;
+    set(nuWord);
     return OK;
 }

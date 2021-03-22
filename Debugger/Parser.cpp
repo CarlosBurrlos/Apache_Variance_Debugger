@@ -32,8 +32,7 @@ bool Parser::parseScope() {
 
     if (Token == RETINT || Token == RETVOID) {
         consume();
-        std::string_view scopeName(scanner->getWordStart(),
-                                  scanner->getCurrStrSize());
+        std::string_view scopeName = scanner->getCurrStr();
         Scope * s = new Scope(scopeName);
         consume();  //TODO Parse Args
         enterScope(s);
@@ -75,8 +74,7 @@ bool Parser::parsePreProc() {
 bool Parser::parseProto() {
 
     if (Token == FUNC) {
-        std::string_view FuncName(scanner->getWordStart(),
-                                 scanner->getCurrStrSize());
+        std::string_view FuncName = scanner->getCurrStr();
         Func * f = new Func(FuncName);
         std::pair<std::string_view, Func *> pair(f->getName(), f);
         allFuncs.insert(pair);
@@ -103,8 +101,7 @@ bool Parser::parseFuncCall() {
     if(!scope)
         //TODO Throw ERR
         return 0;
-    std::string_view FuncName(scanner->getWordStart(),
-                              scanner->getCurrStrSize());
+    std::string_view FuncName = scanner->getCurrStr();
     if(!scope->contains(FuncName)) {
         Func * f = allFuncs.at(FuncName);
         f->setNCalls();
@@ -115,8 +112,8 @@ bool Parser::parseFuncCall() {
 }
 
 bool Parser::parseArgs(Func * f) {
-    scanner->readTill(*RPAREN);
-    f->setArgs(scanner->getWordStart(), scanner->getCurrStrSize());
+    //scanner->readTill(*RPAREN);
+    //f->setArgs(scanner->getWordStart(), scanner->getCurrStrSize());
     return true;
 }
 

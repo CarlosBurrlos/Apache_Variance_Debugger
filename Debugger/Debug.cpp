@@ -15,10 +15,12 @@ int main(int argc, char * argv[]) {
         return -1;
     }
      */
-
+    std::string_view debug_str;
     auto *s = new Scanner("../Tests/test1.txt");
-    s->readWord();
-
+    while (1) {
+        if (s->readWord() == 3)
+            break;
+    }
     return 0;
 }
 

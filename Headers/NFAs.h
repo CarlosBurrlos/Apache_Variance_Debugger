@@ -8,6 +8,7 @@
 #define RETVOID 4
 #define RETINT  5
 #define RETRN   6
+#define ARGS    7
 
 class NFAs {
 public:
@@ -18,12 +19,13 @@ public:
     int compute();      int getPreProc();
     int getFunc();      int getScope();
     int getVoid();      int getInt();
-    int getReturn();
+    int getReturn();    int getArgs();
 
-    void setWordStart(char * ptr) {wordStart = ptr;}
+    void setWordStart(char * front, char * end) {wordStart = front; wordEnd = end;}
 
 private:
-    char * wordStart;
+    char * wordStart;   char * wordEnd;
+    char * temp;
 };
 
 #endif

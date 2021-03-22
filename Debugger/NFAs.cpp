@@ -9,12 +9,20 @@
     })
 
 #define a_z_0_9(c) ({ \
-    bool ret;               \
-    ( c >= 65 || c <= 90||  \
-      c >= 97 || c <= 122 ||\
-      c >= 48 || c <= 57)   \
+    bool ret;                 \
+    ( (c >= 65 && c <= 90)  ||\
+      (c >= 97 && c <= 122) ||\
+      (c >= 48 && c <= 57))   \
       ? ret = true : ret = false; \
       ret;\
+})
+
+#define literal(c) ({ \
+    bool ret;         \
+    ( (c == 37) ||    \
+      (c == 34) ||    \
+      (c == 39))      \
+      ? ret = true : ret = false; \
 })
 
 
@@ -24,6 +32,8 @@ int NFAs::compute() {
         return PREPROC;
     else if (getFunc())
         return FUNC;
+    else if (getArgs())
+        return ARGS;
     else if (getScope())
         return SCOPE;
     else if (getVoid())
@@ -35,64 +45,78 @@ int NFAs::compute() {
     return BAD;
 }
 
+//TODO Create a get args
+
+int NFAs::getArgs() {
+    temp = wordStart;
+    while (1) {
+        while ((a_z_0_9(*temp) || literal(*temp))
+            && temp <= wordEnd) {
+            temp++;
+        }
+        if (*temp == ',') {
+            temp++;
+            continue;
+        }
+        else {
+            break;
+        }
+    }
+    if (*temp != ')') return 0;
+    return 1;
+}
+
 int NFAs::getPreProc() {
-    if (*(wordStart) != '#')  return -1;
-    wordStart++;
-    while (a_z(*wordStart)) {
-        wordStart++;
+    temp = wordStart;
+    if (*(temp) != '#')  return 0;
+    temp++;
+    while (a_z(*temp) && temp <= wordEnd) {
+        temp++;
     }
     //Read rest of line automatically
     return 1;
 }
 
 int NFAs::getFunc() {
-    while (a_z_0_9(*(wordStart))) {
-        wordStart++;
+    temp = wordStart;
+    if (!a_z_0_9(*(temp))) return 0;
+    while (a_z_0_9(*(temp)) && temp <= wordEnd ) {
+        temp++;
     }
-    wordStart++;
-    if (*(wordStart++) != '(') return -1;
-    while (a_z_0_9(*(wordStart++))) ;
-    if (*(wordStart++) != ')') return -1;
-    if (*(wordStart++) != ';') return -1;
+    if (*(temp++) != '(') return 0;
     return 1;
 }
 
 int NFAs::getScope() {
-    while (a_z_0_9(*(wordStart))) {
-        wordStart++;
-    }
-    wordStart++;
-    if (*(wordStart++) != '(') return -1;
-    while (a_z_0_9(*(wordStart++))) ;
-    if (*(wordStart++) != ')') return -1;
-    if (*(wordStart++) != ';') return -1;
-    if (*(wordStart++) != ' ')  return 0;
-    if (*(wordStart++) != '{')  return 0;
+    temp = wordStart;
+    if (*(temp) != '{')  return 0;
     return 1;
 }
 
 int NFAs::getVoid() {
-    if (*(wordStart) != 'v')   return -1; wordStart++;
-    if (*(wordStart++) != 'o') return -1;
-    if (*(wordStart++) != 'i') return -1;
-    if (*(wordStart++) != 'd') return -1;
+    temp = wordStart;
+    if (*(temp) != 'v')   return 0; temp++;
+    if (*(temp++) != 'o') return 0;
+    if (*(temp++) != 'i') return 0;
+    if (*(temp++) != 'd') return 0;
     return 1;
 }
 
 int NFAs::getInt() {
-    if (*(wordStart) != 'i')   return -1; wordStart++;
-    if (*(wordStart++) != 'n') return -1;
-    if (*(wordStart++) != 't') return -1;
+    temp = wordStart;
+    if (*(temp) != 'i')   return 0; temp++;
+    if (*(temp++) != 'n') return 0;
+    if (*(temp++) != 't') return 0;
     return 1;
 }
 
 int NFAs::getReturn() {
-    if (*(wordStart) != 'r')   return -1; wordStart++;
-    if (*(wordStart++) != 'e') return -1;
-    if (*(wordStart++) != 't') return -1;
-    if (*(wordStart++) != 'u') return -1;
-    if (*(wordStart++) != 'r') return -1;
-    if (*(wordStart++) != 'n') return -1;
-    while (*(wordStart++) != ';') ;
+    if (*(temp) != 'r')   return 0; temp++;
+    if (*(temp++) != 'e') return 0;
+    if (*(temp++) != 't') return 0;
+    if (*(temp++) != 'u') return 0;
+    if (*(temp++) != 'r') return 0;
+    if (*(temp++) != 'n') return 0;
+    while (*(temp++) != ';') ;
     return 1;
 }
