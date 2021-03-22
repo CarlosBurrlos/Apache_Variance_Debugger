@@ -1,0 +1,17 @@
+# "s.h"
+
+void scope1();
+
+void A();
+
+int main() {
+  return 0;
+}
+
+void scope1() {
+    A();
+}
+
+void A() {
+    printf("A\n");
+}
