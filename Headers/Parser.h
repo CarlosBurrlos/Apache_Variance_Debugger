@@ -5,7 +5,7 @@ class Parser {
 
 public:
 
-    Parser(){}
+    Parser(Scanner * s){ scanner = s;}
     ~Parser(){}
 
     bool checkAndConsume();  //bool checkAndConsume(std::list<int>); Implement later
