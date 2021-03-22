@@ -18,11 +18,14 @@ const char * RPAREN          = ")";
     retval;\
 })
 
-void Parser::parse() {
-
-   //parse -> preProcs protos parseFuncs
-                //parseFuncCalls parseReturn
-
+bool Parser::parse() {
+    if (!parsePreProc())
+        return 0;
+    else if (!parseProto())
+        return 0;
+    else if (!parseScope())
+        return 0;
+    return 1;
 }
 
 //Gets a the new func string and creates func itm and stores it
@@ -30,14 +33,13 @@ bool Parser::parseScope() {
 
     //func->retType scopeName(args){ funcBody }
 
-    if (Token == RETINT || Token == RETVOID) {
-        consume();
+    if (checkAndConsume(RETINT) || checkAndConsume(RETVOID)) {
         std::string_view scopeName = scanner->getCurrStr();
         Scope * s = new Scope(scopeName);
-        consume();  //TODO Parse Args
-        enterScope(s);
-        consume();
-
+        consume(); consume();
+        if (checkAndConsume(SCOPE))
+            enterScope(s);
+        else return false;
         if (!parseFuncBody()) {
             //Could Be No Func Calls in this Scope
             return false;
@@ -49,22 +51,38 @@ bool Parser::parseScope() {
     return false;
 }
 
-void Parser::enterScope(Scope * s) {
-    scope = s;
+bool Parser::parseFuncBody() {
+    //funcbody -> funCall funcBody
+    if (check(FUNC)) {
+        while(parseFuncCall())
+            ;
+    }
+    else {
+        return 0;
+    }
+    return 1;
 }
 
-void Parser::exitScope() {
-
-    if (scope) {
-        std::pair<std::string_view, Scope *> pair(scope->getScope(), scope);
-        allScopes.insert(pair);
-        this->scope = nullptr;
+bool Parser::parseFuncCall() {
+    //funcCall -> funcName ( args );
+    if (!check(FUNC))
+        return 0;
+    if(!scope)
+        //TODO Throw ERR
+        return 0;
+    std::string_view FuncName = scanner->getCurrStr();
+    if(!(scope->contains(FuncName))) {
+        Func * f = allFuncs.at(FuncName);
+        f->setNCalls();
+        scope->addFunc(std::pair<std::string_view, Func *>(f->getName(), f));
     }
+    consume();
+    return 1;
 }
 
 bool Parser::parsePreProc() {
     //preproc -> # preprocprime word;
-    if (Token == PREPROC) {
+    if (checkAndConsume(PREPROC)) {
         consumeLine();
         return true;
     }
@@ -73,7 +91,7 @@ bool Parser::parsePreProc() {
 
 bool Parser::parseProto() {
 
-    if (Token == FUNC) {
+    if (check(FUNC)) {
         std::string_view FuncName = scanner->getCurrStr();
         Func * f = new Func(FuncName);
         std::pair<std::string_view, Func *> pair(f->getName(), f);
@@ -84,37 +102,24 @@ bool Parser::parseProto() {
     return false;
 }
 
-bool Parser::parseFuncBody() {
-    //funcbody -> funCall funcBody
-    if (Token == FUNC) {
-        parseFuncCall();
-        parseFuncBody();
-    }
-    else {
-        return 0;
-    }
-    return 1;
-}
-
-bool Parser::parseFuncCall() {
-    //funcCall -> funcName ( args );
-    if(!scope)
-        //TODO Throw ERR
-        return 0;
-    std::string_view FuncName = scanner->getCurrStr();
-    if(!scope->contains(FuncName)) {
-        Func * f = allFuncs.at(FuncName);
-        f->setNCalls();
-        scope->addFunc(std::pair<std::string_view, Func *>(f->getName(), f));
-    }
-    consume();
-    return 1;
-}
-
 bool Parser::parseArgs(Func * f) {
-    //scanner->readTill(*RPAREN);
-    //f->setArgs(scanner->getWordStart(), scanner->getCurrStrSize());
-    return true;
+    if (check(ARGS)) {
+        f->setArgs(&scanner->file[scanner->wf_idx], scanner->getCurrStrSize());
+        return true;
+    }
+    return false;
+}
+
+bool Parser::checkAndConsume(int token) {
+    if (Token == token) {
+        scanner->readWord();
+        return true;
+    }
+    return false;
+}
+
+bool Parser::check(int token) {
+    return (Token == token);
 }
 
 void Parser::consume() {
