@@ -11,14 +11,12 @@ public:
     explicit Scanner(const char * file);
     ~Scanner();
 
-    [[maybe_unused]] char getCurrChar();        char * getWordStart();
     int readChar();            int readWord();
-    static int readTill([[maybe_unused]] char);
-
-    [[maybe_unused]] int currStrCmp(char *);
-
-    [[maybe_unused]] int printCurrStr();        int getCurrStrSize() const;
+    int getCurrStrSize() const;
     int readLine();
+
+    std::string_view getCurrStr()
+        {return std::string_view (&file[wf_idx], (we_idx - wf_idx));}
 
 private:
 
@@ -29,7 +27,9 @@ private:
     bool       nuWord;         bool            atEnd;
     bool       nuLine;
 
-    char *	   file;           char **      currWord;
+    char *	   file;
+
+    std::string_view word;
 
     NFAs *      nfa;
 };

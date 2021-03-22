@@ -5,7 +5,6 @@
 #include    <sys/stat.h>
 #include    <sys/mman.h>
 #include    <unistd.h>
-#include    <cstring>
 #include    <iostream>
 
 int Token = 0;
@@ -15,8 +14,9 @@ std::unordered_map<std::string_view/*Name*/,Func *> allFuncs;
 
 #define isEndWord(ptr) ({    \
     bool ret;                \
-    (*(ptr) == ' ' || *(ptr) == '\t' || *(ptr) == '(' \
-     || *(ptr) == ')')\
+    (*(ptr) == ' ' || *(ptr) == '(' || \
+     *(ptr) == ';' || *(ptr) == '{' || \
+     *(ptr) == '\n')\
         ? ret = 1 : ret = 0; \
     ret;                     \
  })
@@ -30,7 +30,6 @@ std::unordered_map<std::string_view/*Name*/,Func *> allFuncs;
 
 #define set(nuWord) (nuWord = !nuWord)
 
-#define END         -5
 #define BADWORD     -4
 #define ENDWORD     -2
 #define ERR         -1
@@ -38,11 +37,12 @@ std::unordered_map<std::string_view/*Name*/,Func *> allFuncs;
 #define OK           1
 #define EQUAL        1
 #define STARTWORD    2
+#define END          3
 
 [[maybe_unused]] char debuggingChar;
 
 Scanner::Scanner(const char * fName)
-: wf_idx(0), we_idx(0), fIdx(0), nuWord(true),
+: wf_idx(0), we_idx(0), fIdx(0), nuWord(false),
   atEnd(false), nuLine(false), nfa(nullptr)
 {
     fileDescpt = open(fName, O_RDONLY);
@@ -52,109 +52,85 @@ Scanner::Scanner(const char * fName)
 	file = (char *)
 	        mmap(nullptr, sb.st_size,PROT_READ,MAP_PRIVATE, fileDescpt, 0);
 	assert(file);
-    currWord = (char **) malloc(sizeof(char *) * 2);
-    currWord[0] = &file[0];
     nfa = new NFAs();
 }
 
 Scanner::~Scanner() {
 	close(fileDescpt);
 	fileDescpt = -1;
-	free(currWord); currWord = nullptr;
 	munmap(file, eofIdx); //May have to decrememnt by 1
 	file = nullptr;
 }
 
 int Scanner::readWord () {
+    int check;
     while (true) {
-        int check = readChar();
-
-        if (check == END)               return ERR;
-        else if (check == ENDWORD)      break;
-        else if (check == STARTWORD)    set(nuWord);
+        check = readChar();
+        if (check == END || check == ENDWORD) 
+            break;
     }
-    nfa->setWordStart(getWordStart());
-    Token = nfa->compute();
+    word = std::string_view (&file[wf_idx], getCurrStrSize());
+
+    std::cout << word << '\n';
+    //nfa->setWordStart(getWordStart());
+    //if ((Token = nfa->compute()) == PREPROC) if(readLine() == END) return END;
+    if (check == END)   return END;
     return OK;
 }
 
 int Scanner::readChar() {
     if (atEOF(fIdx, eofIdx)) {
+        we_idx = fIdx-1;
         set(atEnd);
         return END;
     }
+    if (fIdx == 0)
+        set(nuWord);
     //We are at new word
-    if (!(nuWord) && fIdx - 2 >= 0 && fIdx - 2 == we_idx) {
-        wf_idx = fIdx;
-        fIdx++;
-        currWord[0] = &file[wf_idx];
+    if (nuWord /* && fIdx - 1 >= 0*/) {
+        wf_idx = fIdx++;
+        set(nuWord);
         return STARTWORD;
     }
     //Reached end of word
     else if (isEndWord(&file[fIdx])) {
-        we_idx = fIdx-1;
+        if (file[fIdx] == ' ' || file[fIdx] == '\n')
+            we_idx = fIdx - 1;
+        else 
+            we_idx = fIdx;
         fIdx++;
-        currWord[1] = &file[we_idx];
+        if (file[fIdx] == '\n')
+            while(file[fIdx] == '\n' && fIdx != eofIdx) {fIdx++;}
+        while(file[fIdx] == ' ' && fIdx != eofIdx) {fIdx++;}
+        if (fIdx == eofIdx)
+            return END;
         set(nuWord);
         return ENDWORD;
     }
     //Just read next char
     else {
-        if (file[fIdx] == '\n') set(nuLine);
         fIdx++;
         return OK;
     }
 }
 
-[[maybe_unused]] char Scanner::getCurrChar() {
-    return file[fIdx];
-}
-
-char * Scanner::getWordStart() {
-    return &file[wf_idx];
-}
-
-[[maybe_unused]] int Scanner::printCurrStr() {
-    std::cout.flush();
-
-    if (!(nuWord)) {
-        int n = 0;
-        do { std::cout << file[wf_idx + n]; }
-        while (n++ < (we_idx - wf_idx));
-        return OK;
-    }
-    return ERR;
-}
-
 int Scanner::getCurrStrSize() const {
+    if (we_idx < wf_idx) return 0;
     return (we_idx - wf_idx) + 1;
 }
 
-[[maybe_unused]] int Scanner::currStrCmp(char * w) {
-    int f = 0, e = we_idx - wf_idx, w_size = (int)strlen(w) - 1;
-    if (e != w_size) return BADWORD;
-    for (; f <= e;) {
-        if ((file[wf_idx + f] == w[f]) &&
-            (file[wf_idx + e] == w[e])) {
-            f++; e--;
-        }
-        else {
-            return NOTEQUAL;
-        }
-    }
-    return EQUAL;
-}
-
-int Scanner::readTill([[maybe_unused]] char cc) {
-    return 0;
-}
-
 int Scanner::readLine() {
-    int val;
-    while ((val = readChar())){
-        if (nuLine) break;
-        if (val == END) return ERR;
+    while (1) {
+        if (file[fIdx] == '\n'){
+            break;
+        }
+        if (fIdx == eofIdx) {
+            return END;
+        }
+        fIdx++;
     }
+    fIdx++;
     set(nuLine);
+    wf_idx = fIdx++;
     return OK;
 }
