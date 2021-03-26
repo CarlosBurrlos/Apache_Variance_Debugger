@@ -82,7 +82,7 @@ bool Parser::parseFuncCall() {
 
 bool Parser::parsePreProc() {
     //preproc -> # preprocprime word;
-    if (checkAndConsume(PREPROC)) {
+    if (check(PREPROC)) {
         consumeLine();
         return true;
     }

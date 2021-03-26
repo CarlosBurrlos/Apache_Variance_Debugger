@@ -1,14 +1,15 @@
 #ifndef INC_408DEBUGGER_NFAS_H
 #define INC_408DEBUGGER_NFAS_H
 
-#define BAD     0
-#define PREPROC 1
-#define FUNC    2
-#define SCOPE   3
-#define RETVOID 4
-#define RETINT  5
-#define RETRN   6
-#define ARGS    7
+#define BAD         0
+#define PREPROC     1
+#define FUNC        2
+#define SCOPE       3
+#define RETVOID     4
+#define RETINT      5
+#define RETRN       6
+#define ARGS        7
+#define EXT_SCOPE   8
 
 class NFAs {
 public:

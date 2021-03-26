@@ -16,7 +16,7 @@ public:
     int readLine();
 
     std::string_view getCurrStr()
-        {return std::string_view (&file[wf_idx], (we_idx - wf_idx));}
+        {return std::string_view (&file[wf_idx], (we_idx - wf_idx) + 1);}
 
 private:
 

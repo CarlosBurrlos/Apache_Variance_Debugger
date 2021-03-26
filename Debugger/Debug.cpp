@@ -20,7 +20,7 @@ int main(int argc, char * argv[]) {
     */
 
     while (s->readWord() != END) {
-        p->parse();
+        //p->parse();
     }
 
     /*Debugging*/

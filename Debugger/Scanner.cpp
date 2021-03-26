@@ -62,11 +62,24 @@ int Scanner::readWord () {
         if (check == END || check == ENDWORD) 
             break;
     }
-    word = std::string_view (&file[wf_idx], getCurrStrSize());
-
+    word = getCurrStr();
+//================================================================  [DB]
     std::cout << word << '\n';
+//================================================================  [DB]
     nfa->setWordStart(&file[wf_idx], &file[we_idx]);
     Token = nfa->compute();
+//================================================================
+/* We will just handle reading the rest of line here
+        Token :: PREPROC -> readline
+                 RETRN   -> readline
+*/
+//================================================================
+    if (Token == PREPROC || Token == RETRN) {
+        readLine();
+    }
+//================================================================  [DB]
+    std::cout << "TOKEN == " << Token << '\n';
+//================================================================  [DB]
     if (check == END)   return END;
     return OK;
 }
@@ -114,7 +127,9 @@ int Scanner::getCurrStrSize() const {
 
 int Scanner::readLine() {
     while (1) {
-        if (file[fIdx] != '\n'){
+        if (file[fIdx] == '\n'){
+            while (file[fIdx] == '\n')
+                fIdx++;
             break;
         }
         if (fIdx == eofIdx) {
@@ -124,7 +139,5 @@ int Scanner::readLine() {
         }
         fIdx++;
     }
-    fIdx++;
-    set(nuWord);
     return OK;
 }

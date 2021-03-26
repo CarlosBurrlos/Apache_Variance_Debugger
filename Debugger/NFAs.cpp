@@ -21,21 +21,22 @@
     bool ret;         \
     ( (c == 37) ||    \
       (c == 34) ||    \
-      (c == 39))      \
+      (c == 39) ||    \
+      (c == 92))      \
       ? ret = true : ret = false; \
 })
 
-
-
 int NFAs::compute() {
+    int check = 0;
     if (getPreProc())
         return PREPROC;
     else if (getFunc())
         return FUNC;
     else if (getArgs())
         return ARGS;
-    else if (getScope())
-        return SCOPE;
+    else if ((check = getScope()))
+        if (check == 1) return SCOPE;
+        else            return EXT_SCOPE;
     else if (getVoid())
         return RETVOID;
     else if (getInt())
@@ -68,11 +69,15 @@ int NFAs::getArgs() {
 
 int NFAs::getPreProc() {
     temp = wordStart;
-    if (*(temp) != '#')  return 0;
+    if (*(temp) != '#' && *(temp) != '"')  return 0;
     temp++;
     while (a_z(*temp) && temp <= wordEnd) {
         temp++;
     }
+    if (*(temp) == '"')
+        {if (*(temp) != '\n') {return 0;}}
+    else if (*(temp) != ' ')
+        {return 0;}
     //Read rest of line automatically
     return 1;
 }
@@ -89,8 +94,9 @@ int NFAs::getFunc() {
 
 int NFAs::getScope() {
     temp = wordStart;
-    if (*(temp) != '{')  return 0;
-    return 1;
+    if (*(temp) == '{')      return 1;
+    else if (*(temp) == '}') return 2;
+    return 0;
 }
 
 int NFAs::getVoid() {
