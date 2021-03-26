@@ -1,4 +1,5 @@
 #include "../Headers/All.h"
+#include "../Headers/NFAs.h"
 
 #include    <iostream>
 

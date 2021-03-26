@@ -1,6 +1,8 @@
 #ifndef INC_408DEBUGGER_FUNC_H
 #define INC_408DEBUGGER_FUNC_H
 
+#include <string_view>
+
 class Func {
 public:
     Func(std::string_view name)

@@ -1,6 +1,9 @@
 #ifndef INC_408DEBUGGER_SCOPE_H
 #define INC_408DEBUGGER_SCOPE_H
 
+#include <string_view>
+#include <unordered_map>
+
 class Scope {
 
 public:

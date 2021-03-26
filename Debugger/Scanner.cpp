@@ -30,14 +30,7 @@ std::unordered_map<std::string_view/*Name*/,Func *> allFuncs;
 
 #define set(nuWord) (nuWord = !nuWord)
 
-#define BADWORD     -4
-#define ENDWORD     -2
-#define ERR         -1
-#define NOTEQUAL    -1
-#define OK           1
-#define EQUAL        1
-#define STARTWORD    2
-#define END          3
+
 
 [[maybe_unused]] char debuggingChar;
 

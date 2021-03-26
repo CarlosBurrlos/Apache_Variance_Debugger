@@ -1,6 +1,6 @@
 #ifndef INC_408DEBUGGER_PARSER_H
 #define INC_408DEBUGGER_PARSER_H
-
+#include "Scope.h"
 class Parser {
 
 public:
@@ -8,22 +8,22 @@ public:
     Parser(Scanner * s){ scanner = s;}
     ~Parser(){}
 
-    bool checkAndConsume();  //bool checkAndConsume(std::list<int>); Implement later
+    bool checkAndConsume(int);  //bool checkAndConsume(std::list<int>); Implement later
     bool parseWord();        bool check(int);
     bool parsePreProc();     bool parseArgs(Func *);
     bool parseProto();       bool parseScope();
     bool parseFuncBody();    bool parseFuncCall();
 
-    void parse();
+    bool parse();
     void consume();          void consumeLine();
 
 private:
 
-    void Parser::enterScope(Scope * s) {
+    void enterScope(Scope * s) {
         scope = s;
     }
 
-    void Parser::exitScope() {
+    void exitScope() {
 
         if (scope) {
             std::pair<std::string_view, Scope *> pair(scope->getScope(), scope);
