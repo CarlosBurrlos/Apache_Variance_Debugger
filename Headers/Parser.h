@@ -10,9 +10,11 @@ public:
 
     bool checkAndConsume(int);  //bool checkAndConsume(std::list<int>); Implement later
     bool parseWord();        bool check(int);
-    bool parsePreProc();     bool parseArgs(Func *);
+    bool parsePreProc();
+    bool parseArgs(Func *);  bool parseArgs(Scope *);
     bool parseProto();       bool parseScope();
     bool parseFuncBody();    bool parseFuncCall();
+    bool parseFunc();
 
     bool parse();
     void consume();          void consumeLine();
