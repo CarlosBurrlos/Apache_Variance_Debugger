@@ -22,3 +22,15 @@ void Func::setArgs(char * c, int n) {this->funcArgs = c, this->argsSize = n;}
 std::string_view Func::getName()    {return funcName;}
 std::string_view Func::getArgs()    {return std::string_view(funcArgs, argsSize);}
 
+Scope * Func::convertToScope() {
+    Scope * s = nullptr;
+    std::string_view name = funcName;
+    if (allFuncs.find(name) == allFuncs.end()) {
+        return s;
+    }
+    s = new Scope(name);
+    assert(s);
+    s->setArgs(funcArgs, argsSize);
+    allScopes.insert( {name, s} );
+    return s;
+}
