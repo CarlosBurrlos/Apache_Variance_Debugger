@@ -8,32 +8,15 @@ public:
     Parser(Scanner * s){ scanner = s;}
     ~Parser(){}
 
-    bool checkAndConsume(int);  //bool checkAndConsume(std::list<int>); Implement later
-    bool parseWord();        bool check(int);
+    bool checkAndConsume(int);  bool check(int);
+    bool parseArgs(Func *);     bool parseFuncBody();
+    bool parseFuncCall();       bool parseFunc();
+    bool parse();               bool  atEnd();
     bool parsePreProc();
-    bool parseArgs(Func *);  bool parseArgs(Scope *);
-    bool parseProto();       bool parseScope();
-    bool parseFuncBody();    bool parseFuncCall();
-    bool parseFunc();
 
-    bool parse();
-    void consume();          void consumeLine();
+    void consume();             void consumeLine();
 
 private:
-
-    void enterScope(Scope * s) {
-        scope = s;
-    }
-
-    void exitScope() {
-
-        if (scope) {
-            std::pair<std::string_view, Scope *> pair(scope->getScope(), scope);
-            allScopes.insert(pair);
-            this->scope = nullptr;
-        }
-    }
-
     Scope * scope;              Scanner * scanner;
 };
 
