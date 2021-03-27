@@ -21,9 +21,7 @@ int main(int argc, char * argv[]) {
 
     freopen("../Output/out1.txt", "w", stdout);
 
-    while (s->readWord() != END) {
-        p->parse();
-    }
+    p->parse();
 
     /*Debugging*/
     /*

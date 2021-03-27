@@ -17,16 +17,32 @@ bool Parser::parse() {
     while (parsePreProc())
         ;
     while (parseFunc())
-        if (checkAndConsume(SCOPE) &&
-           (checkAndConsume(RETVOID) || checkAndConsume(RETINT)))
-            if(parseFuncBody())
-                if (!checkAndConsume(RETRN))
-                   return false;
-            if (check(EXT_SCOPE))
+        if (check(SCOPE))
+            goto label;
+        ;
+
+    while (parseFunc()) {
+        label:
+        if (checkAndConsume(SCOPE)) {
+            if (checkAndConsume(RETRN)) {
+                checkAndConsume(EXT_SCOPE);
                 scope = nullptr;
-            else
-                ;//TODO::Throw error
-        ;;
+                continue;
+            }
+            if (check(RETVOID) || check(RETINT)) {
+                if (parseFuncBody())
+                    if (!checkAndConsume(RETRN)) {
+                    return false;
+                }
+            }
+            if (check(EXT_SCOPE)) {
+                scope = nullptr;
+            }
+            //TODO::If-Else throws error if any hiccups
+            ;
+        }
+        ;
+    }
     if (!atEnd())   return false; //TODO::Throw error
     return true;
 }
@@ -36,18 +52,19 @@ bool Parser::parseFunc() {
         if (check(FUNC)) {
             std::string_view name = scanner->getCurrStr();
             Func * f; Scope * s;
-            if (allScopes.find(name) != allScopes.end()) {
+            if (allFuncs.find(name) == allFuncs.end()) {
                 f = new Func(name);
                 allFuncs.insert( {name, f} );
             }
             else {
                 f = allFuncs[name];
             }
-            consume(); parseArgs(f); consume();
+            consume();
+            parseArgs(f);
+            consume();
             if (check(SCOPE)) {
-                if (!(s = f->convertToScope())) {
-                    //TODO::Throw Error
-                }
+                if (!(s = f->convertToScope()))
+                    ;
                 scope = s;
             }
             return true;
@@ -84,9 +101,8 @@ bool Parser::parseFuncCall() {
 //TODO::Test more - Good so far
 bool Parser::parsePreProc() {
     //preproc -> # preprocprime word;
+    consume();
     if (check(PREPROC)) {
-        consumeLine();
-        parsePreProc();
         return true;
     }
     return false;
