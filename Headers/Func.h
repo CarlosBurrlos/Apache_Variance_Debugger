@@ -5,27 +5,14 @@
 
 class Func {
 public:
-    Func(std::string_view name)
-            :nOccurs(0), funcArgs(nullptr),
-             funcName(name)
-    {}
+    Func(std::string_view);
+    ~Func();
 
-    ~Func()
-    {
-        nOccurs = 0;
-        funcArgs = nullptr;     funcName = nullptr;
-    }
-
-    int getNCalls()               {return this->nOccurs;}
-    void setNCalls()              {this->nOccurs++;}
-    void setArgs(char * c, int n) {this->funcArgs = c, this->argsSize = n;}
-
-    std::string_view getName()    {return funcName;}
-    std::string_view getArgs()
-    {return std::string_view(funcArgs, argsSize);}
+    int getNCalls();
+    void setNCalls();               void setArgs(char *, int);
+    std::string_view getName();     std::string_view getArgs();
 
 private:
-
     int nOccurs;            int argsSize;
     char * funcArgs;
     std::string_view funcName;
