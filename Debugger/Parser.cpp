@@ -29,12 +29,13 @@ bool Parser::parse() {
                 scope = nullptr;
                 continue;
             }
-            if (check(RETVOID) || check(RETINT)) {
-                if (parseFuncBody())
-                    if (!checkAndConsume(RETRN)) {
-                    return false;
-                }
+
+            //Consume all funcCalls inside the scope body
+            if (parseFuncBody()){
+                checkAndConsume(RETRN);
             }
+
+            //When we reach the end of the scope, reset scope ptr
             if (check(EXT_SCOPE)) {
                 scope = nullptr;
             }
@@ -51,7 +52,9 @@ bool Parser::parseFunc() {
     if (checkAndConsume(RETVOID) || checkAndConsume(RETINT)) {
         if (check(FUNC)) {
             std::string_view name = scanner->getCurrStr();
-            Func * f; Scope * s;
+            Func * f = nullptr; Scope * s = nullptr;
+            //To avoid all this overhead, we could use inheritnc.
+
             if (allFuncs.find(name) == allFuncs.end()) {
                 f = new Func(name);
                 allFuncs.insert( {name, f} );
@@ -75,17 +78,16 @@ bool Parser::parseFunc() {
 
 bool Parser::parseFuncBody() {
     //funcbody -> funCall funcBody
-    if (check(FUNC)) {
-        while(parseFuncCall())
-            ;
-        return 1;
-    }
-    return 0;
+    while(parseFuncCall())
+        ;
+    return 1;
 }
 
 //TODO::Test more - Good so far
 bool Parser::parseFuncCall() {
     //funcCall -> funcName ( args );
+    if (!check(FUNC))
+        return false;
     if(!scope)
         return 0; //TODO Throw ERR
     std::string_view FuncName = scanner->getCurrStr();
@@ -94,11 +96,15 @@ bool Parser::parseFuncCall() {
         f->setNCalls();
         scope->addFunc( {FuncName, f} );
     }
-    consume(); //We dont need the args
+    consume();consume(); //We dont need the args
     return true;
 }
 
 //TODO::Test more - Good so far
+
+//Note: Do not need to read the rest of line
+//  > This is handled inside the token computation
+
 bool Parser::parsePreProc() {
     //preproc -> # preprocprime word;
     consume();

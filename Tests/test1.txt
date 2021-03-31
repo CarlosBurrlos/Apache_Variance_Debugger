@@ -1,4 +1,5 @@
-"B\n");
+#include <stdio.h>
+
 void scope2();
 void scope3();
 void scope4();

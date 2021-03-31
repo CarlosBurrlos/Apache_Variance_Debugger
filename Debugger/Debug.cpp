@@ -20,18 +20,7 @@ int main(int argc, char * argv[]) {
     */
 
     freopen("../Output/out1.txt", "w", stdout);
-
     p->parse();
-
-    /*Debugging*/
-    /*
-    std::string_view debug_str;
-    auto *s = new Scanner("../Tests/test1.txt");
-    while (1) {
-        if (s->readWord() == 3)
-            break;
-    }
-    */
     fclose(stdout);
 
     return 0;

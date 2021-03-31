@@ -1,17 +1,17 @@
-# "s.h"
+#i "s"
 
-void scope1();
+void s();
 
 void A();
 
-int main() {
+int m() {
   return 0;
 }
 
-void scope1() {
+void s() {
     A();
 }
 
 void A() {
-    printf("A\n");
+    pf("A\n");
 }
