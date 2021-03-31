@@ -1,6 +1,7 @@
 #include "../Headers/All.h"
 
 #include <unordered_set>
+#include <iostream>
 
 //========================= Helpers ==========================
 bool Parser::checkAndConsume(int token) {
@@ -39,7 +40,7 @@ bool Parser::parse() {
             }
 
             //When we reach the end of the scope, reset scope ptr
-            if (checkAndConsume(EXT_SCOPE)) {
+           if (checkAndConsume(EXT_SCOPE)) {
                 scope = nullptr;
             }
             //TODO::If-Else throws error if any hiccups
@@ -57,7 +58,6 @@ bool Parser::parseFunc() {
             std::string_view name = scanner->getCurrStr();
             Func * f = nullptr; Scope * s = nullptr;
             //To avoid all this overhead, we could use inheritnc.
-
             if (allFuncs.find(name) == allFuncs.end()) {
                 f = new Func(name);
                 allFuncs.insert( {name, f} );
@@ -94,11 +94,17 @@ bool Parser::parseFuncCall() {
     if(!scope)
         return 0; //TODO Throw ERR
     std::string_view FuncName = scanner->getCurrStr();
-    if(!(scope->contains(FuncName))) {
-        Func * f = allFuncs.at(FuncName);
-        f->setNCalls();
-        scope->addFunc( {FuncName, f} );
+    try {
+        if(!(scope->contains(FuncName))) {
+            Func * f = allFuncs.at(FuncName);
+            f->setNCalls();
+            scope->addFunc( {FuncName, f} );
+        }
+    } catch (const std::out_of_range& e) {
+        std::cout << "CURRENT IDX:: %d" << scanner->fIdx << '\n';
+        std::cout << scanner->getCurrStr() << '\n';
     }
+
     consume();consume(); //We dont need the args
     return true;
 }
