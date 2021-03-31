@@ -84,7 +84,7 @@ int Scanner::readWord () {
         readLine();
     }
 //================================================================  [DB]
-    std::cout << word << '\t' << '\t' << '\t' << "TOKEN :: \t" << Token << '\n';
+    //std::cout << word << '\t' << '\t' << '\t' << "TOKEN :: \t" << Token << '\n';
 //================================================================  [DB]
     if (check == END)   return END;
     return OK;
