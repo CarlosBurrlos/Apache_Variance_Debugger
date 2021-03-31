@@ -21,6 +21,7 @@ public:
 
     void addFunc(std::pair <std::string_view, Func*>);
     void setArgs(char *, int);              void setNFuncs(int n) {nFuncs = n;}
+    std::unordered_map<std::string_view, Func*> getFuncs() {return funcs;}
 
     std::string_view getArgs()              {return std::string_view(scopeArgs, argsSize);}
 private:
