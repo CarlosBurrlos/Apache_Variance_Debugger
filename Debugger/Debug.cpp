@@ -18,11 +18,11 @@ int main(int argc, char * argv[]) {
         return -1;
     }
     */
-
     freopen("../Output/out1.txt", "w", stdout);
+    Func * f = new Func("pf(");
+    allFuncs.insert( {"pf(", f} );
     p->parse();
     fclose(stdout);
-
     return 0;
 }
 
