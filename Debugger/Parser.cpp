@@ -10,7 +10,10 @@ bool Parser::checkAndConsume(int token) {
 bool Parser::check(int token) {return (Token == token);}
 void Parser::consume() {scanner->readWord();}
 void Parser::consumeLine() {scanner->readLine();}
-bool Parser::atEnd() {return scanner->atEnd;}
+bool Parser::atEnd() {
+    if (scanner->fIdx == scanner->eofIdx)   scanner->atEnd = true;
+    return scanner->atEnd;
+}
 //============================================================
 
 bool Parser::parse() {
@@ -36,7 +39,7 @@ bool Parser::parse() {
             }
 
             //When we reach the end of the scope, reset scope ptr
-            if (check(EXT_SCOPE)) {
+            if (checkAndConsume(EXT_SCOPE)) {
                 scope = nullptr;
             }
             //TODO::If-Else throws error if any hiccups
