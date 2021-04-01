@@ -41,7 +41,7 @@ bool Parser::parse() {
 
             //When we reach the end of the scope, reset scope ptr
            if (checkAndConsume(EXT_SCOPE)) {
-                scope = nullptr;
+               scope = nullptr;
             }
             //TODO::If-Else throws error if any hiccups
             ;
@@ -94,11 +94,15 @@ bool Parser::parseFuncCall() {
     if(!scope)
         return 0; //TODO Throw ERR
     std::string_view FuncName = scanner->getCurrStr();
+    std::hash<std::string_view> h;
+    size_t hash;
+    hash = h(FuncName);
     try {
-        if(!(scope->contains(FuncName))) {
+        if(!scope->find(hash)) {
             Func * f = allFuncs.at(FuncName);
             f->setNCalls();
-            scope->addFunc( {FuncName, f} );
+            scope->addFunc(hash, f);
+
         }
     } catch (const std::out_of_range& e) {
         std::cout << "CURRENT IDX:: %d" << scanner->fIdx << '\n';

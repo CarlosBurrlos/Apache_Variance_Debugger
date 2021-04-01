@@ -1,6 +1,4 @@
 #include "../Headers/All.h"
-#include "../Headers/NFAs.h"
-
 #include    <iostream>
 
 Scanner * s = new Scanner("../Tests/test1.txt");
@@ -19,6 +17,17 @@ int main(int argc, char * argv[]) {
     }
     */
     freopen("../Output/out1.txt", "w", stdout);
+    /*
+    const char * msg = "HELLO";
+    int size = strlen(msg);
+    std::string_view s_vew(msg, size);
+    std::string_view s_vew_2(msg, size);
+
+    std::hash<std::string_view> h;
+    std::cout << h(s_vew) << '\n';
+    std::cout << h(s_vew_2) << '\n';
+    */
+    /*
     Func * f = new Func("printf(");
     allFuncs.insert( {"printf(", f} );
     p->parse();
@@ -30,6 +39,8 @@ int main(int argc, char * argv[]) {
         }
     }
 
+    //What we could do to compute these values
+    */
     fclose(stdout);
     return 0;
 }
