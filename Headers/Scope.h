@@ -3,6 +3,8 @@
 
 #include <string_view>
 #include <unordered_map>
+#include <vector>
+#include <map>
 
 class Scope {
 
@@ -17,11 +19,10 @@ public:
 
     char * getRetType();
 
-    bool contains(std::string_view s);      bool hasFunc(std::string_view);
-
-    void addFunc(std::pair <std::string_view, Func*>);
+    void addFunc(size_t, Func*);
     void setArgs(char *, int);              void setNFuncs(int n) {nFuncs = n;}
-    std::unordered_map<std::string_view, Func*> getFuncs() {return funcs;}
+    bool find(size_t s) {return (funcs.find(s) == funcs.end());}
+    std::map<int, std::pair<size_t, Func*>> getFuncs() {return funcs;}
 
     std::string_view getArgs()              {return std::string_view(scopeArgs, argsSize);}
 private:
@@ -31,8 +32,7 @@ private:
 
     char * scopeArgs;           std::string_view scopeName;
     char * retType;
-
-    std::unordered_map<std::string_view/*funcName*/, Func *> funcs;
+    std::map<int, std::pair<size_t, Func *>> funcs;
 };
 
 #endif //INC_408DEBUGGER_SCOPE_H
