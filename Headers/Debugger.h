@@ -6,9 +6,6 @@ class Scanner;
 class Scope;
 class Func;
 
-class Errors{
-        //TODO:: construct an error class that will allow us to throw -> STDERR
-        //Question to consider, do we want to output to a file or just to STDOUT
-};
+//TODO:: Implement error reporting methods class that will allow us to throw -> STDERR
 
 #endif

@@ -1,5 +1,6 @@
-#include <stdio.h>
+#include "stdio.h"
 
+void scope1();
 void scope2();
 void scope3();
 void scope4();

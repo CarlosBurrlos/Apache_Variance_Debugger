@@ -27,11 +27,16 @@ void scan_for_bugs() {
     Func * currFunc;
     for (auto const & [ key, value ] : allScopes) {
         currScope = value;
-        for (auto const & [ key, value ] : value->getFuncs()) {
+        for (auto const & [ key, value ] : currScope->getFuncs()) {
             currFunc = value;
             for ( auto const & [ key, value ] : currFunc->pairs) {
-                if (!currScope->find(key)) {
+                std::string_view pair = key;
+                if (currScope->find(pair)) {
                     std::cout << "Bug in" << currScope->getScope() << '\n';
+                    std::cout << currFunc->getName() << '\t' << pair << '\n';
+                    std::cout << "Support   " << value << std::string(4, ' ') << "Confidence   "
+                        <<  (100 * ((double)value / currFunc->getNCalls())) << '%' << '\n';
+                    std::cout << "==============================" << '\n';
                 }
             }
         }

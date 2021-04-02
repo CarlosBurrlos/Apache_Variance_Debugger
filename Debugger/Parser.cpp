@@ -41,6 +41,8 @@ bool Parser::parse() {
 
             //When we reach the end of the scope, reset scope ptr
            if (checkAndConsume(EXT_SCOPE)) {
+               if (scope->getScope() != "main(")
+                   compute_support(scope);
                scope = nullptr;
             }
             //TODO::If-Else throws error if any hiccups
@@ -49,6 +51,7 @@ bool Parser::parse() {
         ;
     }
     if (!atEnd())   return false; //TODO::Throw error
+    scan_for_bugs();
     return true;
 }
 
@@ -94,14 +97,11 @@ bool Parser::parseFuncCall() {
     if(!scope)
         return 0; //TODO Throw ERR
     std::string_view FuncName = scanner->getCurrStr();
-    std::hash<std::string_view> h;
-    size_t hash;
-    hash = h(FuncName);
     try {
-        if(!scope->find(hash)) {
+        if(scope->find(FuncName)) {
             Func * f = allFuncs.at(FuncName);
             f->setNCalls();
-            scope->addFunc(hash, f);
+            scope->addFunc(FuncName, f);
 
         }
     } catch (const std::out_of_range& e) {
@@ -113,11 +113,8 @@ bool Parser::parseFuncCall() {
     return true;
 }
 
-//TODO::Test more - Good so far
-
 //Note: Do not need to read the rest of line
 //  > This is handled inside the token computation
-
 bool Parser::parsePreProc() {
     //preproc -> # preprocprime word;
     consume();

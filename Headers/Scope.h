@@ -6,6 +6,13 @@
 #include <vector>
 #include <map>
 
+typedef struct S scope;
+
+scope * newScope();
+void    addFunc();
+bool    find(std::string_view);
+
+
 class Scope {
 
 public:

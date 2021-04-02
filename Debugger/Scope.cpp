@@ -1,5 +1,28 @@
 #include "../Headers/All.h"
 
+struct S {
+    std::string_view name;
+    std::map <std::string_view, Func *> Funcs;
+};
+
+scope * newScope() {
+    const auto s = new scope;
+    s->name = nullptr;
+    return s;
+}
+
+
+//===== So we don't have too much overhead
+
+std::string_view getScopeName() {
+
+}
+
+std::map <std::string_view, Func *> getFuncs() {
+
+}
+
+
 Scope::Scope(std::string_view name)
         :nOccurs(0),   scopeArgs(nullptr),
          scopeName(name)
