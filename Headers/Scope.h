@@ -19,10 +19,10 @@ public:
 
     char * getRetType();
 
-    void addFunc(size_t, Func*);
+    void addFunc(std::string_view, Func*);
     void setArgs(char *, int);              void setNFuncs(int n) {nFuncs = n;}
-    bool find(size_t s) {return (funcs.find(s) == funcs.end());}
-    std::map<int, std::pair<size_t, Func*>> getFuncs() {return funcs;}
+    bool find(std::string_view s) {return (funcs.find(s) == funcs.end());}
+    std::unordered_map<std::string_view, Func*> getFuncs() {return funcs;}
 
     std::string_view getArgs()              {return std::string_view(scopeArgs, argsSize);}
 private:
@@ -32,7 +32,7 @@ private:
 
     char * scopeArgs;           std::string_view scopeName;
     char * retType;
-    std::map<int, std::pair<size_t, Func *>> funcs;
+    std::unordered_map<std::string_view , Func *> funcs;
 };
 
 #endif //INC_408DEBUGGER_SCOPE_H

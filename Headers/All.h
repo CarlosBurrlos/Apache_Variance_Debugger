@@ -14,7 +14,6 @@
 #include    "Debugger.h"
 #include    "Func.h"
 #include    "Globals.h"
-#include    "Invar.h"
 #include    "NFAs.h"
 #include    "Parser.h"
 #include    "Scanner.h"
