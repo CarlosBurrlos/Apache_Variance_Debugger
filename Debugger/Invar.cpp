@@ -1,47 +1,43 @@
 #include "../Headers/All.h"
+#include <iostream>
 
-void scan() {
 
+void compute_support(Scope * scope) {
+    auto funcs = scope->getFuncs();
+    std::unordered_map<std::string_view, Func*>::iterator i;
+    std::unordered_map<std::string_view, Func*>::iterator j;
+
+    for (i = funcs.begin(); i != funcs.end(); i++) {
+        for (j = i, j++; j != funcs.end(); j++) {
+            if (i->second->pairs.find(j->first) == i->second->pairs.end()) {
+                i->second->pairs.insert( {j->first, 1} );
+                j->second->pairs.insert( {i->first, 1} );
+            }
+            else {
+                i->second->pairs.at(j->first)++;
+                j->second->pairs.at(i->first)++;
+            }
+        }
+    }
 }
 
-void output() {
-
-}
-
-//NOTE:: What we could do is only use the strings for the funcs + therfore concat
-//How will we keep track of the pairs that we have already seen?
-
-//We could possibly compute and store the hashes at the beginning?
-    // > We could then store both hashes and therefore, wouldn't have to recompute
-
-    //TODO:: We want to parse the parse dynamically while we are parsing the scopes
-    // >> If we don't, we will end up with an n^2 solution
-
-double compute_support() {
-    for (const auto & [ key, value ] : allScopes) {
-        if (key == "main(") continue;
-        auto funcs = value->getFuncs();
-        size_t n_hash;
-
-        int i = 0;
-        int j;
-        while (i < funcs.size() - 1) {
-            for (int x = i, j = funcs.size() - 1; i <= j; x++, j--) {
-                n_hash = funcs[i].first ^ funcs[j].first;
-                if (Invars.find(n_hash) == Invars.end()) {
-                    //We have a new pair that we can add
-                    auto * invar = new Invar;
-                    invar->support++;
-                    Invars.insert( {n_hash, invar} );
-                }
-                else {
-                    Invars.find(n_hash)->second->support++;
+void scan_for_bugs() {
+    //Go through the global scopes and check each function within the scope and compute the values
+    Scope * currScope;
+    Func * currFunc;
+    for (auto const & [ key, value ] : allScopes) {
+        currScope = value;
+        for (auto const & [ key, value ] : value->getFuncs()) {
+            currFunc = value;
+            for ( auto const & [ key, value ] : currFunc->pairs) {
+                if (!currScope->find(key)) {
+                    std::cout << "Bug in" << currScope->getScope() << '\n';
                 }
             }
         }
     }
-    return 0.0;
 }
+
 
 
 

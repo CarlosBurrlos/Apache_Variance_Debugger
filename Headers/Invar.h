@@ -1,12 +1,7 @@
 #ifndef INC_408DEBUGGER_INVAR_H
 #define INC_408DEBUGGER_INVAR_H
 
-typedef struct invar {
-   int support;
-}Invar;
-
-void   scan();      void    output();
-
-double compute_support();
+void compute_support(Scope * scope);
+void scan_for_bugs();
 
 #endif //INC_408DEBUGGER_INVAR_H
