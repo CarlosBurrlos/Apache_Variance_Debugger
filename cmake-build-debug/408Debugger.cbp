@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6"/>
+	<Project>
+		<Option title="408Debugger"/>
+		<Option makefile_is_custom="1"/>
+		<Option compiler="gcc"/>
+		<Option virtualFolders="CMake Files\;"/>
+		<Build>
+			<Target title="all">
+				<Option working_dir="/Users/los/Documents/cs408/408Debugger/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j12 -f &quot;/Users/los/Documents/cs408/408Debugger/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="/usr/bin/make -j12 -f &quot;/Users/los/Documents/cs408/408Debugger/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j12 -f &quot;/Users/los/Documents/cs408/408Debugger/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j12 -f &quot;/Users/los/Documents/cs408/408Debugger/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="rebuild_cache">
+				<Option working_dir="/Users/los/Documents/cs408/408Debugger/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j12 -f &quot;/Users/los/Documents/cs408/408Debugger/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="/usr/bin/make -j12 -f &quot;/Users/los/Documents/cs408/408Debugger/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j12 -f &quot;/Users/los/Documents/cs408/408Debugger/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j12 -f &quot;/Users/los/Documents/cs408/408Debugger/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="edit_cache">
+				<Option working_dir="/Users/los/Documents/cs408/408Debugger/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j12 -f &quot;/Users/los/Documents/cs408/408Debugger/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="/usr/bin/make -j12 -f &quot;/Users/los/Documents/cs408/408Debugger/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j12 -f &quot;/Users/los/Documents/cs408/408Debugger/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j12 -f &quot;/Users/los/Documents/cs408/408Debugger/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="408Debugger">
+				<Option output="/Users/los/Documents/cs408/408Debugger/cmake-build-debug/408Debugger" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/los/Documents/cs408/408Debugger/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/12.0.0/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j12 -f &quot;/Users/los/Documents/cs408/408Debugger/cmake-build-debug/Makefile&quot;  VERBOSE=1 408Debugger"/>
+					<CompileFile command="/usr/bin/make -j12 -f &quot;/Users/los/Documents/cs408/408Debugger/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j12 -f &quot;/Users/los/Documents/cs408/408Debugger/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j12 -f &quot;/Users/los/Documents/cs408/408Debugger/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="408Debugger/fast">
+				<Option output="/Users/los/Documents/cs408/408Debugger/cmake-build-debug/408Debugger" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/los/Documents/cs408/408Debugger/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/12.0.0/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j12 -f &quot;/Users/los/Documents/cs408/408Debugger/cmake-build-debug/Makefile&quot;  VERBOSE=1 408Debugger/fast"/>
+					<CompileFile command="/usr/bin/make -j12 -f &quot;/Users/los/Documents/cs408/408Debugger/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j12 -f &quot;/Users/los/Documents/cs408/408Debugger/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j12 -f &quot;/Users/los/Documents/cs408/408Debugger/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+		</Build>
+		<Unit filename="/Users/los/Documents/cs408/408Debugger/Debugger/Debug.cpp">
+			<Option target="408Debugger"/>
+		</Unit>
+		<Unit filename="/Users/los/Documents/cs408/408Debugger/Debugger/Func.cpp">
+			<Option target="408Debugger"/>
+		</Unit>
+		<Unit filename="/Users/los/Documents/cs408/408Debugger/Debugger/Invar.cpp">
+			<Option target="408Debugger"/>
+		</Unit>
+		<Unit filename="/Users/los/Documents/cs408/408Debugger/Debugger/NFAs.cpp">
+			<Option target="408Debugger"/>
+		</Unit>
+		<Unit filename="/Users/los/Documents/cs408/408Debugger/Debugger/Parser.cpp">
+			<Option target="408Debugger"/>
+		</Unit>
+		<Unit filename="/Users/los/Documents/cs408/408Debugger/Debugger/Scanner.cpp">
+			<Option target="408Debugger"/>
+		</Unit>
+		<Unit filename="/Users/los/Documents/cs408/408Debugger/Debugger/Scope.cpp">
+			<Option target="408Debugger"/>
+		</Unit>
+		<Unit filename="/Users/los/Documents/cs408/408Debugger/Headers/All.h">
+			<Option target="408Debugger"/>
+		</Unit>
+		<Unit filename="/Users/los/Documents/cs408/408Debugger/Headers/Debugger.h">
+			<Option target="408Debugger"/>
+		</Unit>
+		<Unit filename="/Users/los/Documents/cs408/408Debugger/Headers/Func.h">
+			<Option target="408Debugger"/>
+		</Unit>
+		<Unit filename="/Users/los/Documents/cs408/408Debugger/Headers/Globals.h">
+			<Option target="408Debugger"/>
+		</Unit>
+		<Unit filename="/Users/los/Documents/cs408/408Debugger/Headers/Invar.h">
+			<Option target="408Debugger"/>
+		</Unit>
+		<Unit filename="/Users/los/Documents/cs408/408Debugger/Headers/NFAs.h">
+			<Option target="408Debugger"/>
+		</Unit>
+		<Unit filename="/Users/los/Documents/cs408/408Debugger/Headers/Parser.h">
+			<Option target="408Debugger"/>
+		</Unit>
+		<Unit filename="/Users/los/Documents/cs408/408Debugger/Headers/Scanner.h">
+			<Option target="408Debugger"/>
+		</Unit>
+		<Unit filename="/Users/los/Documents/cs408/408Debugger/Headers/Scope.h">
+			<Option target="408Debugger"/>
+		</Unit>
+		<Unit filename="/Users/los/Documents/cs408/408Debugger/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+	</Project>
+</CodeBlocks_project_file>
