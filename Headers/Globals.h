@@ -3,10 +3,22 @@
 
 #include <unordered_map>
 #include <string_view>
-#include "Invar.h"
+
+typedef struct S scp;
+typedef struct F func;
+
+typedef struct S {
+    std::string_view name;
+    std::unordered_map<std::string_view, func *> Funcs;
+}scp;
+
+typedef struct F {
+    int nCalls;
+    std::string_view name;
+    std::unordered_map<std::string_view, int> pairs;
+}func;
+
+
 
 extern int Token;
-extern std::unordered_map<std::string_view/*scpName*/, Scope *> allScopes;
-extern std::unordered_map<std::string_view/*Name*/,Func *> allFuncs;
-
 #endif //INC_408DEBUGGER_GLOBALS_H

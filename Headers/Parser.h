@@ -1,6 +1,5 @@
 #ifndef INC_408DEBUGGER_PARSER_H
 #define INC_408DEBUGGER_PARSER_H
-#include "Scope.h"
 class Parser {
 
 public:
@@ -9,15 +8,14 @@ public:
     ~Parser(){}
 
     bool checkAndConsume(int);  bool check(int);
-    bool parseArgs(Func *);     bool parseFuncBody();
-    bool parseFuncCall();       bool parseFunc();
-    bool parse();               bool  atEnd();
-    bool parsePreProc();
+    bool parseFuncBody();       bool parseFuncCall();
+    bool parseFunc();           bool parse();
+    bool  atEnd();              bool parsePreProc();
 
-    void consume();             void consumeLine();
+    void consume();
 
 private:
-    Scope * scope;              Scanner * scanner;
+    scp * scope;              Scanner * scanner;
 };
 
 #endif //INC_408DEBUGGER_PARSER_H

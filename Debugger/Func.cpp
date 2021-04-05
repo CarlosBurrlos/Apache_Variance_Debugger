@@ -1,36 +1,18 @@
 //
-// Created by Carlos on 3/27/21.
-//
 #include "../Headers/All.h"
 
-
-Func::Func(std::string_view name)
-:nOccurs(0), funcArgs(nullptr),
-funcName(name) {}
-
-Func::~Func()
-{
-    nOccurs = 0;
-    funcArgs = nullptr;
-    funcName = nullptr;
+func * newFunc(std::string_view fName) {
+    const auto f = new func;
+    f->name = fName;
+    f->nCalls = 0;
+    return f;
 }
 
-int  Func::getNCalls()              {return this->nOccurs;}
-void Func::setNCalls()              {this->nOccurs++;}
-void Func::setArgs(char * c, int n) {this->funcArgs = c, this->argsSize = n;}
+int addPair(func * fnc, std::string_view fName) {
+    fnc->pairs.insert( {fName, 0} );
+    return fnc->pairs.size();
+}
 
-std::string_view Func::getName()    {return funcName;}
-std::string_view Func::getArgs()    {return std::string_view(funcArgs, argsSize);}
-
-Scope * Func::convertToScope() {
-    Scope * s = nullptr;
-    std::string_view name = funcName;
-    if (allFuncs.find(name) == allFuncs.end()) {
-        return s;
-    }
-    s = new Scope(name);
-    assert(s);
-    s->setArgs(funcArgs, argsSize);
-    allScopes.insert( {name, s} );
-    return s;
+bool find(func * fnc, std::string_view func) {
+    return (fnc->pairs.find(func) == fnc->pairs.end());
 }

@@ -1,5 +1,9 @@
 #include "../Headers/All.h"
+
 #include    <iostream>
+
+std::unordered_map<std::string_view, scp *> Scopes;
+std::unordered_map<std::string_view, func *>  Functions;
 
 Scanner * s = new Scanner("../Tests/test1.txt");
 Parser * p = new Parser(s);
@@ -10,6 +14,7 @@ const char * usage = "usage: Debug [(FILE_NAME)]";
 void    __usage(int, char **);
 
 int main(int argc, char * argv[]) {
+
     /*
     if (argc == 0 || argc > 1) {
         __usage(argc, argv);
@@ -17,8 +22,9 @@ int main(int argc, char * argv[]) {
     }
     */
     freopen("../Output/out1.txt", "w", stdout);
-    Func * f = new Func("printf(");
-    allFuncs.insert( {"printf(", f} );
+    func * f = newFunc("printf(");
+    std::cout << "START" << '\n';
+    Functions.insert( {"printf(", f} );
     p->parse();
 
     fclose(stdout);

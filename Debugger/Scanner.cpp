@@ -8,8 +8,8 @@
 
 int Token = 0;
 
-std::unordered_map<std::string_view/*scpName*/, Scope *> allScopes;
-std::unordered_map<std::string_view/*Name*/,Func *> allFuncs;
+std::unordered_map<std::string_view/*scpName*/, scp *> allScopes;
+std::unordered_map<std::string_view/*Name*/,func *> allFuncs;
 
 #define isEndWord(ptr) ({    \
     bool ret;                \

@@ -1,11 +1,12 @@
 #include "../Headers/All.h"
+
 #include <iostream>
 
 
-void compute_support(Scope * scope) {
-    auto funcs = scope->getFuncs();
-    std::unordered_map<std::string_view, Func*>::iterator i;
-    std::unordered_map<std::string_view, Func*>::iterator j;
+void compute_support(scp * scope) {
+    auto funcs = scope->Funcs;
+    std::unordered_map<std::string_view, func *>::iterator i;
+    std::unordered_map<std::string_view, func *>::iterator j;
 
     for (i = funcs.begin(); i != funcs.end(); i++) {
         for (j = i, j++; j != funcs.end(); j++) {
@@ -23,19 +24,19 @@ void compute_support(Scope * scope) {
 
 void scan_for_bugs() {
     //Go through the global scopes and check each function within the scope and compute the values
-    Scope * currScope;
-    Func * currFunc;
-    for (auto const & [ key, value ] : allScopes) {
+    scp * currScope;
+    func * currFunc;
+    for (auto const & [ key, value ] : Scopes) {
         currScope = value;
-        for (auto const & [ key, value ] : currScope->getFuncs()) {
+        for (auto const & [ key, value ] : currScope->Funcs) {
             currFunc = value;
             for ( auto const & [ key, value ] : currFunc->pairs) {
                 std::string_view pair = key;
-                if (currScope->find(pair)) {
-                    std::cout << "Bug in" << currScope->getScope() << '\n';
-                    std::cout << currFunc->getName() << '\t' << pair << '\n';
+                if (!find(currScope, pair)) {
+                    std::cout << "Bug in" << currScope->name << '\n';
+                    std::cout << currFunc->name << '\t' << pair << '\n';
                     std::cout << "Support   " << value << std::string(4, ' ') << "Confidence   "
-                        <<  (100 * ((double)value / currFunc->getNCalls())) << '%' << '\n';
+                        <<  (100 * ((double)value / currFunc->nCalls)) << '%' << '\n';
                     std::cout << "==============================" << '\n';
                 }
             }

@@ -1,7 +1,9 @@
 #ifndef INC_408DEBUGGER_INVAR_H
 #define INC_408DEBUGGER_INVAR_H
 
-void compute_support(Scope * scope);
+#include "Scope.h"
+
+void compute_support(scp * scope);
 void scan_for_bugs();
 
 #endif //INC_408DEBUGGER_INVAR_H

@@ -10,7 +10,6 @@ bool Parser::checkAndConsume(int token) {
 }
 bool Parser::check(int token) {return (Token == token);}
 void Parser::consume() {scanner->readWord();}
-void Parser::consumeLine() {scanner->readLine();}
 bool Parser::atEnd() {
     if (scanner->fIdx == scanner->eofIdx)   scanner->atEnd = true;
     return scanner->atEnd;
@@ -41,7 +40,7 @@ bool Parser::parse() {
 
             //When we reach the end of the scope, reset scope ptr
            if (checkAndConsume(EXT_SCOPE)) {
-               if (scope->getScope() != "main(")
+               if (scope->name != "main(")
                    compute_support(scope);
                scope = nullptr;
             }
@@ -51,7 +50,14 @@ bool Parser::parse() {
         ;
     }
     if (!atEnd())   return false; //TODO::Throw error
-    scan_for_bugs();
+    //scan_for_bugs();
+    for (const auto & [ key, value ] : Scopes) {
+        for (const auto & [ key, value ] : value->Funcs) {
+            for (const auto & [ key, value ] : value->pairs) {
+                std::cout << key << '\n';
+            }
+        }
+    }
     return true;
 }
 
@@ -59,22 +65,37 @@ bool Parser::parseFunc() {
     if (checkAndConsume(RETVOID) || checkAndConsume(RETINT)) {
         if (check(FUNC)) {
             std::string_view name = scanner->getCurrStr();
-            Func * f = nullptr; Scope * s = nullptr;
+            func * _f = nullptr;
+            scp * _s = nullptr;
+
+            //Func * f = nullptr; Scope * s = nullptr;
             //To avoid all this overhead, we could use inheritnc.
-            if (allFuncs.find(name) == allFuncs.end()) {
-                f = new Func(name);
-                allFuncs.insert( {name, f} );
+            if (Functions.find(name) == Functions.end()) {
+                _f = newFunc(name);
+                Functions.insert({name, _f});
             }
-            else {
-                f = allFuncs[name];
-            }
+                /*
+                else {
+                    _f = Functions.at(name);
+                }
+                if (allFuncs.find(name) == allFuncs.end()) {
+                    f = new Func(name);
+                    allFuncs.insert( {name, f} );
+                }
+                else {
+                    f = allFuncs[name];
+                }
+                */
+            //TODO:: Test if this still works
+            // >> Could instead do a consumeTill() ???
             consume();
-            parseArgs(f);
+            consume();
+            //parseArgs(f);
             consume();
             if (check(SCOPE)) {
-                if (!(s = f->convertToScope()))
-                    ;
-                scope = s;
+                const auto s = newScope(name);
+                Functions.erase(name);
+                Scopes.insert( {s->name, s} );
             }
             return true;
         }
@@ -97,18 +118,11 @@ bool Parser::parseFuncCall() {
     if(!scope)
         return 0; //TODO Throw ERR
     std::string_view FuncName = scanner->getCurrStr();
-    try {
-        if(scope->find(FuncName)) {
-            Func * f = allFuncs.at(FuncName);
-            f->setNCalls();
-            scope->addFunc(FuncName, f);
-
-        }
-    } catch (const std::out_of_range& e) {
-        std::cout << "CURRENT IDX:: %d" << scanner->fIdx << '\n';
-        std::cout << scanner->getCurrStr() << '\n';
+    if(!find(scope, FuncName)) {
+        func * f = Functions.at(FuncName);
+        f->nCalls++;
+        addFunc(scope, f);
     }
-
     consume();consume(); //We dont need the args
     return true;
 }
@@ -119,15 +133,6 @@ bool Parser::parsePreProc() {
     //preproc -> # preprocprime word;
     consume();
     if (check(PREPROC)) {
-        return true;
-    }
-    return false;
-}
-
-bool Parser::parseArgs(Func * f) {
-    if (check(ARGS)) {
-        f->setArgs(&scanner->file[scanner->wf_idx],
-                   scanner->getCurrStrSize());
         return true;
     }
     return false;
