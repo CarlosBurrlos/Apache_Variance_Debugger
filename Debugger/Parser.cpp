@@ -1,7 +1,10 @@
 #include "../Headers/All.h"
-
 #include <unordered_set>
 #include <iostream>
+
+//TODO::Rewrite the parsing rules so that we are parsing scopes
+// >> Correctly
+
 
 //========================= Helpers ==========================
 bool Parser::checkAndConsume(int token) {
@@ -19,14 +22,16 @@ bool Parser::atEnd() {
 bool Parser::parse() {
     while (parsePreProc())
         ;
-    while (parseFunc())
-        if (check(SCOPE))
-            goto label;
-        ;
-
     while (parseFunc()) {
+        if (check(ENTR_SCOPE)) {
+            goto label;
+        }
+        ;
+    }
+
+    while (parseScope()) {
         label:
-        if (checkAndConsume(SCOPE)) {
+        if (checkAndConsume(ENTR_SCOPE)) {
             if (checkAndConsume(RETRN)) {
                 checkAndConsume(EXT_SCOPE);
                 scope = nullptr;
@@ -65,38 +70,52 @@ bool Parser::parseFunc() {
     if (checkAndConsume(RETVOID) || checkAndConsume(RETINT)) {
         if (check(FUNC)) {
             std::string_view name = scanner->getCurrStr();
+            if (name == "main(") {
+                scp * _s = nullptr;
+                if (Scopes.find(name) == Scopes.end()) {
+                    _s = newScope(name);
+                    Scopes.insert({name, _s});
+                    scope = _s;
+                }
+                consume();
+                consume();
+                return true;
+            }
             func * _f = nullptr;
-            scp * _s = nullptr;
-
-            //Func * f = nullptr; Scope * s = nullptr;
-            //To avoid all this overhead, we could use inheritnc.
             if (Functions.find(name) == Functions.end()) {
                 _f = newFunc(name);
                 Functions.insert({name, _f});
             }
-                /*
-                else {
-                    _f = Functions.at(name);
-                }
-                if (allFuncs.find(name) == allFuncs.end()) {
-                    f = new Func(name);
-                    allFuncs.insert( {name, f} );
-                }
-                else {
-                    f = allFuncs[name];
-                }
-                */
-            //TODO:: Test if this still works
-            // >> Could instead do a consumeTill() ???
             consume();
             consume();
-            //parseArgs(f);
-            consume();
-            if (check(SCOPE)) {
-                const auto s = newScope(name);
-                Functions.erase(name);
-                Scopes.insert( {s->name, s} );
+        }
+        else if (check(SCOPE)) {
+            std::string_view name = scanner->getCurrStr();
+            scp * _s = nullptr;
+            if (Scopes.find(name) == Scopes.end()) {
+                _s = newScope(name);
+                Scopes.insert({name, _s});
             }
+            consume();
+            consume();
+        }
+        return true;
+    }
+    return false;
+}
+
+bool Parser::parseScope() {
+    if (check(RETVOID) || check(RETINT)) {
+        consume();
+        if (check(SCOPE)) {
+            //consume args
+            std::string_view scp_name = scanner->getCurrStr();
+            consume();
+            if (check(ENTR_SCOPE)) {
+                scope = Scopes.find(scp_name)->second;
+                return true;
+            }
+            //This is where we are processing the preprocs
             return true;
         }
     }
@@ -113,7 +132,7 @@ bool Parser::parseFuncBody() {
 //TODO::Test more - Good so far
 bool Parser::parseFuncCall() {
     //funcCall -> funcName ( args );
-    if (!check(FUNC))
+    if (!check(FUNC) && !check(SCOPE))
         return false;
     if(!scope)
         return 0; //TODO Throw ERR

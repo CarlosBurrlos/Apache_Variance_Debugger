@@ -6,61 +6,61 @@
 
 #IncludeRegexTransform: 
 
-/Users/los/Documents/cs408/408Debugger/Debugger/Parser.cpp
+/Users/carlosburroughs/408Debugger/Debugger/Parser.cpp
 ../Headers/All.h
-/Users/los/Documents/cs408/408Debugger/Headers/All.h
+/Users/carlosburroughs/408Debugger/Headers/All.h
 unordered_set
 -
 iostream
 -
 
-/Users/los/Documents/cs408/408Debugger/Headers/All.h
+/Users/carlosburroughs/408Debugger/Headers/All.h
 Invar.h
-/Users/los/Documents/cs408/408Debugger/Headers/Invar.h
+/Users/carlosburroughs/408Debugger/Headers/Invar.h
 Globals.h
-/Users/los/Documents/cs408/408Debugger/Headers/Globals.h
+/Users/carlosburroughs/408Debugger/Headers/Globals.h
 Debugger.h
-/Users/los/Documents/cs408/408Debugger/Headers/Debugger.h
+/Users/carlosburroughs/408Debugger/Headers/Debugger.h
 Func.h
-/Users/los/Documents/cs408/408Debugger/Headers/Func.h
+/Users/carlosburroughs/408Debugger/Headers/Func.h
 NFAs.h
-/Users/los/Documents/cs408/408Debugger/Headers/NFAs.h
+/Users/carlosburroughs/408Debugger/Headers/NFAs.h
 Parser.h
-/Users/los/Documents/cs408/408Debugger/Headers/Parser.h
+/Users/carlosburroughs/408Debugger/Headers/Parser.h
 Scanner.h
-/Users/los/Documents/cs408/408Debugger/Headers/Scanner.h
+/Users/carlosburroughs/408Debugger/Headers/Scanner.h
 Scope.h
-/Users/los/Documents/cs408/408Debugger/Headers/Scope.h
+/Users/carlosburroughs/408Debugger/Headers/Scope.h
 
-/Users/los/Documents/cs408/408Debugger/Headers/Debugger.h
+/Users/carlosburroughs/408Debugger/Headers/Debugger.h
 
-/Users/los/Documents/cs408/408Debugger/Headers/Func.h
+/Users/carlosburroughs/408Debugger/Headers/Func.h
 Globals.h
-/Users/los/Documents/cs408/408Debugger/Headers/Globals.h
+/Users/carlosburroughs/408Debugger/Headers/Globals.h
 string_view
 -
 unordered_map
 -
 
-/Users/los/Documents/cs408/408Debugger/Headers/Globals.h
+/Users/carlosburroughs/408Debugger/Headers/Globals.h
 unordered_map
 -
 string_view
 -
 
-/Users/los/Documents/cs408/408Debugger/Headers/Invar.h
+/Users/carlosburroughs/408Debugger/Headers/Invar.h
 Scope.h
-/Users/los/Documents/cs408/408Debugger/Headers/Scope.h
+/Users/carlosburroughs/408Debugger/Headers/Scope.h
 
-/Users/los/Documents/cs408/408Debugger/Headers/NFAs.h
+/Users/carlosburroughs/408Debugger/Headers/NFAs.h
 
-/Users/los/Documents/cs408/408Debugger/Headers/Parser.h
+/Users/carlosburroughs/408Debugger/Headers/Parser.h
 
-/Users/los/Documents/cs408/408Debugger/Headers/Scanner.h
+/Users/carlosburroughs/408Debugger/Headers/Scanner.h
 
-/Users/los/Documents/cs408/408Debugger/Headers/Scope.h
+/Users/carlosburroughs/408Debugger/Headers/Scope.h
 string_view
 -
 Globals.h
-/Users/los/Documents/cs408/408Debugger/Headers/Globals.h
+/Users/carlosburroughs/408Debugger/Headers/Globals.h
 

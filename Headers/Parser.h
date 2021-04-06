@@ -11,6 +11,7 @@ public:
     bool parseFuncBody();       bool parseFuncCall();
     bool parseFunc();           bool parse();
     bool  atEnd();              bool parsePreProc();
+    bool parseScope();
 
     void consume();
 

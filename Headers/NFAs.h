@@ -10,6 +10,7 @@
 #define RETRN       6
 #define ARGS        7
 #define EXT_SCOPE   8
+#define ENTR_SCOPE  9
 
 class NFAs {
 public:
@@ -18,9 +19,10 @@ public:
     ~NFAs() {if (wordStart) wordStart = nullptr;}
 
     int compute();      int getPreProc();
-    int getFunc();      int getScope();
+    int getFunc();      int getEntrScope();
     int getVoid();      int getInt();
     int getReturn();    int getArgs();
+    int getScope();     int getExtScope();
 
     void setWordStart(char * front, char * end) {wordStart = front; wordEnd = end;}
 

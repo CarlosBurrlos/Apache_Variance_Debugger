@@ -30,13 +30,16 @@ int NFAs::compute() {
     int check = 0;
     if (getPreProc())
         return PREPROC;
+    else if (getScope())
+        return SCOPE;
     else if (getFunc())
         return FUNC;
     else if (getArgs())
         return ARGS;
-    else if ((check = getScope()))
-        if (check == 1) return SCOPE;
-        else            return EXT_SCOPE;
+    else if (getEntrScope())
+        return ENTR_SCOPE;
+    else if (getExtScope())
+        return EXT_SCOPE;
     else if (getVoid())
         return RETVOID;
     else if (getInt())
@@ -92,10 +95,15 @@ int NFAs::getFunc() {
     return 1;
 }
 
-int NFAs::getScope() {
+int NFAs::getEntrScope() {
     temp = wordStart;
-    if (*(temp) == '{')      return 1;
-    else if (*(temp) == '}') return 2;
+    if (*(temp) == '{')      {return 1;}
+    return 0;
+}
+
+int NFAs::getExtScope() {
+    temp = wordStart;
+    if (*(temp) == '}')      {return 1;}
     return 0;
 }
 
@@ -117,6 +125,7 @@ int NFAs::getInt() {
 }
 
 int NFAs::getReturn() {
+    temp = wordStart;
     if (*(temp) != 'r')   return 0; temp++;
     if (*(temp++) != 'e') return 0;
     if (*(temp++) != 't') return 0;
@@ -124,5 +133,19 @@ int NFAs::getReturn() {
     if (*(temp++) != 'r') return 0;
     if (*(temp++) != 'n') return 0;
     while (*(temp++) != ';') ;
+    return 1;
+}
+
+int NFAs::getScope() {
+    temp = wordStart;
+    if (*(temp) != 's')  return 0; temp++;
+    if (*(temp++) != 'c') return 0;
+    if (*(temp++) != 'o') return 0;
+    if (*(temp++) != 'p') return 0;
+    if (*(temp++) != 'e') return 0;
+    while (temp < wordEnd) {
+        temp++;
+    }
+    if (*(temp++) != '(') return 0;
     return 1;
 }

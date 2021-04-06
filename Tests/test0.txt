@@ -1,7 +1,6 @@
 #i "s"
 
 void s();
-
 void A();
 
 int m() {

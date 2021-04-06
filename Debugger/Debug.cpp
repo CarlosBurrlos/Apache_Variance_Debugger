@@ -1,11 +1,13 @@
 #include "../Headers/All.h"
 
 #include    <iostream>
+#include <sys/stat.h>
+#include <zconf.h>
 
 std::unordered_map<std::string_view, scp *> Scopes;
 std::unordered_map<std::string_view, func *>  Functions;
 
-Scanner * s = new Scanner("../Tests/test1.txt");
+Scanner * s = new Scanner("/Users/carlosburroughs/408Debugger/Tests/test1.txt");
 Parser * p = new Parser(s);
 
 const char * _illegal_usage = "Debug: illegal option";
@@ -21,9 +23,9 @@ int main(int argc, char * argv[]) {
         return -1;
     }
     */
-    freopen("../Output/out1.txt", "w", stdout);
+
+    freopen("/Users/carlosburroughs/408Debugger/Output/out1.txt", "w", stdout);
     func * f = newFunc("printf(");
-    std::cout << "START" << '\n';
     Functions.insert( {"printf(", f} );
     p->parse();
 
