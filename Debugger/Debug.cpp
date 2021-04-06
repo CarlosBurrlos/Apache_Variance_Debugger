@@ -1,9 +1,5 @@
 #include "../Headers/All.h"
-
-#include <unistd.h>
 #include <iostream>
-#include <sys/stat.h>
-#include <zconf.h>
 
 std::unordered_map<std::string_view, scp *> Scopes;
 std::unordered_map<std::string_view, func *>  Functions;
@@ -25,7 +21,8 @@ int main(int argc, char * argv[]) {
     }
     */
     func * f = newFunc("printf");
-    Functions.insert( {"printf", f} );
+    auto n_func = std::make_pair("printf", f);
+    Functions.insert(n_func);
     p->parse();
     return 0;
 }
