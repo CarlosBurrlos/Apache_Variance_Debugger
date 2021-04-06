@@ -3,4 +3,4 @@ project(408Debugger)
 
 set(CMAKE_CXX_STANDARD 17)
 
-add_executable(408Debugger Debugger/Debug.cpp Debugger/Scanner.cpp Debugger/Scope.cpp Debugger/Parser.cpp Headers/Debugger.h Debugger/NFAs.cpp Headers/NFAs.h Headers/Scanner.h Headers/Scope.h Headers/Parser.h Headers/Func.h Headers/All.h Headers/Globals.h Debugger/Func.cpp Headers/Invar.h Debugger/Invar.cpp)
+add_executable(408Debugger src/Debug.cpp src/Scanner.cpp src/Scope.cpp src/Parser.cpp include/Debugger.h src/NFAs.cpp include/NFAs.h include/Scanner.h include/Scope.h include/Parser.h include/Func.h include/All.h include/Globals.h src/Func.cpp include/Invar.h src/Invar.cpp)

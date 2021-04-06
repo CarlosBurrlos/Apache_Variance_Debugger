@@ -1,10 +1,10 @@
-#include "../Headers/All.h"
+#include "../include/All.h"
 #include <iostream>
 
 std::unordered_map<std::string_view, scp *> Scopes;
 std::unordered_map<std::string_view, func *>  Functions;
 
-Scanner * s = new Scanner("/Users/carlos/Desktop/__/School/2021/CS408/408Debugger/Tests/test1.txt");
+Scanner * s = new Scanner("/Users/carlos/Desktop/__/School/2021/CS408/408Debugger/tests/test1.txt");
 Parser * p = new Parser(s);
 
 const char * _illegal_usage = "Debug: illegal option";
