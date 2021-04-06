@@ -1,11 +1,6 @@
 #include "../Headers/All.h"
 #include <unordered_set>
 #include <iostream>
-
-//TODO::Rewrite the parsing rules so that we are parsing scopes
-// >> Correctly
-
-
 //========================= Helpers ==========================
 bool Parser::checkAndConsume(int token) {
     if (Token == token) { scanner->readWord(); return true; }
@@ -28,7 +23,6 @@ bool Parser::parse() {
         }
         ;
     }
-
     while (parseScope()) {
         label:
         if (checkAndConsume(ENTR_SCOPE)) {
@@ -37,7 +31,6 @@ bool Parser::parse() {
                 scope = nullptr;
                 continue;
             }
-
             //Consume all funcCalls inside the scope body
             if (parseFuncBody()){
                 checkAndConsume(RETRN);
@@ -54,15 +47,21 @@ bool Parser::parse() {
         }
         ;
     }
-    if (!atEnd())   return false; //TODO::Throw error
-    //scan_for_bugs();
+    scan_for_bugs();
+    //[DB]
+    /*==========================================================================================
     for (const auto & [ key, value ] : Scopes) {
+        std::cout << "Scope:: " << key << '\n';
         for (const auto & [ key, value ] : value->Funcs) {
+            std::cout << "    Func:: " << key << '\n';
+            std::cout << "        Pairs:: " << '\n';
             for (const auto & [ key, value ] : value->pairs) {
-                std::cout << key << '\n';
+                std::cout << "          " << "Name: "<< key  << " Count: " << value << '\n';
             }
         }
     }
+    ==========================================================================================*/
+    //[DB]
     return true;
 }
 
@@ -111,11 +110,11 @@ bool Parser::parseScope() {
             //consume args
             std::string_view scp_name = scanner->getCurrStr();
             consume();
+            consume();
             if (check(ENTR_SCOPE)) {
                 scope = Scopes.find(scp_name)->second;
                 return true;
             }
-            //This is where we are processing the preprocs
             return true;
         }
     }
@@ -132,10 +131,17 @@ bool Parser::parseFuncBody() {
 //TODO::Test more - Good so far
 bool Parser::parseFuncCall() {
     //funcCall -> funcName ( args );
-    if (!check(FUNC) && !check(SCOPE))
+    if (!check(FUNC) && !check(SCOPE)) {
         return false;
-    if(!scope)
+    }
+    if(!scope) {
         return 0; //TODO Throw ERR
+    }
+    //We do not need to expand our scopes - request of worksheet
+    if (check(SCOPE)) {
+        consume(); consume();
+        return true;
+    }
     std::string_view FuncName = scanner->getCurrStr();
     if(!find(scope, FuncName)) {
         func * f = Functions.at(FuncName);
@@ -146,8 +152,6 @@ bool Parser::parseFuncCall() {
     return true;
 }
 
-//Note: Do not need to read the rest of line
-//  > This is handled inside the token computation
 bool Parser::parsePreProc() {
     //preproc -> # preprocprime word;
     consume();

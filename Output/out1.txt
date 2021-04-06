@@ -1,0 +1,87 @@
+Scope:: main(
+Scope:: scope6(
+    Func:: D(
+        Pairs:: 
+          Name: C( Count: 2
+          Name: B( Count: 4
+          Name: A( Count: 3
+    Func:: B(
+        Pairs:: 
+          Name: D( Count: 4
+          Name: C( Count: 1
+          Name: A( Count: 3
+Scope:: scope3(
+    Func:: B(
+        Pairs:: 
+          Name: D( Count: 4
+          Name: C( Count: 1
+          Name: A( Count: 3
+    Func:: A(
+        Pairs:: 
+          Name: D( Count: 3
+          Name: C( Count: 2
+          Name: B( Count: 3
+Scope:: scope4(
+    Func:: D(
+        Pairs:: 
+          Name: C( Count: 2
+          Name: B( Count: 4
+          Name: A( Count: 3
+    Func:: B(
+        Pairs:: 
+          Name: D( Count: 4
+          Name: C( Count: 1
+          Name: A( Count: 3
+Scope:: scope2(
+    Func:: D(
+        Pairs:: 
+          Name: C( Count: 2
+          Name: B( Count: 4
+          Name: A( Count: 3
+    Func:: C(
+        Pairs:: 
+          Name: D( Count: 2
+          Name: B( Count: 1
+          Name: A( Count: 2
+    Func:: A(
+        Pairs:: 
+          Name: D( Count: 3
+          Name: C( Count: 2
+          Name: B( Count: 3
+Scope:: scope5(
+    Func:: A(
+        Pairs:: 
+          Name: D( Count: 3
+          Name: C( Count: 2
+          Name: B( Count: 3
+    Func:: D(
+        Pairs:: 
+          Name: C( Count: 2
+          Name: B( Count: 4
+          Name: A( Count: 3
+    Func:: B(
+        Pairs:: 
+          Name: D( Count: 4
+          Name: C( Count: 1
+          Name: A( Count: 3
+Scope:: scope1(
+    Func:: D(
+        Pairs:: 
+          Name: C( Count: 2
+          Name: B( Count: 4
+          Name: A( Count: 3
+    Func:: C(
+        Pairs:: 
+          Name: D( Count: 2
+          Name: B( Count: 1
+          Name: A( Count: 2
+    Func:: B(
+        Pairs:: 
+          Name: D( Count: 4
+          Name: C( Count: 1
+          Name: A( Count: 3
+    Func:: A(
+        Pairs:: 
+          Name: D( Count: 3
+          Name: C( Count: 2
+          Name: B( Count: 3
