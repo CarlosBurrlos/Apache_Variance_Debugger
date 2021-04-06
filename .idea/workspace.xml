@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="CMakeRunConfigurationManager" shouldGenerate="true" shouldDeleteObsolete="true">
+    <generated>
+      <config projectName="408Debugger" targetName="408Debugger" />
+    </generated>
+  </component>
+  <component name="CMakeSettings">
+    <configurations>
+      <configuration PROFILE_NAME="Debug" CONFIG_NAME="Debug" ENABLED="true" />
+    </configurations>
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="cc836e11-d7fe-4bc3-b537-95698c4542b4" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Debugger/Debug.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Debug.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Debugger/Func.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Func.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Debugger/Invar.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Invar.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Debugger/Makefile" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Debugger/NFAs.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/NFAs.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Debugger/Parser.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Parser.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Debugger/Scanner.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Scanner.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Debugger/Scope.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Scope.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Headers/All.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/All.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Headers/Debugger.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/Debugger.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Headers/Func.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/Func.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Headers/Globals.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/Globals.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Headers/Invar.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/Invar.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Headers/NFAs.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/NFAs.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Headers/Parser.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/Parser.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Headers/Scanner.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/Scanner.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Headers/Scope.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/Scope.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Output/out1.txt" beforeDir="false" afterPath="$PROJECT_DIR$/out/out1.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Tests/test0.txt" beforeDir="false" afterPath="$PROJECT_DIR$/tests/test0.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Tests/test1.txt" beforeDir="false" afterPath="$PROJECT_DIR$/tests/test1.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Tests/test2.txt" beforeDir="false" afterPath="$PROJECT_DIR$/tests/test2.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Tests/test3.txt" beforeDir="false" afterPath="$PROJECT_DIR$/tests/test3.txt" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ClangdSettings">
+    <option name="formatViaClangd" value="false" />
+  </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="CMakeBuildProfile:Debug" />
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MakefileLocalSettings">
+    <option name="projectSyncType">
+      <map>
+        <entry key="$PROJECT_DIR$" value="RE_IMPORT" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectId" id="1qnwmRJrqdpzvd4aVsCMAiLOXZY" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="cf.first.check.clang-format" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="settings.editor.selected.configurable" value="web.server" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/Debugger" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration default="true" type="CLionExternalRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" PASS_PARENT_ENVS_2="true">
+      <method v="2">
+        <option name="CLION.EXTERNAL.BUILD" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="408Debugger" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="408Debugger" TARGET_NAME="408Debugger" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="408Debugger" RUN_TARGET_NAME="408Debugger">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="GradleAppRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" PASS_PARENT_ENVS_2="true">
+      <method v="2">
+        <option name="com.jetbrains.cidr.cpp.gradle.execution.GradleNativeBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="cc836e11-d7fe-4bc3-b537-95698c4542b4" name="Default Changelist" comment="" />
+      <created>1617728821303</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1617728821303</updated>
+      <workItem from="1617728825477" duration="5698000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>
