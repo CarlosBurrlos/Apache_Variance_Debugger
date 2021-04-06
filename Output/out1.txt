@@ -1,87 +1,72 @@
-Scope:: main(
-Scope:: scope6(
-    Func:: D(
-        Pairs:: 
-          Name: C( Count: 2
-          Name: B( Count: 4
-          Name: A( Count: 3
-    Func:: B(
-        Pairs:: 
-          Name: D( Count: 4
-          Name: C( Count: 1
-          Name: A( Count: 3
-Scope:: scope3(
-    Func:: B(
-        Pairs:: 
-          Name: D( Count: 4
-          Name: C( Count: 1
-          Name: A( Count: 3
-    Func:: A(
-        Pairs:: 
-          Name: D( Count: 3
-          Name: C( Count: 2
-          Name: B( Count: 3
-Scope:: scope4(
-    Func:: D(
-        Pairs:: 
-          Name: C( Count: 2
-          Name: B( Count: 4
-          Name: A( Count: 3
-    Func:: B(
-        Pairs:: 
-          Name: D( Count: 4
-          Name: C( Count: 1
-          Name: A( Count: 3
-Scope:: scope2(
-    Func:: D(
-        Pairs:: 
-          Name: C( Count: 2
-          Name: B( Count: 4
-          Name: A( Count: 3
-    Func:: C(
-        Pairs:: 
-          Name: D( Count: 2
-          Name: B( Count: 1
-          Name: A( Count: 2
-    Func:: A(
-        Pairs:: 
-          Name: D( Count: 3
-          Name: C( Count: 2
-          Name: B( Count: 3
-Scope:: scope5(
-    Func:: A(
-        Pairs:: 
-          Name: D( Count: 3
-          Name: C( Count: 2
-          Name: B( Count: 3
-    Func:: D(
-        Pairs:: 
-          Name: C( Count: 2
-          Name: B( Count: 4
-          Name: A( Count: 3
-    Func:: B(
-        Pairs:: 
-          Name: D( Count: 4
-          Name: C( Count: 1
-          Name: A( Count: 3
-Scope:: scope1(
-    Func:: D(
-        Pairs:: 
-          Name: C( Count: 2
-          Name: B( Count: 4
-          Name: A( Count: 3
-    Func:: C(
-        Pairs:: 
-          Name: D( Count: 2
-          Name: B( Count: 1
-          Name: A( Count: 2
-    Func:: B(
-        Pairs:: 
-          Name: D( Count: 4
-          Name: C( Count: 1
-          Name: A( Count: 3
-    Func:: A(
-        Pairs:: 
-          Name: D( Count: 3
-          Name: C( Count: 2
-          Name: B( Count: 3
+Bug inscope6(
+D(	C(
+Support   2    Confidence   40%
+==============================
+Bug inscope6(
+D(	A(
+Support   3    Confidence   60%
+==============================
+Bug inscope6(
+B(	C(
+Support   1    Confidence   20%
+==============================
+Bug inscope6(
+B(	A(
+Support   3    Confidence   60%
+==============================
+Bug inscope3(
+B(	D(
+Support   4    Confidence   80%
+==============================
+Bug inscope3(
+B(	C(
+Support   1    Confidence   20%
+==============================
+Bug inscope3(
+A(	D(
+Support   3    Confidence   75%
+==============================
+Bug inscope3(
+A(	C(
+Support   2    Confidence   50%
+==============================
+Bug inscope4(
+D(	C(
+Support   2    Confidence   40%
+==============================
+Bug inscope4(
+D(	A(
+Support   3    Confidence   60%
+==============================
+Bug inscope4(
+B(	C(
+Support   1    Confidence   20%
+==============================
+Bug inscope4(
+B(	A(
+Support   3    Confidence   60%
+==============================
+Bug inscope2(
+D(	B(
+Support   4    Confidence   80%
+==============================
+Bug inscope2(
+C(	B(
+Support   1    Confidence   50%
+==============================
+Bug inscope2(
+A(	B(
+Support   3    Confidence   75%
+==============================
+Bug inscope5(
+A(	C(
+Support   2    Confidence   50%
+==============================
+Bug inscope5(
+D(	C(
+Support   2    Confidence   40%
+==============================
+Bug inscope5(
+B(	C(
+Support   1    Confidence   20%
+==============================
