@@ -5,7 +5,6 @@
 #include    <sys/stat.h>
 #include    <sys/mman.h>
 #include    <unistd.h>
-#include    <iostream>
 
 int Token = 0;
 
@@ -59,7 +58,7 @@ int Scanner::readWord () {
         if (check == END || check == ENDWORD) 
             break;
     }
-    word = getCurrStr();
+
 
     nfa->setWordStart(&file[wf_idx], &file[we_idx]);
     Token = nfa->compute();

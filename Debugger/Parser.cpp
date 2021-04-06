@@ -1,5 +1,4 @@
 #include "../Headers/All.h"
-#include <unordered_set>
 #include <iostream>
 //========================= Helpers ==========================
 bool Parser::checkAndConsume(int token) {
@@ -38,7 +37,7 @@ bool Parser::parse() {
 
             //When we reach the end of the scope, reset scope ptr
            if (checkAndConsume(EXT_SCOPE)) {
-               if (scope->name != "main(")
+               if (scope->name != "main")
                    compute_support(scope);
                scope = nullptr;
             }
@@ -67,9 +66,10 @@ bool Parser::parse() {
 
 bool Parser::parseFunc() {
     if (checkAndConsume(RETVOID) || checkAndConsume(RETINT)) {
+        std::string_view name = scanner->getCurrStr();
+        name.remove_suffix(1);
         if (check(FUNC)) {
-            std::string_view name = scanner->getCurrStr();
-            if (name == "main(") {
+            if (name == "main") {
                 scp * _s = nullptr;
                 if (Scopes.find(name) == Scopes.end()) {
                     _s = newScope(name);
@@ -89,7 +89,6 @@ bool Parser::parseFunc() {
             consume();
         }
         else if (check(SCOPE)) {
-            std::string_view name = scanner->getCurrStr();
             scp * _s = nullptr;
             if (Scopes.find(name) == Scopes.end()) {
                 _s = newScope(name);
@@ -109,6 +108,7 @@ bool Parser::parseScope() {
         if (check(SCOPE)) {
             //consume args
             std::string_view scp_name = scanner->getCurrStr();
+            scp_name.remove_suffix(1);
             consume();
             consume();
             if (check(ENTR_SCOPE)) {
@@ -143,6 +143,7 @@ bool Parser::parseFuncCall() {
         return true;
     }
     std::string_view FuncName = scanner->getCurrStr();
+    FuncName.remove_suffix(1);
     if(!find(scope, FuncName)) {
         func * f = Functions.at(FuncName);
         f->nCalls++;

@@ -32,12 +32,13 @@ void scan_for_bugs() {
             currFunc = value;
             for ( auto const & [ key, value ] : currFunc->pairs) {
                 std::string_view pair = key;
+                //bug: (...) in scopeN pair: ((...),(...)), support: N, confidence: 00.00%
                 if (!find(currScope, pair)) {
-                    std::cout << "Bug in" << currScope->name << '\n';
-                    std::cout << currFunc->name << '\t' << pair << '\n';
-                    std::cout << "Support   " << value << std::string(4, ' ') << "Confidence   "
-                        <<  (100 * ((double)value / currFunc->nCalls)) << '%' << '\n';
-                    std::cout << "==============================" << '\n';
+                    std::cout << "bug: " << currFunc->name << " in " << currScope->name << ',';
+                    std::cout << " pair: " << '(' << currFunc->name << ',' << pair << "),";
+                    std::cout << " support: " << value << ',';
+                    std::cout << " confidence: " << (100 * ((double)value/ currFunc->nCalls)) << '%' << '\n';
+                    //std::cout << "==============================" << '\n';
                 }
             }
         }
