@@ -31,9 +31,14 @@ int main(int argc, char * argv[]) {
     s = new Scanner(argv[1]);
     p = new Parser(s);
 
-    T_SUPPORT = atoi(argv[2]);
-    T_CONFIDENCE = atof(argv[3]);
-
+    if (argc < 4) {
+        T_SUPPORT = 3;
+        T_CONFIDENCE = 65;
+    } 
+    else {
+        T_SUPPORT = atoi(argv[2]);
+        T_CONFIDENCE = atoi(argv[3]);
+    }
     
     func * f = newFunc("printf");
     auto n_func = std::make_pair("printf", f);
