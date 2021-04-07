@@ -28,7 +28,6 @@ Scanner.o : $(SDIR)Scanner.cpp $(IDIR)Scanner.h $(IDIR)Globals.h
 
 Scope.o : $(SDIR)Scope.cpp $(IDIR)Scope.h
 			$(CC) -std=c++17 -c $(SDIR)Scope.cpp
->>>>>>> 22be215843df2a1642a64b0d5e72dc3fe003d22e
 
 .PHONY : clean
 

@@ -49,8 +49,6 @@ int NFAs::compute() {
     return BAD;
 }
 
-//TODO Create a get args
-
 int NFAs::getArgs() {
     temp = wordStart;
     while (1) {

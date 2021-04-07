@@ -15,8 +15,10 @@
 class NFAs {
 public:
 
-    NFAs(): wordStart(0){}
-    ~NFAs() {if (wordStart) wordStart = 0;}
+    //TODO::Initialize wordEnd to zero/null and Initialize temp to null
+
+    NFAs(): wordStart(0), wordEnd(0), temp(0){}
+    ~NFAs() {wordStart = wordEnd = temp = 0;}
 
     int compute();      int getPreProc();
     int getFunc();      int getEntrScope();

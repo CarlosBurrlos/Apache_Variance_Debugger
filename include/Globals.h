@@ -10,5 +10,7 @@
 extern std::unordered_map<std::string_view, scp *> Scopes;
 extern std::unordered_map<std::string_view, func *>  Functions;
 extern int Token;
+extern int T_SUPPORT;
+extern double T_CONFIDENCE;
 
 #endif //INC_408DEBUGGER_GLOBALS_H

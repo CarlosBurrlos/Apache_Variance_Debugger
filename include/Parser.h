@@ -7,8 +7,8 @@ class Parser {
 
 public:
 
-    Parser(Scanner * s){ scanner = s;}
-    ~Parser(){}
+    Parser(Scanner * s):scope(0){ scanner = s;}
+    ~Parser(){scope = 0;}
 
     bool checkAndConsume(int);  bool check(int);
     bool parseFuncBody();       bool parseFuncCall();
@@ -19,6 +19,7 @@ public:
     void consume();
 
 private:
+    //TODO::Initialize scope
     scp * scope;              Scanner * scanner;
 };
 

@@ -36,7 +36,10 @@ Scanner::Scanner(const char * fName)
 {
     fileDescpt = open(fName, O_RDONLY);
     assert(fileDescpt != -1);
-	struct stat sb; fstat(fileDescpt, &sb);
+	struct stat sb;
+    if (fstat(fileDescpt, &sb) == -1) {
+        exit(0);
+    }
 	eofIdx = sb.st_size;
 	file = (char *)
 	        mmap(nullptr, sb.st_size,PROT_READ,MAP_PRIVATE, fileDescpt, 0);
@@ -107,7 +110,6 @@ int Scanner::readChar() {
 
 int Scanner::getCurrStrSize() const {
     if (we_idx < wf_idx) return 0;
-    //TODO::This is an error
     return (we_idx - wf_idx) + 1;
 }
 
