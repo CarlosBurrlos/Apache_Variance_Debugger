@@ -33,14 +33,19 @@ void scan_for_bugs() {
             currFunc = value;
             for ( auto const & [ key, value ] : currFunc->pairs) {
                 std::string_view pair = key;
-                //bug: (...) in scopeN pair: ((...),(...)), support: N, confidence: 00.00%
+                //TODO:: Reformat the output && Sort the pairs in lexicographic order
+                //bug: %s in %s, pair: (%s, %s), support: %d, confidence: %.2f%%\n
                 if (!find(currScope, pair)) {
                     double invarCompute = (100 * ((double) value / currFunc->nCalls));
                     if (invarCompute >= T_CONFIDENCE && value >= T_SUPPORT) {
                         std::cout << "bug: " << currFunc->name << " in " << currScope->name << ',';
-                        std::cout << " pair: " << '(' << currFunc->name << ',' << pair << "),";
+                        if (currFunc->name < pair)
+                            std::cout << " pair: " << '(' << currFunc->name << ',' << pair << "),";
+                        else 
+                            std::cout << " pair: " << '(' << pair << ',' << currFunc->name << "),";
                         std::cout << " support: " << value << ',';
-                        std::cout << " confidence: " << (100 * ((double)value/ currFunc->nCalls)) << '%' << '\n';
+                        std::cout.precision(2);
+                        std::cout << " confidence: " << std::fixed << ( 100 * ((double)value/ currFunc->nCalls)) << '%' << '\n';
                     }
                 }
             }
