@@ -1,4 +1,5 @@
-#include "../include/All.h"
+#include "../include/Invar.h"
+#include "../include/Globals.h"
 
 #include <iostream>
 
@@ -38,7 +39,6 @@ void scan_for_bugs() {
                     std::cout << " pair: " << '(' << currFunc->name << ',' << pair << "),";
                     std::cout << " support: " << value << ',';
                     std::cout << " confidence: " << (100 * ((double)value/ currFunc->nCalls)) << '%' << '\n';
-                    //std::cout << "==============================" << '\n';
                 }
             }
         }

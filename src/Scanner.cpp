@@ -1,4 +1,5 @@
-#include    "../include/All.h"
+#include "../include/Scanner.h"
+#include "../include/Globals.h"
 
 #include    <cassert>
 #include    <fcntl.h>

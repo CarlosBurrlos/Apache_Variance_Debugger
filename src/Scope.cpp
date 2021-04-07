@@ -1,7 +1,5 @@
 #include "../include/Scope.h"
 
-
-//==============================================================
 scp * newScope(std::string_view sName) {
     const auto s = new scp;
     s->name = sName;
@@ -16,4 +14,3 @@ int addFunc(scp * scp,  func * f) {
 bool find(scp * scp, std::string_view func) {
     return (scp->Funcs.find(func) != scp->Funcs.end());
 }
-//==============================================================

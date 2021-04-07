@@ -1,5 +1,4 @@
-//
-#include "../include/All.h"
+#include "../include/Func.h"
 
 func * newFunc(std::string_view fName) {
     const auto f = new func;

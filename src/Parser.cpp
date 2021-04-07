@@ -1,5 +1,9 @@
-#include "../include/All.h"
-#include <iostream>
+#include "../include/Invar.h"
+#include "../include/Globals.h"
+#include "../include/Parser.h"
+#include "../include/NFAs.h"
+
+
 //========================= Helpers ==========================
 bool Parser::checkAndConsume(int token) {
     if (Token == token) { scanner->readWord(); return true; }
@@ -47,20 +51,6 @@ bool Parser::parse() {
         ;
     }
     scan_for_bugs();
-    //[DB]
-    /*==========================================================================================
-    for (const auto & [ key, value ] : Scopes) {
-        std::cout << "Scope:: " << key << '\n';
-        for (const auto & [ key, value ] : value->Funcs) {
-            std::cout << "    Func:: " << key << '\n';
-            std::cout << "        Pairs:: " << '\n';
-            for (const auto & [ key, value ] : value->pairs) {
-                std::cout << "          " << "Name: "<< key  << " Count: " << value << '\n';
-            }
-        }
-    }
-    ==========================================================================================*/
-    //[DB]
     return true;
 }
 

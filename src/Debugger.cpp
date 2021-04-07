@@ -1,4 +1,7 @@
-#include "../include/All.h"
+#include "../include/Globals.h"
+#include "../include/Scanner.h"
+#include "../include/Parser.h"
+
 #include <iostream>
 
 std::unordered_map<std::string_view, scp *> Scopes;
@@ -20,6 +23,7 @@ int main(int argc, char * argv[]) {
         return -1;
     }
     */
+    std::cout << "hello" << '\n';
     func * f = newFunc("printf");
     auto n_func = std::make_pair("printf", f);
     Functions.insert(n_func);
