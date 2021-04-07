@@ -1,7 +1,8 @@
-Scanner [ ]
-Parser  [ ]
+✔ Scanner [X] @done(21-04-06 20:01)
+✔ Parser  [X] @done(21-04-06 20:01)
 
-Testing [ ]
+✔ Testing [X] @done(21-04-06 20:01)
+
 
 IMPORTANT NOTE::
 We only have to "free" memory once
@@ -10,3 +11,41 @@ We only have to "free" memory once
 
 
 
+
+    # Headers files
+    IDIR = ./include
+    # Source files
+    SDIR = ./src
+    # Object files
+    ODIR = ./obj
+    # Compiler
+    CC = g++
+    # Compiler Flags
+    # -Wall
+    # -Werror
+    CFLAGS = -Wall -Werror
+    # Dependencies
+    _DEPS = All.h Debugger.h Func.h Globals.h \
+            Invar.h NFAs.h Parser.h Scanner.h \
+            Scope.h
+    DEPS = $(patsubst %,$(IDIR)/%,$(_DEPS))
+    # Objects
+    _OBJS = Debugger.o Func.o Invar.o NFAs.o \
+            Parser.o Scanner.o Scope.o
+    OBJS = $(patsubst %,$(ODIR)/%,$(_OBJS))
+    TARGET = Debugger
+    
+    all: $(TARGET)
+    
+    $(TARGET): $(TARGET).c
+            
+    
+    $(ODIR)/%.o: %.c $(DEPS)
+            $(CC) -c -o $@ $^ $(CFLAGS)
+    .PHONY: clean
+    
+    clean: FORCE
+        rm -f $(ODIR)/*.o
+        
+    FORCE:
+    

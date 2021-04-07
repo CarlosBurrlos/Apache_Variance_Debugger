@@ -1,7 +1,6 @@
 #include "../include/Invar.h"
 #include "../include/Globals.h"
 #include "../include/Parser.h"
-#include "../include/NFAs.h"
 
 
 //========================= Helpers ==========================
@@ -63,7 +62,7 @@ bool Parser::parseFunc() {
                 scp * _s = nullptr;
                 if (Scopes.find(name) == Scopes.end()) {
                     _s = newScope(name);
-                    Scopes.insert({name, _s});
+                    Scopes.insert(std::make_pair(name, _s));
                     scope = _s;
                 }
                 consume();
@@ -73,7 +72,7 @@ bool Parser::parseFunc() {
             func * _f = nullptr;
             if (Functions.find(name) == Functions.end()) {
                 _f = newFunc(name);
-                Functions.insert({name, _f});
+                Functions.insert(std::make_pair(name, _f));
             }
             consume();
             consume();
@@ -82,7 +81,7 @@ bool Parser::parseFunc() {
             scp * _s = nullptr;
             if (Scopes.find(name) == Scopes.end()) {
                 _s = newScope(name);
-                Scopes.insert({name, _s});
+                Scopes.insert(std::make_pair(name, _s));
             }
             consume();
             consume();

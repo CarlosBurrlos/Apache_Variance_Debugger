@@ -36,7 +36,7 @@ Scanner::Scanner(const char * fName)
 {
     fileDescpt = open(fName, O_RDONLY);
     assert(fileDescpt != -1);
-	struct stat sb{}; fstat(fileDescpt, &sb);
+	struct stat sb; fstat(fileDescpt, &sb);
 	eofIdx = sb.st_size;
 	file = (char *)
 	        mmap(nullptr, sb.st_size,PROT_READ,MAP_PRIVATE, fileDescpt, 0);

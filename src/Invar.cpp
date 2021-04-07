@@ -12,8 +12,8 @@ void compute_support(scp * scope) {
     for (i = funcs.begin(); i != funcs.end(); i++) {
         for (j = i, j++; j != funcs.end(); j++) {
             if (i->second->pairs.find(j->first) == i->second->pairs.end()) {
-                i->second->pairs.insert( {j->first, 1} );
-                j->second->pairs.insert( {i->first, 1} );
+                i->second->pairs.insert( std::make_pair(j->first, 1) );
+                j->second->pairs.insert( std::make_pair(i->first, 1) );
             }
             else {
                 i->second->pairs.at(j->first)++;

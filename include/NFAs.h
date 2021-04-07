@@ -15,8 +15,8 @@
 class NFAs {
 public:
 
-    NFAs(): wordStart(nullptr){}
-    ~NFAs() {if (wordStart) wordStart = nullptr;}
+    NFAs(): wordStart(0){}
+    ~NFAs() {if (wordStart) wordStart = 0;}
 
     int compute();      int getPreProc();
     int getFunc();      int getEntrScope();

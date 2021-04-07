@@ -15,30 +15,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="cc836e11-d7fe-4bc3-b537-95698c4542b4" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Debugger/Debug.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Debug.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Debugger/Func.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Func.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Debugger/Invar.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Invar.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Debugger/Makefile" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Debugger/NFAs.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/NFAs.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Debugger/Parser.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Parser.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Debugger/Scanner.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Scanner.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Debugger/Scope.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Scope.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Headers/All.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/All.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Headers/Debugger.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/Debugger.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Headers/Func.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/Func.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Headers/Globals.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/Globals.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Headers/Invar.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/Invar.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Headers/NFAs.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/NFAs.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Headers/Parser.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/Parser.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Headers/Scanner.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/Scanner.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Headers/Scope.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/Scope.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Output/out1.txt" beforeDir="false" afterPath="$PROJECT_DIR$/out/out1.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Tests/test0.txt" beforeDir="false" afterPath="$PROJECT_DIR$/tests/test0.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Tests/test1.txt" beforeDir="false" afterPath="$PROJECT_DIR$/tests/test1.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Tests/test2.txt" beforeDir="false" afterPath="$PROJECT_DIR$/tests/test2.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Tests/test3.txt" beforeDir="false" afterPath="$PROJECT_DIR$/tests/test3.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Debugger" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Makefile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Carlos.todos" beforeDir="false" afterPath="$PROJECT_DIR$/Carlos.todos" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/NFAs.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/NFAs.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Debugger.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Debugger.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Func.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Func.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Invar.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Invar.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Parser.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Parser.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Scanner.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Scanner.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Scope.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Scope.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -48,7 +36,6 @@
   <component name="ClangdSettings">
     <option name="formatViaClangd" value="false" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="CMakeBuildProfile:Debug" />
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
@@ -69,22 +56,19 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="add_unversioned_files" value="$PROJECT_DIR$/CMakeLists.txt" />
     <property name="cf.first.check.clang-format" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="settings.editor.selected.configurable" value="web.server" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/tests" />
       <recent name="$PROJECT_DIR$/Debugger" />
     </key>
   </component>
-  <component name="RunManager">
-    <configuration default="true" type="CLionExternalRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" PASS_PARENT_ENVS_2="true">
-      <method v="2">
-        <option name="CLION.EXTERNAL.BUILD" enabled="true" />
-      </method>
-    </configuration>
+  <component name="RunManager" selected="Makefile.Debugger">
     <configuration name="408Debugger" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="408Debugger" TARGET_NAME="408Debugger" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="408Debugger" RUN_TARGET_NAME="408Debugger">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
@@ -95,6 +79,53 @@
         <option name="com.jetbrains.cidr.cpp.gradle.execution.GradleNativeBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
+    <configuration name="Debugger" type="MAKEFILE_TARGET_RUN_CONFIGURATION" factoryName="Makefile" temporary="true">
+      <makefile filename="$PROJECT_DIR$/Makefile" target="Debugger" workingDirectory="" arguments="">
+        <envs />
+      </makefile>
+      <method v="2" />
+    </configuration>
+    <configuration name="Makefile" type="MAKEFILE_TARGET_RUN_CONFIGURATION" factoryName="Makefile" temporary="true">
+      <makefile filename="$PROJECT_DIR$/Makefile" target="" workingDirectory="" arguments="">
+        <envs />
+      </makefile>
+      <method v="2" />
+    </configuration>
+    <configuration name="Scanner.o" type="MAKEFILE_TARGET_RUN_CONFIGURATION" factoryName="Makefile" temporary="true">
+      <makefile filename="$PROJECT_DIR$/Makefile" target="Scanner.o" workingDirectory="" arguments="">
+        <envs />
+      </makefile>
+      <method v="2" />
+    </configuration>
+    <configuration name="Scope.o" type="MAKEFILE_TARGET_RUN_CONFIGURATION" factoryName="Makefile" temporary="true">
+      <makefile filename="$PROJECT_DIR$/Makefile" target="Scope.o" workingDirectory="" arguments="">
+        <envs />
+      </makefile>
+      <method v="2" />
+    </configuration>
+    <configuration name="clean" type="MAKEFILE_TARGET_RUN_CONFIGURATION" factoryName="Makefile" temporary="true">
+      <makefile filename="$PROJECT_DIR$/Makefile" target="clean" workingDirectory="" arguments="">
+        <envs />
+      </makefile>
+      <method v="2" />
+    </configuration>
+    <list>
+      <item itemvalue="CMake Application.408Debugger" />
+      <item itemvalue="Makefile.Scanner.o" />
+      <item itemvalue="Makefile.Scope.o" />
+      <item itemvalue="Makefile.clean" />
+      <item itemvalue="Makefile.Debugger" />
+      <item itemvalue="Makefile.Makefile" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Makefile.Debugger" />
+        <item itemvalue="Makefile.clean" />
+        <item itemvalue="Makefile.Makefile" />
+        <item itemvalue="Makefile.Scope.o" />
+        <item itemvalue="Makefile.Scanner.o" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -104,7 +135,9 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1617728821303</updated>
-      <workItem from="1617728825477" duration="5698000" />
+      <workItem from="1617728825477" duration="6136000" />
+      <workItem from="1617749448001" duration="499000" />
+      <workItem from="1617752768645" duration="8888000" />
     </task>
     <servers />
   </component>
@@ -121,5 +154,6 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
 </project>

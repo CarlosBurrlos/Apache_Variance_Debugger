@@ -8,7 +8,8 @@ func * newFunc(std::string_view fName) {
 }
 
 int addPair(func * fnc, std::string_view fName) {
-    fnc->pairs.insert( {fName, 0} );
+    auto nFunc = std::make_pair(fName, 0);
+    fnc->pairs.insert(nFunc);
     return fnc->pairs.size();
 }
 
