@@ -1,5 +1,6 @@
 #ifndef INC_408DEBUGGER_PARSER_H
 #define INC_408DEBUGGER_PARSER_H
+
 class Parser {
 
 public:
