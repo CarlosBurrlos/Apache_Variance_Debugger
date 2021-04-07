@@ -1,6 +1,8 @@
 #ifndef INC_408DEBUGGER_PARSER_H
 #define INC_408DEBUGGER_PARSER_H
 
+#include    "../include/Scanner.h"
+
 class Parser {
 
 public:

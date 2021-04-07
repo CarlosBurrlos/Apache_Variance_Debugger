@@ -23,7 +23,7 @@ int main(int argc, char * argv[]) {
         return -1;
     }
     */
-    std::cout << "hello" << '\n';
+
     func * f = newFunc("printf");
     auto n_func = std::make_pair("printf", f);
     Functions.insert(n_func);

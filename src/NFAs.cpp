@@ -1,4 +1,4 @@
-#include "../include/All.h"
+#include "../include/NFAs.h"
 
 #define a_z(c) ({\
     bool ret;                 \
