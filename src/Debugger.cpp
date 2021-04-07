@@ -28,6 +28,9 @@ int main(int argc, char * argv[]) {
         return -1;
     }
 
+    //file n x
+    //output = test
+
     s = new Scanner(argv[1]);
     p = new Parser(s);
 
