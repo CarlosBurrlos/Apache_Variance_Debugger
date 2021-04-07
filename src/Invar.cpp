@@ -33,6 +33,11 @@ void scan_for_bugs() {
             currFunc = value;
             for ( auto const & [ key, value ] : currFunc->pairs) {
                 std::string_view pair = key;
+
+                /* TODO::We want to store the confidence in each pair too
+                    > This will allow us to check that only those bugs whose confidence
+                      is equal to or greater than that are printed                   */
+
                 //bug: (...) in scopeN pair: ((...),(...)), support: N, confidence: 00.00%
                 if (!find(currScope, pair)) {
                     std::cout << "bug: " << currFunc->name << " in " << currScope->name << ',';
