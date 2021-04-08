@@ -4,6 +4,7 @@
 
 #include "../include/Parse.h"
 #include "../include/Globals.h"
+#include "../include/Invar.h"
 
 #include <algorithm>
 #include <execution>
@@ -28,10 +29,14 @@ Parse::~Parse() {
 bool Parse::parse() {
     //Maybe we could do somethingn within the parse constructor that would
     //allow us to consume all of the characters before the '<'
-    parseNullFunc();
-    return 0;
+    if(parseNullFunc()) {
+        while (parseFunc())
+            ;
+        scan_for_bugs();
+        return true;
+    }
+    return false;
 }
-
 //We want to consume until we either reach \' or \<<
 bool Parse::parseNullFunc() {
     consume();
@@ -58,5 +63,33 @@ bool Parse::parseNullFunc() {
         return true;
     }
     return false;
+}
+
+bool Parse::parseFunc() {
+    scanner->readTill('\'');
+    consume();
+    if (check({2, 3})) {
+        if (check(3)) {
+            return parseScope();
+        }
+        //Parse the func accordingly
+        //We don't need to expand it so just read rest of the line
+    }
+
+    return false;
+}
+
+bool Parse::parseScope() {
+    consumeLine();
+    scanner->readTill('\'');
+    consume();
+    if (check(2)) { //We have grabbed a function
+
+    }
+    return false;
+}
+
+bool Parse::parseFuncCall() {
+
 }
 

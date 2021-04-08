@@ -16,7 +16,8 @@ public:
     ~Parse();
     //Driver code
     bool parse();
-    bool parseNullFunc();
+    bool parseNullFunc();      bool parseFunc();
+    bool parseScope();         bool parseFuncCall();
     //Consume
     int consume();             int consumeLine();
     //Checks

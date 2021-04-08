@@ -16,7 +16,6 @@ public:
     explicit Scanner(const char * file);
     ~Scanner();
     int readChar();            int readWord();
-    int getCurrStrSize() const;
     int readLine();
     int readTill(char);
     std::string_view getCurrStr()

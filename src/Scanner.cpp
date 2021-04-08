@@ -14,9 +14,8 @@ std::unordered_map<std::string_view/*Name*/,func *> allFuncs;
 
 #define isEndWord(ptr) ({    \
     bool ret;                \
-    (*(ptr) == ' ' || *(ptr) == '(' || \
-     *(ptr) == ';' || *(ptr) == '{' || \
-     *(ptr) == '\n')\
+    (*(ptr) == ' ' || *(ptr) == '\n' ||\
+    (*(ptr) == '>')) \
         ? ret = 1 : ret = 0; \
     ret;                     \
  })
@@ -36,7 +35,7 @@ Scanner::Scanner(const char * fName)
 {
     fileDescpt = open(fName, O_RDONLY);
     assert(fileDescpt != -1);
-	struct stat sb;
+	struct stat sb = {};
     if (fstat(fileDescpt, &sb) == -1) {
         exit(0);
     }
@@ -62,8 +61,6 @@ int Scanner::readWord () {
         if (check == END || check == ENDWORD) 
             break;
     }
-
-
     nfa->setWordStart(&file[wf_idx], &file[we_idx]);
     Token = nfa->compute();
 
@@ -81,18 +78,19 @@ int Scanner::readChar() {
         set(atEnd);
         return END;
     }
+    /*
+    May not need this line seeing that we wont
+    start from the start of the file
     if (fIdx == 0)
         set(nuWord);
+    */
     if (nuWord /* && fIdx - 1 >= 0*/) {
         wf_idx = fIdx++;
         set(nuWord);
         return STARTWORD;
     }
     else if (isEndWord(&file[fIdx])) {
-        if (file[fIdx] == ' ' || file[fIdx] == '\n')
-            we_idx = fIdx - 1;
-        else 
-            we_idx = fIdx;
+        we_idx = fIdx - 1;
         fIdx++;
         if (file[fIdx] == '\n')
             while(file[fIdx] == '\n' && fIdx != eofIdx) {fIdx++;}
@@ -108,13 +106,8 @@ int Scanner::readChar() {
     }
 }
 
-int Scanner::getCurrStrSize() const {
-    if (we_idx < wf_idx) return 0;
-    return (we_idx - wf_idx) + 1;
-}
-
 int Scanner::readLine() {
-    while (1) {
+    while (true) {
         if (file[fIdx] == '\n'){
             while (file[fIdx] == '\n')
                 fIdx++;
