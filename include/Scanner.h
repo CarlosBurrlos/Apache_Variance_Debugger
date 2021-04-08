@@ -18,6 +18,7 @@ public:
     int readChar();            int readWord();
     int getCurrStrSize() const;
     int readLine();
+    int readTill(char);
     std::string_view getCurrStr()
         {return std::string_view (&file[wf_idx], (we_idx - wf_idx) + 1);}
 

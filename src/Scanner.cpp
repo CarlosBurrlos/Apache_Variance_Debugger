@@ -129,3 +129,11 @@ int Scanner::readLine() {
     }
     return OK;
 }
+
+int Scanner::readTill(char c) {
+    int nCharsRead = 0;
+    while(file[fIdx] != c) {
+        fIdx++; nCharsRead++;
+    }
+    return nCharsRead;
+}
