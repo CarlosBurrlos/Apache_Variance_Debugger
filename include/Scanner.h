@@ -18,6 +18,7 @@ public:
     int readChar();            int readWord();
     int readLine();
     int readTill(char);
+    char getCurrChar() {return currChar;}
     std::string_view getCurrStr()
         {return std::string_view (&file[wf_idx], (we_idx - wf_idx) + 1);}
 
@@ -26,7 +27,7 @@ private:
     int		   fileDescpt;     int 			   fIdx;
     int		   eofIdx;
     bool       nuWord;         bool            atEnd;
-    char *	   file;
+    char *	   file;           char            currChar;
     std::string_view word;
     NFAs *      nfa;
 };

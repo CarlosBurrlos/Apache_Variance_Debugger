@@ -4,6 +4,8 @@
 
 #include "../include/Parse.h"
 #include "../include/Globals.h"
+#include "../include/Func.h"
+#include "../include/Scope.h"
 #include "../include/Invar.h"
 
 #include <algorithm>
@@ -71,6 +73,12 @@ bool Parse::parseFunc() {
     if (check({2, 3})) {
         if (check(3)) {
             return parseScope();
+        }
+        func * f = Functions.at(scanner->getCurrStr());
+        scanner->readTill('#');
+        if (check(4)) {   //4 = USES
+
+            //Will have to think of some way to check if this is an int
         }
         //Parse the func accordingly
         //We don't need to expand it so just read rest of the line

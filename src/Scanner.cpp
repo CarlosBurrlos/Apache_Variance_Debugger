@@ -12,9 +12,25 @@ int Token = 0;
 std::unordered_map<std::string_view/*scpName*/, scp *> allScopes;
 std::unordered_map<std::string_view/*Name*/,func *> allFuncs;
 
+#define is_0_9(ptr) ({ \
+bool ret;              \
+(*(ptr) >= 48 && *(ptr) <= 57)\
+    ? ret = 1 : ret = 0;      \
+ret;\
+})
+
+#define isWordStart(ptr) ({ \
+bool ret;                   \
+((*(ptr) == '<' && *(ptr+1) == '<')\
+||(*(ptr) == '\'')\
+||(*(ptr) == '#'))\
+    ? ret = 1 : ret = 0;\
+ret;\
+})\
+
 #define isEndWord(ptr) ({    \
     bool ret;                \
-    (*(ptr) == ' ' || *(ptr) == '\n' ||\
+    (*(ptr) == '\'' || *(ptr) == '\n' ||\
     (*(ptr) == '>')) \
         ? ret = 1 : ret = 0; \
     ret;                     \
@@ -30,7 +46,7 @@ std::unordered_map<std::string_view/*Name*/,func *> allFuncs;
 #define set(nuWord) (nuWord = !nuWord)
 
 Scanner::Scanner(const char * fName)
-: wf_idx(0), we_idx(0), fIdx(0), nuWord(false),
+: wf_idx(0), we_idx(0), fIdx(0), nuWord(true),
   atEnd(false),  nfa(nullptr)
 {
     fileDescpt = open(fName, O_RDONLY);
@@ -64,27 +80,25 @@ int Scanner::readWord () {
     nfa->setWordStart(&file[wf_idx], &file[we_idx]);
     Token = nfa->compute();
 
-    if (Token == PREPROC || Token == RETRN) {
-        readLine();
-    }
-
     if (check == END)   return END;
     return OK;
 }
 
 int Scanner::readChar() {
-    if (atEOF(fIdx, eofIdx)) {
+   if (atEOF(fIdx, eofIdx)) {
         we_idx = fIdx-1;
         set(atEnd);
         return END;
     }
-    /*
-    May not need this line seeing that we wont
-    start from the start of the file
-    if (fIdx == 0)
-        set(nuWord);
-    */
-    if (nuWord /* && fIdx - 1 >= 0*/) {
+    if (nuWord) {
+        while (!isWordStart(&file[fIdx]))
+            fIdx++;
+        if (file[fIdx] == '<') fIdx+=2;
+        if (file[fIdx] == '\'') fIdx++;
+        if (file[fIdx] == '#') {
+            while (file[fIdx] != '=') fIdx++;
+            fIdx++;
+        }
         wf_idx = fIdx++;
         set(nuWord);
         return STARTWORD;

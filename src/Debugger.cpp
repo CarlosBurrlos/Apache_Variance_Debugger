@@ -21,8 +21,13 @@ const char * usage = "Usage: Debug [\"File Name\"]";
 void    __usage(int, char **);
 
 int main(int argc, char * argv[]) {
-    
-    
+
+    s = new Scanner("/Users/carlos/Desktop/__/School/2021/CS408/408Debugger/cw.txt");
+    while (s->readWord() != END) {
+        std::cout << s->getCurrStr() << '\n';
+    }
+
+    /*
     if (argc <= 1 || argc > 4) {
         __usage(argc, argv);
         return -1;
@@ -48,6 +53,7 @@ int main(int argc, char * argv[]) {
     Functions.insert(n_func);
     p->parse();
     return 0;
+    */
 }
 
 void __usage(int argc, char ** argv) {
