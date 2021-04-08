@@ -11,6 +11,8 @@
 #define ARGS        7
 #define EXT_SCOPE   8
 #define ENTR_SCOPE  9
+#define FUNCADDR    10
+#define USES        11
 
 class NFAs {
 public:
@@ -20,11 +22,11 @@ public:
     NFAs(): wordStart(0), wordEnd(0), temp(0){}
     ~NFAs() {wordStart = wordEnd = temp = 0;}
 
-    int compute();      int getPreProc();
-    int getFunc();      int getEntrScope();
-    int getVoid();      int getInt();
-    int getReturn();    int getArgs();
-    int getScope();     int getExtScope();
+    int compute();
+    int getScope();
+
+    int getFuncName();  int getUses();
+    int getFuncAddr();
 
     void setWordStart(char * front, char * end) {wordStart = front; wordEnd = end;}
 

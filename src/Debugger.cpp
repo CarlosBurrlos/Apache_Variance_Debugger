@@ -24,7 +24,8 @@ int main(int argc, char * argv[]) {
 
     s = new Scanner("/Users/carlos/Desktop/__/School/2021/CS408/408Debugger/cw.txt");
     while (s->readWord() != END) {
-        std::cout << s->getCurrStr() << '\n';
+        std::cout << s->getCurrStr();
+        std::cout << "    " << Token << '\n';
     }
 
     /*

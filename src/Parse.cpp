@@ -98,6 +98,6 @@ bool Parse::parseScope() {
 }
 
 bool Parse::parseFuncCall() {
-
+    return 1;
 }
 

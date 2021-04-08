@@ -12,12 +12,14 @@ int Token = 0;
 std::unordered_map<std::string_view/*scpName*/, scp *> allScopes;
 std::unordered_map<std::string_view/*Name*/,func *> allFuncs;
 
+/*
 #define is_0_9(ptr) ({ \
 bool ret;              \
 (*(ptr) >= 48 && *(ptr) <= 57)\
     ? ret = 1 : ret = 0;      \
 ret;\
 })
+*/
 
 #define isWordStart(ptr) ({ \
 bool ret;                   \
