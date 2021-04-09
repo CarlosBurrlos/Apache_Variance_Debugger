@@ -1,6 +1,7 @@
 #include "../include/Scanner.h"
 #include "../include/Globals.h"
 
+#include    <iostream>
 #include    <cassert>
 #include    <fcntl.h>
 #include    <sys/stat.h>

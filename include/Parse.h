@@ -11,20 +11,18 @@
 
 class Parse {
 public:
-    //Constructor & Destructor
-    Parse(Scanner *);
-    ~Parse();
-    //Driver code
+    Parse(Scanner *);          ~Parse();
+
     bool parse();
     bool parseNullFunc();      bool parseFuncNode();
-    bool parseScopeNode();
-    bool parseScope();         bool parseFunc();
+    bool parseScopeNode();     bool parseFunc();
     bool parseFuncCall();      bool parseNodes();
-    //Consume
-    int consume();             int consumeLine();
-    //Checks
+
+    int consume();
+
     bool check(int);           bool checkAndConsume(int);
     bool check(std::list<int>);
+
 private:
     scp * scope;               Scanner * scanner;
 };

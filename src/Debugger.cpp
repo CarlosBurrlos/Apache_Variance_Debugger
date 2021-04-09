@@ -1,6 +1,6 @@
 #include "../include/Globals.h"
 #include "../include/Scanner.h"
-#include "../include/Parser.h"
+#include "../include/Parse.h"
 
 #include <iostream>
 
@@ -12,7 +12,7 @@ std::unordered_map<std::string_view, scp *> Scopes;
 std::unordered_map<std::string_view, func *>  Functions;
 
 Scanner * s;
-//Parser * p;
+Parse * p;
 
 const char * _illegal_usage = "Debug: illegal usage";
 const char * _input_file_format = "Input Format: \t[\"*.txt\"]";
@@ -23,10 +23,16 @@ void    __usage(int, char **);
 int main(int argc, char * argv[]) {
 
     s = new Scanner("/Users/carlos/Desktop/__/School/2021/CS408/408Debugger/cw.txt");
+    p = new Parse(s);
+
+    p->parse();
+
+    /*
     while (s->readWord() != END) {
         std::cout << s->getCurrStr();
         std::cout << "    " << Token << '\n';
     }
+    */
 
     /*
     if (argc <= 1 || argc > 4) {
