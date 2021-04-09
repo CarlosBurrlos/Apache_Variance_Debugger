@@ -16,9 +16,10 @@ public:
     explicit Scanner(const char * file);
     ~Scanner();
     int readChar();            int readWord();
+    int getSize() {return (we_idx - wf_idx + 1);}
+    char * getCurrWrdPtr() {return &file[wf_idx];}
     int readLine();
     int readTill(char);
-    char getCurrChar() {return currChar;}
     std::string_view getCurrStr()
         {return std::string_view (&file[wf_idx], (we_idx - wf_idx) + 1);}
 

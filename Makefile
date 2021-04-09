@@ -4,11 +4,26 @@ CC=g++
 SDIR=./src/
 #Include files directory
 IDIR=./include/
+#Object files directory
+ODIR=./obj/
 
-Debugger : Debugger.o Func.o Invar.o NFAs.o Parser.o Scanner.o Scope.o
-			$(CC) -std=c++17 -o Debugger Debugger.o Func.o Invar.o NFAs.o Parser.o Scanner.o Scope.o
+SRC_FILES =			\
+	Debugger.cpp	\
+	Func.cpp		\
+	Invar.cpp		\
+	NFAs.cpp		\
+	Parse.cpp		\
+	Scanner.cpp		\
+	Scope.cpp		\
 
-Debugger.o : $(SDIR)Debugger.cpp $(IDIR)Globals.h $(IDIR)Scanner.h $(IDIR)Parser.h
+OBJ_FILES = $(SRC_FILES:.cpp=.o)
+
+Debugger : $(OBJ_FILES)
+			$(CC) -std=c++17 -o Debugger $(OBJ_FILES)
+			mkdir $(ODIR)
+			mv $(OBJ_FILES) $(ODIR)
+
+Debugger.o : $(SDIR)Debugger.cpp $(IDIR)Globals.h $(IDIR)Scanner.h $(IDIR)Parse.h
 			$(CC) -std=c++17 -c $(SDIR)Debugger.cpp
 
 Func.o : $(SDIR)Func.cpp $(IDIR)Func.h
@@ -20,8 +35,8 @@ Invar.o : $(SDIR)Invar.cpp $(IDIR)Invar.h $(IDIR)Globals.h
 NFAs.o : $(SDIR)NFAs.cpp $(IDIR)NFAs.h
 			$(CC) -std=c++17 -c $(SDIR)NFAs.cpp
 
-Parser.o : $(SDIR)Parser.cpp $(IDIR)Invar.h $(IDIR)Globals.h $(IDIR)Parser.h
-			$(CC) -std=c++17 -c $(SDIR)Parser.cpp
+Parse.o : $(SDIR)Parse.cpp $(IDIR)Invar.h $(IDIR)Globals.h $(IDIR)Parse.h
+			$(CC) -std=c++17 -c $(SDIR)Parse.cpp
 
 Scanner.o : $(SDIR)Scanner.cpp $(IDIR)Scanner.h $(IDIR)Globals.h
 			$(CC) -std=c++17 -c $(SDIR)Scanner.cpp
@@ -32,5 +47,5 @@ Scope.o : $(SDIR)Scope.cpp $(IDIR)Scope.h
 .PHONY : clean
 
 clean : FORCE
-			rm -f *.o
+			rm -rf ./obj
 FORCE :

@@ -10,7 +10,7 @@ CONF=$3
 CG=cg
 
 # Generate callgraph and send it to raw format file
-opt -f -print-callgraph $1 2> $(CG)
+opt -f -print-callgraph $(SRC) 2> $(CG)
 
 # Remove first 5 lines (message we do not want)
 sed -e '1,5d' < $(CG) > $(CG).txt

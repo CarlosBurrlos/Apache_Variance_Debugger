@@ -27,7 +27,7 @@ bool Parse::parse() {
         while (parseNodes())
             ;
         if (scanner->atEnd) {
-            //scan_for_bugs();
+            scan_for_bugs();
             return true;
         }
         return false;
@@ -84,6 +84,7 @@ bool Parse::parseFuncCall() {
         func * f = new func();
         assert(f);
         std::string_view fName = scanner->getCurrStr();
+        f->name = fName;
         Functions.insert(std::make_pair(fName, f));
         consume();
         return true;
@@ -108,15 +109,19 @@ bool Parse::parseFuncCall() {
 }
 
 bool Parse::parseFuncNode() {
-    if (checkAndConsume(FUNCNODE)) {
+    if (check(FUNCNODE)) {
+        std::string_view fName = scanner->getCurrStr();
+        consume();
         if (checkAndConsume(FUNCADDR)) {
-            if (check(USES)){
-                //use atoi() to get the value;
+            char * tmp = 0;
+            long uses;
+            uses = strtol(scanner->getCurrWrdPtr(), &tmp, 10);
+            func * f = Functions.at(fName);
+            f->nCalls = (int)uses;
+            consume();
+            while (!check({SCOPENODE, FUNCNODE, MAIN}) && !scanner->atEnd)
                 consume();
-                while (!check({SCOPENODE, FUNCNODE, MAIN}) && !scanner->atEnd)
-                    consume();
-                return true;
-            }
+            return true;
         }
     }
     return false;
