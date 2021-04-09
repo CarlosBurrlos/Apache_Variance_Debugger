@@ -42,28 +42,16 @@ bool Parse::parse() {
 //We want to consume until we either reach \' or \<<
 bool Parse::parseNullFunc() {
     consume();
-    if (check(0)) { //0 = NULLFUNC
-        consumeLine();
-        if (check(1)) { //1 = CS
-            scanner->readTill('\'');
-            consume();
-            if (check({2, 3}))  //2 = func 3 = Scope
-            {
-                switch (Token) {
-                    case 2:
-                        //Add to funcs
-                        ;
-                    case 3:
-                        //Add to Scopes
-                        ;
-                    default:
-                        //Do nothing
-                        ;
-                }
-            }
+    if (check(NULLFUNC)) {
+        consume();
+        if (checkAndConsume(FUNCADDR)) {
+            consume();  //uses - not needed for nullfunc
+            while (parseFuncCall()) //Will parse our funcs and allocate structs
+                ;
+            return true;
         }
-        return true;
-    }
+        return false;
+   }
     return false;
 }
 
@@ -98,6 +86,10 @@ bool Parse::parseScope() {
 }
 
 bool Parse::parseFuncCall() {
+    if (check(FUNC)) {
+
+    }
+
     return 1;
 }
 

@@ -12,7 +12,7 @@ std::unordered_map<std::string_view, scp *> Scopes;
 std::unordered_map<std::string_view, func *>  Functions;
 
 Scanner * s;
-Parser * p;
+//Parser * p;
 
 const char * _illegal_usage = "Debug: illegal usage";
 const char * _input_file_format = "Input Format: \t[\"*.txt\"]";

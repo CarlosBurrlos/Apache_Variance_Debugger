@@ -15,7 +15,7 @@ bool Parser::atEnd() {
     return scanner->atEnd;
 }
 //============================================================
-
+/*
 bool Parser::parse() {
     while (parsePreProc())
         ;
@@ -150,3 +150,4 @@ bool Parser::parsePreProc() {
     }
     return false;
 }
+ */
