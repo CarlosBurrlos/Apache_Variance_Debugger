@@ -11,7 +11,7 @@
 
 
 class Scanner {
-    friend class Parser;
+    friend class Parse;
 public:
     explicit Scanner(const char * file);
     ~Scanner();

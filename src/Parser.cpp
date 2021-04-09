@@ -10,10 +10,11 @@ bool Parser::checkAndConsume(int token) {
 }
 bool Parser::check(int token) {return (Token == token);}
 void Parser::consume() {scanner->readWord();}
-bool Parser::atEnd() {
+
+/*bool Parser::atEnd() {
     if (scanner->fIdx == scanner->eofIdx)   scanner->atEnd = true;
     return scanner->atEnd;
-}
+}*/
 //============================================================
 /*
 bool Parser::parse() {

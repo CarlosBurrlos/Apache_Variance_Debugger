@@ -16,13 +16,14 @@
 #define NULLFUNC    12
 */
 #define SCOPE       1
-#define NULLFUNC    2
-#define FUNCSCOPE   3
-#define FUNC        4
-#define PRINTF      5
-#define MAIN        6
-#define FUNCADDR    7
-#define USES        8
+#define SCOPENODE   2
+#define NULLFUNC    3
+#define FUNCNODE    4
+#define FUNC        5
+#define PRINTF      6
+#define MAIN        7
+#define FUNCADDR    8
+#define USES        9
 #define BAD         0
 
 
@@ -33,8 +34,8 @@ public:
     ~NFAs() {wordStart = wordEnd = temp = 0;}
 
     int compute();
-    int getScope();     int getFuncScope();
-    int getNullFunc();
+    int getScope();     int getScopeNode();
+    int getFuncNode();  int getNullFunc();
 
     int getPrintf();    int getFuncName();
     int getMain();      int getUses();

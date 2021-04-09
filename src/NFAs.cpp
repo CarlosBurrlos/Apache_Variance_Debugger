@@ -25,7 +25,9 @@ ret;\
 })
 
 int NFAs::compute() {
-    if (getScope())
+    if (getScopeNode())
+        return SCOPENODE;
+    else if (getScope())
         return SCOPE;
     else if (getNullFunc())
         return NULLFUNC;
@@ -33,8 +35,8 @@ int NFAs::compute() {
         return MAIN;
     else if (getPrintf())
         return PRINTF;
-    else if (getFuncScope())
-        return FUNCSCOPE;
+    else if (getFuncNode())
+        return FUNCNODE;
     else if (getFuncName())
         return FUNC;
     else if (getFuncAddr())
@@ -58,6 +60,21 @@ int NFAs::getScope() {
     return 1;
 }
 
+int NFAs::getScopeNode() {
+    temp = wordStart;
+    if (*(temp) != 's')  return 0; temp++;
+    if (*(temp++) != 'c') return 0;
+    if (*(temp++) != 'o') return 0;
+    if (*(temp++) != 'p') return 0;
+    if (*(temp++) != 'e') return 0;
+    while (temp < wordEnd) {
+        temp++;
+    }
+    if (temp != wordEnd) return 0;
+    if (*(temp + 2) != '<') return 0;
+    return 1;
+}
+
 int NFAs::getNullFunc() {
     temp = wordStart;
     if (*temp != 'n') return 0;
@@ -77,7 +94,7 @@ int NFAs::getNullFunc() {
     return 1;
 }
 
-int NFAs::getFuncScope() {
+int NFAs::getFuncNode() {
     temp = wordStart;
     if (!a_z(*temp))    return 0;
     while (temp != wordEnd) {

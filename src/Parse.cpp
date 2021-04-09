@@ -32,18 +32,35 @@ bool Parse::parse() {
     //Maybe we could do somethingn within the parse constructor that would
     //allow us to consume all of the characters before the '<'
     if(parseNullFunc()) {
-        while (parseFunc())
+        while (parseNodes())
             ;
-        scan_for_bugs();
-        return true;
+        if (scanner->atEnd) {
+            scan_for_bugs();
+            return true;
+        }
+        return false;
     }
     return false;
 }
-//We want to consume until we either reach \' or \<<
+
+bool Parse::parseNodes() {
+    if (scanner->atEnd) return false;
+    if (check(SCOPENODE)) {
+        if (parseScopeNode()) {
+           return true;
+        }
+    }
+    else if (check(FUNCNODE)) {
+        if (parseFuncNode()) {
+            return true;
+        }
+    }
+    return false;
+}
+
 bool Parse::parseNullFunc() {
     consume();
     if (check(NULLFUNC)) {
-        consume();
         if (checkAndConsume(FUNCADDR)) {
             consume();  //uses - not needed for nullfunc
             while (parseFuncCall()) //Will parse our funcs and allocate structs
@@ -51,45 +68,89 @@ bool Parse::parseNullFunc() {
             return true;
         }
         return false;
-   }
-    return false;
-}
-
-bool Parse::parseFunc() {
-    scanner->readTill('\'');
-    consume();
-    if (check({2, 3})) {
-        if (check(3)) {
-            return parseScope();
-        }
-        func * f = Functions.at(scanner->getCurrStr());
-        scanner->readTill('#');
-        if (check(4)) {   //4 = USES
-
-            //Will have to think of some way to check if this is an int
-        }
-        //Parse the func accordingly
-        //We don't need to expand it so just read rest of the line
-    }
-
-    return false;
-}
-
-bool Parse::parseScope() {
-    consumeLine();
-    scanner->readTill('\'');
-    consume();
-    if (check(2)) { //We have grabbed a function
-
     }
     return false;
 }
 
 bool Parse::parseFuncCall() {
     if (check(FUNC)) {
-
+        function:
+        func * f = (func *) malloc(sizeof(func));
+        assert(f);
+        std::string_view fName = scanner->getCurrStr();
+        Functions.insert(std::make_pair(fName, f));
+        consume();
+        return true;
     }
-
-    return 1;
+    else if (check(SCOPE)) {
+        scope:
+        scp * s = (scp *) malloc(sizeof(scp));
+        assert(s);
+        std::string_view sName = scanner->getCurrStr();
+        Scopes.insert(std::make_pair(sName, s));
+        consume();
+        return true;
+    }
+    else if (check(MAIN)) {
+        goto scope;
+    }
+    else if (check(PRINTF)) {
+        goto function;
+    }
+    return false;
 }
+
+bool Parse::parseFuncNode() {
+    if (checkAndConsume(FUNCNODE)) {
+        if (check(USES)){
+            //use atoi() to get the value;
+            consume();
+            while (!check({SCOPENODE, FUNCNODE}))
+                consume();
+            return true;
+        }
+    }
+    return false;
+}
+
+bool Parse::parseFunc() {
+    std::string_view fName = scanner->getCurrStr();
+    if (Functions.find(fName) == Functions.end()) {
+        //This shouldn't happen
+        return false;
+    }
+    func * f = Functions.at(fName);
+    scope->Funcs.insert(std::make_pair(fName, f));
+    consume();
+    return true;
+}
+
+bool Parse::parseScopeNode() {
+    if (checkAndConsume(SCOPENODE)) {
+        std::string_view sName = scanner->getCurrStr();
+        if (Scopes.find(sName) == Scopes.end()) {
+            //This would throw error
+            return false;
+        }
+        scp * s = Scopes.at(sName);
+        scope = s;
+        consume(); consume();
+        while (check({SCOPE, FUNC})) {
+            if (check(SCOPE)) {
+                parseScope();
+            }
+            else {
+                parseFunc();
+            }
+        }
+    }
+    return false;
+}
+
+bool Parse::parseScope() {
+    consume();
+    return true;
+}
+
+
 
