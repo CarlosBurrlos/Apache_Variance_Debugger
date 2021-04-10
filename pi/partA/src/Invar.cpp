@@ -8,7 +8,6 @@ void compute_support(scp * scope) {
     auto funcs = scope->Funcs;
     std::unordered_map<std::string_view, func *>::iterator i;
     std::unordered_map<std::string_view, func *>::iterator j;
-
     for (i = funcs.begin(); i != funcs.end(); i++) {
         for (j = i, j++; j != funcs.end(); j++) {
             if (i->second->pairs.find(j->first) == i->second->pairs.end()) {
@@ -26,11 +25,11 @@ void compute_support(scp * scope) {
 void scan_for_bugs() {
     scp * currScope;
     func * currFunc;
-    for (auto const & [ key, value ] : Scopes) {
+    /*For all scopes*/for (auto const & [ key, value ] : Scopes) {
         currScope = value;
-        for (auto const & [ key, value ] : currScope->Funcs) {
+        /*For all funcs in scope S*/for (auto const & [ key, value ] : currScope->Funcs) {
             currFunc = value;
-            for ( auto const & [ key, value ] : currFunc->pairs) {
+            /*For all pairs in func F*/for ( auto const & [ key, value ] : currFunc->pairs) {
                 std::string_view pair = key;
                 if (!find(currScope, pair)) {
                     double invarCompute = (100 * ((double) value / currFunc->nCalls));

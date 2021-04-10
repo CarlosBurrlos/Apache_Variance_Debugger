@@ -113,8 +113,7 @@ bool Parse::parseFuncNode() {
         if (checkAndConsume(FUNCADDR)) {
             char * tmp = 0;
             long uses;
-	    std::cout << "Uses" << '\n';
-            uses = strtol(scanner->getCurrWrdPtr(), &tmp, 10);
+            uses = strtol(scanner->getCurrWrdPtr(), &tmp, 10) - 1;
             func * f = Functions.at(fName);
             f->nCalls = (int)uses;
             consume();

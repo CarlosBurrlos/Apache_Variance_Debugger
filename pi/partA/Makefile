@@ -45,6 +45,6 @@ Scope.o : $(SDIR)Scope.cpp $(IDIR)Scope.h
 .PHONY : clean
 
 clean : FORCE
-			rm *.o
+			rm -f ./*.o
 			rm -f Debugger
 FORCE :
