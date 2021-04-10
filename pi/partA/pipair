@@ -3,15 +3,20 @@
 # Call format
 # ../pipair $SOURCE.bc $SUPPORT $CONFIDENCE > $TESTNAME_$SUPPORT_$CONFIDENCE.out 2>&1
 
+CURR_DIR=$(pwd)
+ARG1=$CURR_DIR/$1
+
 # Generate callgraph and send it to raw format file
-opt -f -print-callgraph $1 2> cg
-
-# Remove first 5 lines (message we do not want)
-sed -e '1,5d' < cg > cg.txt
-
-make
+opt -print-callgraph $ARG1 >tmp.txt 2>cg.txt
+make -C ../ > tmp.txt
 
 # Run our debugger on it
-Debugger cg.txt $2 $3
+if [[ $# -eq 1 ]]; then
+	../Debugger cg.txt
+else
+	../Debugger cg.txt $2 $3
+fi
+rm cg.txt
+make clean -C ../ > tmp.txt
+rm tmp.txt
 
-make clean

@@ -1,12 +1,10 @@
-//
-// Created by Carlos Burroughs on 4/8/21.
-//
-
 #include "../include/Parse.h"
 #include "../include/Globals.h"
 #include "../include/Invar.h"
 
 #include <algorithm>
+#include <cassert>
+#include <iostream>
 
 //======= Helpers =======
 bool Parse::check(int token) {return (token == Token);}
@@ -82,7 +80,7 @@ bool Parse::parseFuncCall() {
     if (check(FUNC)) {
         function:
         func * f = new func();
-        assert(f);
+	assert(f);
         std::string_view fName = scanner->getCurrStr();
         f->name = fName;
         Functions.insert(std::make_pair(fName, f));
@@ -115,6 +113,7 @@ bool Parse::parseFuncNode() {
         if (checkAndConsume(FUNCADDR)) {
             char * tmp = 0;
             long uses;
+	    std::cout << "Uses" << '\n';
             uses = strtol(scanner->getCurrWrdPtr(), &tmp, 10);
             func * f = Functions.at(fName);
             f->nCalls = (int)uses;

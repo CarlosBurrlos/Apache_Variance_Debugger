@@ -24,7 +24,6 @@ void compute_support(scp * scope) {
 }
 
 void scan_for_bugs() {
-    //Go through the global scopes and check each function within the scope and compute the values
     scp * currScope;
     func * currFunc;
     for (auto const & [ key, value ] : Scopes) {
@@ -33,8 +32,6 @@ void scan_for_bugs() {
             currFunc = value;
             for ( auto const & [ key, value ] : currFunc->pairs) {
                 std::string_view pair = key;
-                //TODO:: Reformat the output && Sort the pairs in lexicographic order
-                //bug: %s in %s, pair: (%s, %s), support: %d, confidence: %.2f%%\n
                 if (!find(currScope, pair)) {
                     double invarCompute = (100 * ((double) value / currFunc->nCalls));
                     if (invarCompute >= T_CONFIDENCE && value >= T_SUPPORT) {

@@ -18,10 +18,8 @@ SRC_FILES =			\
 
 OBJ_FILES = $(SRC_FILES:.cpp=.o)
 
-all : $(OBJ_FILES)
+Debugger : $(OBJ_FILES)
 			$(CC) -std=c++17 -o Debugger $(OBJ_FILES)
-			mkdir $(ODIR)
-			mv $(OBJ_FILES) $(ODIR)
 
 Debugger.o : $(SDIR)Debugger.cpp $(IDIR)Globals.h $(IDIR)Scanner.h $(IDIR)Parse.h
 			$(CC) -std=c++17 -c $(SDIR)Debugger.cpp
@@ -47,6 +45,6 @@ Scope.o : $(SDIR)Scope.cpp $(IDIR)Scope.h
 .PHONY : clean
 
 clean : FORCE
-			rm -rf ./obj
+			rm *.o
 			rm -f Debugger
 FORCE :
