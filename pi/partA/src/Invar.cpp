@@ -36,9 +36,9 @@ void scan_for_bugs() {
                     if (invarCompute >= T_CONFIDENCE && value >= T_SUPPORT) {
                         std::cout << "bug: " << currFunc->name << " in " << currScope->name << ',';
                         if (currFunc->name < pair)
-                            std::cout << " pair: " << '(' << currFunc->name << ',' << pair << "),";
+                            std::cout << " pair: " << '(' << currFunc->name << ", " << pair << "),";
                         else 
-                            std::cout << " pair: " << '(' << pair << ',' << currFunc->name << "),";
+                            std::cout << " pair: " << '(' << pair << ", " << currFunc->name << "),";
                         std::cout << " support: " << value << ',';
                         std::cout.precision(2);
                         std::cout << " confidence: " << std::fixed << ( 100 * ((double)value/ currFunc->nCalls)) << '%' << '\n';

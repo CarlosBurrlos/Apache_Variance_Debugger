@@ -18,7 +18,7 @@ SRC_FILES =			\
 
 OBJ_FILES = $(SRC_FILES:.cpp=.o)
 
-Debugger : $(OBJ_FILES)
+all : $(OBJ_FILES)
 			$(CC) -std=c++17 -o Debugger $(OBJ_FILES)
 
 Debugger.o : $(SDIR)Debugger.cpp $(IDIR)Globals.h $(IDIR)Scanner.h $(IDIR)Parse.h
