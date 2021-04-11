@@ -32,7 +32,7 @@ Call graph node for function: 'main'<<0x560ec9b34cd0>>  #uses=1
   CS<0x560ec9b8fb98> calls function 'scope5'
   CS<0x560ec9b8fb08> calls function 'scope6'
 
-Call graph node for function: 'printf'<<0x560ec9ba6520>>  #uses=5
+Call graph node for function: 'A'<<0x560ec9ba6520>>  #uses=5
   CS<0x0> calls external node
 
 Call graph node for function: 'scope1'<<0x560ec9b34d70>>  #uses=3
