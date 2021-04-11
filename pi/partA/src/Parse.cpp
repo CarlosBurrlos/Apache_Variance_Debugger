@@ -34,7 +34,8 @@ Parse::~Parse() {
 
 bool Parse::parse() {
     if(parseNullFunc()) {
-        /*while (1) {
+        
+	 while (1) {
 	    bool retVal = parseNodes();
             if(retVal == false) {
 		    break;
@@ -42,20 +43,17 @@ bool Parse::parse() {
 	}
         if (scanner->atEnd) {
 		//======= DB
-		 for (auto const & [ key, value ] : Functions) {
+		 /*for (auto const & [ key, value ] : Functions) {
 			std::cout << "FUNC Name:: " << key << '\n';
 			for (auto const & [ key, value ] : value->pairs) {
 				std::cout << "PAIR:: " << key << "  SUPP:: " << value << '\n';
 			}
 		}
+		*/
 		//======= DB
-            	//scan_for_bugs();
+            	scan_for_bugs();
             return true;
         }
-    	*/
-	for ( auto const & [ key, value ] : Functions) {
-		std::cout << "KEY :: " << key << '\n';
-	}
         return false;
     }
     return false;
@@ -105,6 +103,7 @@ bool Parse::parseFuncCall() {
         func * f = new func();
 	assert(f);
         std::string_view fName = scanner->getCurrStr();
+	std::cout << "NAME:: " << fName <<'\n';
         f->name = fName;
         Functions.insert(std::make_pair(fName, f));
         consume();
@@ -122,8 +121,18 @@ bool Parse::parseFuncCall() {
 bool Parse::parseFuncNode() {
     if (check(FUNCNODE)) {
         std::string_view fName = scanner->getCurrStr();
-        func *f = Functions.at(fName);
-        scope = f;
+	std::cout << "FNAME:: " << fName << '\n';
+	func * f;
+	if (Functions.find(fName) == Functions.end()) {
+		std::cout << "Couldnt find function" << '\n';
+		std::cout << fName << '\n';
+		f = new func();
+		Functions.insert({fName, f});
+	}
+	else {
+		f = Functions.at(fName);
+        	scope = f;
+	}
 	consume();
         if (checkAndConsume(FUNCADDR)) {
             char * tmp = 0;
@@ -132,9 +141,7 @@ bool Parse::parseFuncNode() {
 	    f->nCalls = uses;
 	    consume();
             while (check(FUNC)) {
-                if(check(FUNC)) {
                     parseFunc();
-                }
             }
             return true;
         }
@@ -144,7 +151,15 @@ bool Parse::parseFuncNode() {
 
 bool Parse::parseFunc() {
     std::string_view fName = scanner->getCurrStr();
-    func * f = Functions.at(fName);
+    func * f;
+    if (Functions.find(fName) == Functions.end()) {
+    	f = new func();
+	f->name = fName;
+	Functions.insert({fName, f});
+    }
+    else {
+    	func * f = Functions.at(fName);
+    }
     scope->funcs.insert({fName, f});
     consume();
     return true;
