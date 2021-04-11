@@ -4,8 +4,8 @@
 #include <iostream>
 
 
-void compute_support(scp * scope) {
-    auto funcs = scope->Funcs;
+void compute_support(func * scope) {
+    auto funcs = scope->funcs;
     std::unordered_map<std::string_view, func *>::iterator i;
     std::unordered_map<std::string_view, func *>::iterator j;
     for (i = funcs.begin(); i != funcs.end(); i++) {
@@ -23,30 +23,30 @@ void compute_support(scp * scope) {
 }
 
 void scan_for_bugs() {
-    scp * currScope;
+    func * currScope;
     func * currFunc;
-    /*For all scopes*/for (auto const & [ key, value ] : Scopes) {
+    for (auto const & [ key, value ] : Functions) {
         currScope = value;
-        /*For all funcs in scope S*/for (auto const & [ key, value ] : currScope->Funcs) {
-            currFunc = value;
-            /*For all pairs in func F*/for ( auto const & [ key, value ] : currFunc->pairs) {
-                std::string_view pair = key;
-                if (!find(currScope, pair)) {
-                    double invarCompute = (100 * ((double) value / currFunc->nCalls));
-                    if (invarCompute >= T_CONFIDENCE && value >= T_SUPPORT) {
-                        std::cout << "bug: " << currFunc->name << " in " << currScope->name << ',';
-                        if (currFunc->name < pair)
-                            std::cout << " pair: " << '(' << currFunc->name << ", " << pair << "),";
-                        else 
-                            std::cout << " pair: " << '(' << pair << ", " << currFunc->name << "),";
-                        std::cout << " support: " << value << ',';
-                        std::cout.precision(2);
-                        std::cout << " confidence: " << std::fixed << ( 100 * ((double)value/ currFunc->nCalls)) << '%' << '\n';
+		for ( auto const & [ key, value ] : currScope->funcs) {
+		    currFunc = value;
+		    for ( auto const & [ key, value ] : currFunc->pairs) {
+                    std::string_view pair = key;
+                    if (!find(currFunc, pair)) {
+                        double invarCompute = (100 * ((double) value / currFunc->nCalls));
+                        if (invarCompute >= T_CONFIDENCE && value >= T_SUPPORT) {
+                            std::cout << "bug: " << currFunc->name << " in " << currScope->name << ',';
+                            if (currFunc->name < pair)
+                                std::cout << " pair: " << '(' << currFunc->name << ", " << pair << "),";
+                            else 
+                                std::cout << " pair: " << '(' << pair << ", " << currFunc->name << "),";
+                            std::cout << " support: " << value << ',';
+                            std::cout.precision(2);
+                            std::cout << " confidence: " << std::fixed << ( 100 * ((double)value/ currFunc->nCalls)) << '%' << '\n';
+                        }
                     }
-                }
-            }
-        }
-    }
+                   }
+		}
+	}
 }
 
 

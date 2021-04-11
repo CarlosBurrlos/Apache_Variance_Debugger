@@ -38,6 +38,7 @@ int main(int argc, char * argv[]) {
         T_SUPPORT = atoi(argv[2]);
         T_CONFIDENCE = atoi(argv[3]);
     }
+//    while (s->readWord()) ;
     p->parse();
     return 0;
 }

@@ -1,5 +1,5 @@
 #Compiler
-CC=g++
+CC=g++ -g
 #Source files directory
 SDIR=./src/
 #Include files directory
@@ -8,7 +8,7 @@ IDIR=./include/
 ODIR=./obj/
 
 SRC_FILES =			\
-	Debugger.cpp	\
+	Debugger.cpp		\
 	Func.cpp		\
 	Invar.cpp		\
 	NFAs.cpp		\
