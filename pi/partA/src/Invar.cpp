@@ -33,19 +33,28 @@ void scan_for_bugs() {
 		    currFunc = value;
 		    for ( auto const & [ key, value ] : currFunc->pairs) {
 		        std::string_view pair = key;
-                    if (currScope->funcs.find(pair) == currScope->funcs.end()) {
-                        double invarCompute = (100 * ((double) value / currFunc->nCalls));
-                        if (invarCompute >= T_CONFIDENCE && value >= T_SUPPORT) {
+		        if (currScope->funcs.find(pair) == currScope->funcs.end()) {
+		            double invarCompute = (100 * ((double) value / currFunc->nCalls));
+		            if (currFunc->name == "ap_get_server_name" && pair == "apr_pstrcat") {
+		                std::cout << "aksdjfkls" << '\n';
+		            }
+		            bool check = (invarCompute >= T_CONFIDENCE);
+		            if (check == true) {
+                        if ((value >= T_SUPPORT)) {
                             std::cout << "bug: " << currFunc->name << " in " << currScope->name << ',';
-                            if (currFunc->name < pair)
+                            if (currFunc->name < pair) {
                                 std::cout << " pair: " << '(' << currFunc->name << ", " << pair << "),";
-                            else 
+                            }
+                            else {
                                 std::cout << " pair: " << '(' << pair << ", " << currFunc->name << "),";
+                            }
                             std::cout << " support: " << value << ',';
                             std::cout.precision(2);
-                            std::cout << " confidence: " << std::fixed << ( 100 * ((double)value/ currFunc->nCalls)) << '%' << '\n';
+                            std::cout << " confidence: " << std::fixed << (100 * ((double) value / currFunc->nCalls))
+                                      << '%' << '\n';
                         }
-                    }
+		            }
+		        }
 		    }
 		}
 	}
