@@ -6,10 +6,14 @@
 
 void compute_support(func * scope) {
     auto funcs = scope->funcs;
+
     std::unordered_map<std::string_view, func *>::iterator i;
     std::unordered_map<std::string_view, func *>::iterator j;
+
+
     for (i = funcs.begin(); i != funcs.end(); i++) {
         for (j = i, j++; j != funcs.end(); j++) {
+            std::cout << "Scope" << scope->name << '\n';
             if (i->second->pairs.find(j->first) == i->second->pairs.end()) {
                 i->second->pairs.insert( std::make_pair(j->first, 1) );
                 j->second->pairs.insert( std::make_pair(i->first, 1) );

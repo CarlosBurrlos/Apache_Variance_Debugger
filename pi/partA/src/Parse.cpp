@@ -36,8 +36,7 @@ bool Parse::parse() {
     if(parseNullFunc()) {
         
 	 while (1) {
-	    bool retVal = parseNodes();
-            if(retVal == false) {
+         if (!parseNodes()) {
 		    break;
 	    }
 	}
@@ -101,9 +100,9 @@ bool Parse::parseFuncCall() {
     if (check(FUNC)) {
         function:
         func * f = new func();
-	assert(f);
+	    assert(f);
         std::string_view fName = scanner->getCurrStr();
-	std::cout << "NAME:: " << fName <<'\n';
+	    std::cout << "NAME:: " << fName <<'\n';
         f->name = fName;
         Functions.insert(std::make_pair(fName, f));
         consume();
@@ -121,25 +120,27 @@ bool Parse::parseFuncCall() {
 bool Parse::parseFuncNode() {
     if (check(FUNCNODE)) {
         std::string_view fName = scanner->getCurrStr();
-	std::cout << "FNAME:: " << fName << '\n';
-	func * f;
-	if (Functions.find(fName) == Functions.end()) {
-		std::cout << "Couldnt find function" << '\n';
-		std::cout << fName << '\n';
-		f = new func();
-		Functions.insert({fName, f});
-	}
-	else {
-		f = Functions.at(fName);
-        	scope = f;
-	}
-	consume();
+	    std::cout << "FNAME:: " << fName << '\n';
+	    func * f;
+	    if (Functions.find(fName) == Functions.end()) {
+		    std::cout << "Couldnt find function" << '\n';
+		    std::cout << fName << '\n';
+		    f = new func();
+		    f->name = fName;
+		    Functions.insert({fName, f});
+            scope = f;
+	    }
+	    else {
+		    f = Functions.at(fName);
+		    scope = f;
+	    }
+	    consume();
         if (checkAndConsume(FUNCADDR)) {
             char * tmp = 0;
             long uses;
             uses = strtol(scanner->getCurrWrdPtr(), &tmp, 10) - 1;
-	    f->nCalls = uses;
-	    consume();
+	        f->nCalls = uses;
+	        consume();
             while (check(FUNC)) {
                     parseFunc();
             }
@@ -154,11 +155,11 @@ bool Parse::parseFunc() {
     func * f;
     if (Functions.find(fName) == Functions.end()) {
     	f = new func();
-	f->name = fName;
-	Functions.insert({fName, f});
+	    f->name = fName;
+	    Functions.insert({fName, f});
     }
     else {
-    	func * f = Functions.at(fName);
+    	f = Functions.at(fName);
     }
     scope->funcs.insert({fName, f});
     consume();

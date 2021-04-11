@@ -27,7 +27,7 @@ public:
     int getMain();      int getUses();
     int getFuncAddr();
 
-    void setWordStart(char * front, char * end) {wordStart = front; wordEnd = end;}
+   void setWordStart(char * front, char * end) {wordStart = front; wordEnd = end;}
 
 private:
     char * wordStart;   char * wordEnd;

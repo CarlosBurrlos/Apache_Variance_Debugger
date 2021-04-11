@@ -2,12 +2,14 @@
 
 bool is_0_9 (char c) {
     if ( c >= 48 && c <= 57) return true;
+    return false;
 }
 
 bool is_a_z_0_9 (char c) {
     if (c >= 65 && c <= 90) return true;
     if (c >= 97 && c <= 122) return true;
     if (c >= 48 && c <= 57)  return true;
+    return false;
 }
 
 bool is_a_z(char c) {

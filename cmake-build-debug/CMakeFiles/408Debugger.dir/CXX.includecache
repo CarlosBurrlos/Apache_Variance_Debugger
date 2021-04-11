@@ -1,0 +1,42 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/Users/carlos/Clion/408Debugger/pi/partA/include/Func.h
+string_view
+-
+unordered_map
+-
+
+/Users/carlos/Clion/408Debugger/pi/partA/include/Globals.h
+../include/Scope.h
+/Users/carlos/Clion/408Debugger/pi/partA/include/Scope.h
+../include/Func.h
+/Users/carlos/Clion/408Debugger/pi/partA/include/Func.h
+unordered_map
+-
+string_view
+-
+
+/Users/carlos/Clion/408Debugger/pi/partA/include/Invar.h
+Scope.h
+/Users/carlos/Clion/408Debugger/pi/partA/include/Scope.h
+
+/Users/carlos/Clion/408Debugger/pi/partA/include/Scope.h
+../include/Func.h
+/Users/carlos/Clion/408Debugger/pi/partA/include/Func.h
+string_view
+-
+
+/Users/carlos/Clion/408Debugger/pi/partA/src/Invar.cpp
+../include/Invar.h
+/Users/carlos/Clion/408Debugger/pi/partA/include/Invar.h
+../include/Globals.h
+/Users/carlos/Clion/408Debugger/pi/partA/include/Globals.h
+iostream
+-
+

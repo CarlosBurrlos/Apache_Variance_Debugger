@@ -1,0 +1,3 @@
+/Users/carlos/Clion/408Debugger/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/Users/carlos/Clion/408Debugger/cmake-build-debug/CMakeFiles/edit_cache.dir
+/Users/carlos/Clion/408Debugger/cmake-build-debug/CMakeFiles/408Debugger.dir
