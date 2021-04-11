@@ -34,25 +34,25 @@ void scan_for_bugs() {
 		    for ( auto const & [ key, value ] : currFunc->pairs) {
 		        std::string_view pair = key;
 		        if (currScope->funcs.find(pair) == currScope->funcs.end()) {
-		            double invarCompute = (100 * ((double) value / currFunc->nCalls));
-		            if (currFunc->name == "ap_get_server_name" && pair == "apr_pstrcat") {
+		            double invarCompute = (100.00 * (((double) value) / ((double)currFunc->nCalls)));
+		            if (currFunc->name == "apr_array_make" && pair == "apr_array_push") {
 		                std::cout << "aksdjfkls" << '\n';
 		            }
 		            bool check = (invarCompute >= T_CONFIDENCE);
 		            if (check == true) {
-                        if ((value >= T_SUPPORT)) {
-                            std::cout << "bug: " << currFunc->name << " in " << currScope->name << ',';
-                            if (currFunc->name < pair) {
-                                std::cout << " pair: " << '(' << currFunc->name << ", " << pair << "),";
-                            }
-                            else {
-                                std::cout << " pair: " << '(' << pair << ", " << currFunc->name << "),";
-                            }
-                            std::cout << " support: " << value << ',';
-                            std::cout.precision(2);
-                            std::cout << " confidence: " << std::fixed << (100 * ((double) value / currFunc->nCalls))
-                                      << '%' << '\n';
-                        }
+                        	if ((value >= T_SUPPORT)) {
+                            		std::cout << "bug: " << currFunc->name << " in " << currScope->name << ',';
+                            		if (currFunc->name < pair) {
+                                		std::cout << " pair: " << '(' << currFunc->name << ", " << pair << "),";
+                            		}
+                            		else {
+                                		std::cout << " pair: " << '(' << pair << ", " << currFunc->name << "),";
+                            		}
+                            		std::cout << " support: " << value << ',';
+                            		std::cout.precision(2);
+                            		std::cout << " confidence: " << std::fixed << (100 * ((double) value / currFunc->nCalls))
+                                      		<< '%' << '\n';
+                        	}
 		            }
 		        }
 		    }
