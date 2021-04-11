@@ -26,39 +26,17 @@ string_view
 Scope.h
 /Users/carlos/Clion/408Debugger/pi/partA/include/Scope.h
 
-/Users/carlos/Clion/408Debugger/pi/partA/include/NFAs.h
-
-/Users/carlos/Clion/408Debugger/pi/partA/include/Parse.h
-Scanner.h
-/Users/carlos/Clion/408Debugger/pi/partA/include/Scanner.h
-Scope.h
-/Users/carlos/Clion/408Debugger/pi/partA/include/Scope.h
-list
--
-
-/Users/carlos/Clion/408Debugger/pi/partA/include/Scanner.h
-../include/NFAs.h
-/Users/carlos/Clion/408Debugger/pi/partA/include/NFAs.h
-string_view
--
-
 /Users/carlos/Clion/408Debugger/pi/partA/include/Scope.h
 ../include/Func.h
 /Users/carlos/Clion/408Debugger/pi/partA/include/Func.h
 string_view
 -
 
-/Users/carlos/Clion/408Debugger/pi/partA/src/Parse.cpp
-../include/Parse.h
-/Users/carlos/Clion/408Debugger/pi/partA/include/Parse.h
-../include/Globals.h
-/Users/carlos/Clion/408Debugger/pi/partA/include/Globals.h
+/Users/carlos/Clion/408Debugger/pi/partA/src/Invar.cpp
 ../include/Invar.h
 /Users/carlos/Clion/408Debugger/pi/partA/include/Invar.h
-algorithm
--
-cassert
--
+../include/Globals.h
+/Users/carlos/Clion/408Debugger/pi/partA/include/Globals.h
 iostream
 -
 

@@ -28,14 +28,12 @@ void scan_for_bugs() {
     func * currScope;
     func * currFunc;
     for (auto const & [ key, value ] : Functions) {
-    }
-    for (auto const & [ key, value ] : Functions) {
         currScope = value;
 		for ( auto const & [ key, value ] : currScope->funcs) {
 		    currFunc = value;
 		    for ( auto const & [ key, value ] : currFunc->pairs) {
 		        std::string_view pair = key;
-                    if (!find(currScope, pair)) {
+                    if (currScope->funcs.find(pair) == currScope->funcs.end()) {
                         double invarCompute = (100 * ((double) value / currFunc->nCalls));
                         if (invarCompute >= T_CONFIDENCE && value >= T_SUPPORT) {
                             std::cout << "bug: " << currFunc->name << " in " << currScope->name << ',';
