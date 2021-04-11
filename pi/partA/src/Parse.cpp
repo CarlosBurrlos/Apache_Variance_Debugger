@@ -132,10 +132,12 @@ bool Parse::parseFuncNode() {
 	    }
 	    consume();
         if (checkAndConsume(FUNCADDR)) {
+            /*
             char * tmp = 0;
             long uses;
             uses = strtol(scanner->getCurrWrdPtr(), &tmp, 10) - 1;
 	        f->nCalls = uses;
+	        */
 	        consume();
             while (check(FUNC)) {
                     parseFunc();
@@ -157,7 +159,10 @@ bool Parse::parseFunc() {
     else {
     	f = Functions.at(fName);
     }
-    scope->funcs.insert({fName, f});
+    if (scope->funcs.find(fName) == scope->funcs.end()) {
+        scope->funcs.insert({fName, f});
+        f->nCalls ++;
+    }
     consume();
     return true;
 }
