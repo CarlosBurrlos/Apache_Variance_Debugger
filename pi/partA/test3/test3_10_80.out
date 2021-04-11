@@ -1,0 +1,7 @@
+bug: apr_array_make in ap_make_method_list, pair: (apr_array_make, apr_array_push), support: 83, confidence: 82.18%
+bug: apr_array_make in ap_init_virtual_host, pair: (apr_array_make, apr_array_push), support: 83, confidence: 82.18%
+bug: apr_array_make in prep_walk_cache, pair: (apr_array_make, apr_array_push), support: 83, confidence: 82.18%
+bug: apr_array_make in create_core_server_config, pair: (apr_array_make, apr_array_push), support: 83, confidence: 82.18%
+bug: apr_array_make in so_sconf_create, pair: (apr_array_make, apr_array_push), support: 83, confidence: 82.18%
+bug: ap_str_tolower in ap_get_remote_host, pair: (ap_str_tolower, apr_pstrdup), support: 14, confidence: 82.35%
+bug: ap_str_tolower in ap_get_useragent_host, pair: (ap_str_tolower, apr_pstrdup), support: 14, confidence: 82.35%
