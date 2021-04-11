@@ -102,7 +102,6 @@ bool Parse::parseFuncCall() {
         func * f = new func();
 	    assert(f);
         std::string_view fName = scanner->getCurrStr();
-	    std::cout << "NAME:: " << fName <<'\n';
         f->name = fName;
         Functions.insert(std::make_pair(fName, f));
         consume();
@@ -120,11 +119,8 @@ bool Parse::parseFuncCall() {
 bool Parse::parseFuncNode() {
     if (check(FUNCNODE)) {
         std::string_view fName = scanner->getCurrStr();
-	    std::cout << "FNAME:: " << fName << '\n';
 	    func * f;
 	    if (Functions.find(fName) == Functions.end()) {
-		    std::cout << "Couldnt find function" << '\n';
-		    std::cout << fName << '\n';
 		    f = new func();
 		    f->name = fName;
 		    Functions.insert({fName, f});

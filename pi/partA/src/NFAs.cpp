@@ -60,7 +60,7 @@ int NFAs::getFuncNode() {
     temp = wordStart;
     if (is_a_z_0_9(*temp) || *temp == '.' || *temp == '_'){ temp++;}
     else {return 0;}
-    while (temp != wordEnd) {
+    while (temp < wordEnd) {
         if (is_a_z_0_9(*temp) || *temp == '.' || *temp == '_') { temp++; }
 	else return 0;
     }
@@ -94,7 +94,7 @@ int NFAs::getFuncName() {
     temp = wordStart;
     if (is_a_z_0_9(*temp) || *temp == '.' || *temp == '_'){ temp++;}
     else {return 0;}
-    while (temp != wordEnd) {
+    while (temp < wordEnd) {
         if (is_a_z_0_9(*temp) || *temp == '.' || *temp == '_'){ temp++;}
 	else return 0;
     }
