@@ -10,7 +10,6 @@ void compute_support(func * scope) {
     std::unordered_map<std::string_view, func *>::iterator i;
     std::unordered_map<std::string_view, func *>::iterator j;
 
-
     for (i = funcs.begin(); i != funcs.end(); i++) {
         for (j = i, j++; j != funcs.end(); j++) {
             if (i->second->pairs.find(j->first) == i->second->pairs.end()) {
@@ -29,12 +28,14 @@ void scan_for_bugs() {
     func * currScope;
     func * currFunc;
     for (auto const & [ key, value ] : Functions) {
+    }
+    for (auto const & [ key, value ] : Functions) {
         currScope = value;
 		for ( auto const & [ key, value ] : currScope->funcs) {
 		    currFunc = value;
 		    for ( auto const & [ key, value ] : currFunc->pairs) {
-                    std::string_view pair = key;
-                    if (!find(currFunc, pair)) {
+		        std::string_view pair = key;
+                    if (!find(currScope, pair)) {
                         double invarCompute = (100 * ((double) value / currFunc->nCalls));
                         if (invarCompute >= T_CONFIDENCE && value >= T_SUPPORT) {
                             std::cout << "bug: " << currFunc->name << " in " << currScope->name << ',';
@@ -47,7 +48,7 @@ void scan_for_bugs() {
                             std::cout << " confidence: " << std::fixed << ( 100 * ((double)value/ currFunc->nCalls)) << '%' << '\n';
                         }
                     }
-                   }
+		    }
 		}
 	}
 }
