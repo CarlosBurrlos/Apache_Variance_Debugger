@@ -35,11 +35,8 @@ void scan_for_bugs() {
 		        std::string_view pair = key;
 		        if (currScope->funcs.find(pair) == currScope->funcs.end()) {
 		            double invarCompute = (100.00 * (((double) value) / ((double)currFunc->nCalls)));
-		            if (currFunc->name == "apr_array_make" && pair == "apr_array_push") {
-		                std::cout << "aksdjfkls" << '\n';
-		            }
 		            bool check = (invarCompute >= T_CONFIDENCE);
-		            if (check == true) {
+		            if (invarCompute >= T_CONFIDENCE) {
                         	if ((value >= T_SUPPORT)) {
                             		std::cout << "bug: " << currFunc->name << " in " << currScope->name << ',';
                             		if (currFunc->name < pair) {
@@ -49,9 +46,9 @@ void scan_for_bugs() {
                                 		std::cout << " pair: " << '(' << pair << ", " << currFunc->name << "),";
                             		}
                             		std::cout << " support: " << value << ',';
-                            		std::cout.precision(2);
-                            		std::cout << " confidence: " << std::fixed << (100 * ((double) value / currFunc->nCalls))
-                                      		<< '%' << '\n';
+					printf(" confidence: %.2f%%\n", invarCompute);
+                            		//std::cout << " confidence: " << std::fixed << (100 * ((double) value / currFunc->nCalls))
+                                      		//<< '%' << '\n';
                         	}
 		            }
 		        }
