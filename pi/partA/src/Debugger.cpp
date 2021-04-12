@@ -31,8 +31,8 @@ int main(int argc, char * argv[]) {
     p = new Parse(s);
 
     if (argc < 4) {
-        T_SUPPORT = 3;
-        T_CONFIDENCE = 65;
+        T_SUPPORT = 0;
+        T_CONFIDENCE = 0;
     } 
     else {
         T_SUPPORT = atoi(argv[2]);

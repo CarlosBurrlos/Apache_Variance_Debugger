@@ -83,7 +83,7 @@ int Scanner::readWord () {
     nfa->setWordStart(&file[wf_idx], &file[we_idx]);
     Token = nfa->compute();
 
-    if (check == END)   return END;
+    if (check == END)   return 0;
     return OK;
 }
 
@@ -112,7 +112,7 @@ int Scanner::readChar() {
         if (file[fIdx] == '\n')
             while(file[fIdx] == '\n' && fIdx != eofIdx) {fIdx++;}
         while(file[fIdx] == ' ' && fIdx != eofIdx) {fIdx++;}
-        if (fIdx == eofIdx)
+        if (we_idx == eofIdx)
             return END;
         set(nuWord);
         return ENDWORD;

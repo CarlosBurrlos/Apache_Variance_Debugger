@@ -8,12 +8,3 @@ func * newFunc(std::string_view fName) {
     return f;
 }
 
-int addPair(func * fnc, std::string_view fName) {
-    auto nFunc = std::make_pair(fName, 0);
-    fnc->pairs.insert(nFunc);
-    return fnc->pairs.size();
-}
-
-bool find(func * fnc, std::string_view func) {
-    return (fnc->pairs.find(func) == fnc->pairs.end());
-}

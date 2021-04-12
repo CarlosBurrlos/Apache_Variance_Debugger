@@ -7,10 +7,22 @@
 #include <iostream>
 
 //======= Helpers =======
-bool Parse::check(int token) {return (token == Token);}
-bool Parse::checkAndConsume(int token) {if (check(token)) {consume();return true;} return false;}
+bool Parse::check(int token) {
+	return (token == Token);
+}
+
+bool Parse::checkAndConsume(int token) {
+	if (check(token)) {
+		consume();
+		return true;
+	}
+	return false;
+}
+
 bool Parse::check(std::list<int> tokens) {for (auto const& t : tokens){if (t == Token)return true;} return false;}
-int Parse::consume() {return scanner->readWord();}
+int Parse::consume() {
+	return scanner->readWord();
+}
 //======= Helpers =======
 
 Parse::Parse(Scanner * s)
@@ -22,10 +34,23 @@ Parse::~Parse() {
 
 bool Parse::parse() {
     if(parseNullFunc()) {
-        while (parseNodes())
-            ;
+        
+	 while (1) {
+         if (!parseNodes()) {
+		    break;
+	    }
+	}
         if (scanner->atEnd) {
-            scan_for_bugs();
+		//======= DB
+		 /*for (auto const & [ key, value ] : Functions) {
+			std::cout << "FUNC Name:: " << key << '\n';
+			for (auto const & [ key, value ] : value->pairs) {
+				std::cout << "PAIR:: " << key << "  SUPP:: " << value << '\n';
+			}
+		}
+		*/
+		//======= DB
+            	scan_for_bugs();
             return true;
         }
         return false;
@@ -35,26 +60,21 @@ bool Parse::parse() {
 
 bool Parse::parseNodes() {
     if (scanner->atEnd) return false;
-    if (check(SCOPENODE)) {
-        if (parseScopeNode()) {
-            compute_support(scope);
-            return true;
-        }
-    }
-    else if (check(FUNCNODE)) {
+    if (check(FUNCNODE)) {
         if (parseFuncNode()) {
+            compute_support(scope);
             return true;
         }
     }
     else if (check({PRINTF, MAIN})) {
         if (check(MAIN)) {
             consume();
-            while (!check(PRINTF))
+            while (!check({FUNCNODE, PRINTF}))
                 consume();
         }
         else if (check(PRINTF)) {
             consume();
-            while (!check({FUNCNODE, SCOPENODE}))
+            while (!check(FUNCNODE))
                 consume();
         }
         return true;
@@ -80,25 +100,15 @@ bool Parse::parseFuncCall() {
     if (check(FUNC)) {
         function:
         func * f = new func();
-	assert(f);
+	    assert(f);
         std::string_view fName = scanner->getCurrStr();
         f->name = fName;
         Functions.insert(std::make_pair(fName, f));
         consume();
         return true;
     }
-    else if (check(SCOPE)) {
-        scope:
-        scp * s = new scp();
-        assert(s);
-        std::string_view sName = scanner->getCurrStr();
-        s->name = sName;
-        Scopes.insert(std::make_pair(sName, s));
-        consume();
-        return true;
-    }
     else if (check(MAIN)) {
-        goto scope;
+        goto function;
     }
     else if (check(PRINTF)) {
         goto function;
@@ -109,43 +119,28 @@ bool Parse::parseFuncCall() {
 bool Parse::parseFuncNode() {
     if (check(FUNCNODE)) {
         std::string_view fName = scanner->getCurrStr();
-        consume();
+	    func * f;
+	    if (Functions.find(fName) == Functions.end()) {
+		    f = new func();
+		    f->name = fName;
+		    Functions.insert({fName, f});
+            scope = f;
+	    }
+	    else {
+		    f = Functions.at(fName);
+		    scope = f;
+	    }
+	    consume();
         if (checkAndConsume(FUNCADDR)) {
+            /*
             char * tmp = 0;
             long uses;
             uses = strtol(scanner->getCurrWrdPtr(), &tmp, 10) - 1;
-            func * f = Functions.at(fName);
-            f->nCalls = (int)uses;
-            consume();
-            while (!check({SCOPENODE, FUNCNODE, MAIN}) && !scanner->atEnd)
-                consume();
-            return true;
-        }
-    }
-    return false;
-}
-
-bool Parse::parseScopeNode() {
-    if (check(SCOPENODE)) {
-        std::string_view sName = scanner->getCurrStr();
-        scp *s = Scopes.at(sName);
-        scope = s;
-        consume();
-        if (checkAndConsume(FUNCADDR)) {
-            consume();
-            while (check({SCOPE, FUNC, PRINTF, MAIN}) && !scanner->atEnd) {
-                if (checkAndConsume(SCOPE)) {
-                    continue;
-                }
-                else if(check(FUNC)) {
+	        f->nCalls = uses;
+	        */
+	        consume();
+            while (check(FUNC)) {
                     parseFunc();
-                }
-                else if (checkAndConsume(PRINTF)) {
-                    continue;
-                }
-                else if (checkAndConsume(MAIN)) {
-                    continue;
-                }
             }
             return true;
         }
@@ -155,8 +150,22 @@ bool Parse::parseScopeNode() {
 
 bool Parse::parseFunc() {
     std::string_view fName = scanner->getCurrStr();
-    func * f = Functions.at(fName);
-    scope->Funcs.insert({fName, f});
+    func * f;
+    if (Functions.find(fName) == Functions.end()) {
+    	f = new func();
+	    f->name = fName;
+	    Functions.insert({fName, f});
+    }
+    else {
+    	f = Functions.at(fName);
+    }
+    if (scope->funcs.find(fName) == scope->funcs.end()) {
+	if (f->funcs.size() > 1) {
+		scope->toExpand.insert({fName, f});
+	}
+        scope->funcs.insert({fName, f});
+        f->nCalls ++;
+    }
     consume();
     return true;
 }

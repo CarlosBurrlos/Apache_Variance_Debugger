@@ -8,6 +8,8 @@ typedef struct F {
     int nCalls;
     std::string_view name;
     std::unordered_map<std::string_view, int> pairs;
+    std::unordered_map<std::string_view, struct F *> funcs;
+    std::unordered_map<std::string_view, struct F *> toExpand;
 }func;
 
 func * newFunc(std::string_view);

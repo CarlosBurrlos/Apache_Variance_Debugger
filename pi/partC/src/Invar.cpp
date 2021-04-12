@@ -4,10 +4,12 @@
 #include <iostream>
 
 
-void compute_support(scp * scope) {
-    auto funcs = scope->Funcs;
+void compute_support(func * scope) {
+    auto funcs = scope->funcs;
+
     std::unordered_map<std::string_view, func *>::iterator i;
     std::unordered_map<std::string_view, func *>::iterator j;
+
     for (i = funcs.begin(); i != funcs.end(); i++) {
         for (j = i, j++; j != funcs.end(); j++) {
             if (i->second->pairs.find(j->first) == i->second->pairs.end()) {
@@ -23,29 +25,50 @@ void compute_support(scp * scope) {
 }
 
 void scan_for_bugs() {
-    scp * currScope;
+    func * currScope;
     func * currFunc;
-    /*For all scopes*/for (auto const & [ key, value ] : Scopes) {
+    for (auto const & [ key, value ] : Functions) {
         currScope = value;
-        /*For all funcs in scope S*/for (auto const & [ key, value ] : currScope->Funcs) {
-            currFunc = value;
-            /*For all pairs in func F*/for ( auto const & [ key, value ] : currFunc->pairs) {
-                std::string_view pair = key;
-                if (!find(currScope, pair)) {
-                    double invarCompute = (100 * ((double) value / currFunc->nCalls));
-                    if (invarCompute >= T_CONFIDENCE && value >= T_SUPPORT) {
-                        std::cout << "bug: " << currFunc->name << " in " << currScope->name << ',';
-                        if (currFunc->name < pair)
-                            std::cout << " pair: " << '(' << currFunc->name << ',' << pair << "),";
-                        else 
-                            std::cout << " pair: " << '(' << pair << ',' << currFunc->name << "),";
-                        std::cout << " support: " << value << ',';
-                        std::cout.precision(2);
-                        std::cout << " confidence: " << std::fixed << ( 100 * ((double)value/ currFunc->nCalls)) << '%' << '\n';
-                    }
-                }
-            }
-        }
+	//expand
+	if (currScope->toExpand.size() > 0) {
+		expand_scope(currScope);
+	}
+	for ( auto const & [ key, value ] : currScope->funcs) {
+	    currFunc = value;
+	    for ( auto const & [ key, value ] : currFunc->pairs) {
+	        std::string_view pair = key;
+	        if (currScope->funcs.find(pair) == currScope->funcs.end()) {
+		    double invarCompute = (100.00 * (((double) value) / ((double)currFunc->nCalls)));
+		    bool check = (invarCompute >= T_CONFIDENCE);
+		    if (invarCompute >= T_CONFIDENCE) {
+                        if ((value >= T_SUPPORT)) {
+                            std::cout << "bug: " << currFunc->name << " in " << currScope->name << ',';
+                            	if (currFunc->name < pair) {
+                                	std::cout << " pair: " << '(' << currFunc->name << ", " << pair << "),";
+                            	}
+                            	else {
+                                	std::cout << " pair: " << '(' << pair << ", " << currFunc->name << "),";
+                            	}
+                            	std::cout << " support: " << value << ',';
+				printf(" confidence: %.2f%%\n", invarCompute);
+                            	//std::cout << " confidence: " << std::fixed << (100 * ((double) value / currFunc->nCalls))
+                                      	//<< '%' << '\n';
+                        }
+		   }
+		}
+	    }
+	}
+    }
+}
+
+void expand_scope(func * parent_scope) {
+    for ( const auto & [ key, value ] : parent_scope->toExpand ) {
+        for ( const auto & [ key, value ] : value->funcs ) {
+            //This means the func was hidden within a non-expanded scope
+	    if ( parent_scope->funcs.find(key) == parent_scope->funcs.end()) {
+	        parent_scope->funcs.insert( {key, value} );
+	    }
+	}
     }
 }
 

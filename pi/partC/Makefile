@@ -1,5 +1,5 @@
 #Compiler
-CC=g++
+CC=g++ -g
 #Source files directory
 SDIR=./src/
 #Include files directory

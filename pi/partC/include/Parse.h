@@ -1,7 +1,3 @@
-//
-// Created by Carlos Burroughs on 4/8/21.
-//
-
 #ifndef INC_408DEBUGGER_PARSE_H
 #define INC_408DEBUGGER_PARSE_H
 
@@ -24,7 +20,7 @@ public:
     bool check(std::list<int>);
 
 private:
-    scp * scope;               Scanner * scanner;
+    func * scope;               Scanner * scanner;
 };
 
 

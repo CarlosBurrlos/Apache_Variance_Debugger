@@ -58,7 +58,6 @@ void scope5() {
 void scope6() {
   B();
   D();
-  scope1();
 }
 
 void A() {

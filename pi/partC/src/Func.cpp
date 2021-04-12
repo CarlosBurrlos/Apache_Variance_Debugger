@@ -15,5 +15,6 @@ int addPair(func * fnc, std::string_view fName) {
 }
 
 bool find(func * fnc, std::string_view func) {
-    return (fnc->pairs.find(func) == fnc->pairs.end());
+    bool val = (fnc->pairs.find(func) == fnc->pairs.end());
+    return val;
 }
