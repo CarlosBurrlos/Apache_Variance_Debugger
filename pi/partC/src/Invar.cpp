@@ -29,9 +29,9 @@ void scan_for_bugs() {
     func * currFunc;
     for (auto const & [ key, value ] : Functions) {
         currScope = value;
-	//expand
 	if (currScope->toExpand.size() > 0) {
-		expand_scope(currScope);
+		int i = T_NUMB_EXPAND;
+		expand_scope(currScope, i);
 	}
 	for ( auto const & [ key, value ] : currScope->funcs) {
 	    currFunc = value;
@@ -61,10 +61,16 @@ void scan_for_bugs() {
     }
 }
 
-void expand_scope(func * parent_scope) {
+void expand_scope(func * parent_scope, int i) {
     for ( const auto & [ key, value ] : parent_scope->toExpand ) {
         for ( const auto & [ key, value ] : value->funcs ) {
             //This means the func was hidden within a non-expanded scope
+	    if (i != 0 && T_NUMB_EXPAND != 0) {
+		if (value->toExpand.size() > 1 ) {
+		    i--;
+		    expand_scope(value, i);
+		}
+	    }
 	    if ( parent_scope->funcs.find(key) == parent_scope->funcs.end()) {
 	        parent_scope->funcs.insert( {key, value} );
 	    }

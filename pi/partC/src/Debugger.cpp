@@ -6,6 +6,7 @@
 
 int T_SUPPORT;
 double T_CONFIDENCE;
+int T_NUMB_EXPAND;
 
 
 std::unordered_map<std::string_view, scp *> Scopes;
@@ -22,7 +23,7 @@ void    __usage(int, char **);
 
 int main(int argc, char * argv[]) {
 
-    if (argc <= 1 || argc > 4) {
+    if (argc <= 1 || argc > 5) {
         __usage(argc, argv);
         return -1;
     }
@@ -30,13 +31,15 @@ int main(int argc, char * argv[]) {
     s = new Scanner(argv[1]);
     p = new Parse(s);
 
-    if (argc < 4) {
-        T_SUPPORT = 0;
-        T_CONFIDENCE = 0;
+    if (argc < 5) {
+        T_SUPPORT = 3;
+        T_CONFIDENCE = 65;
+	T_NUMB_EXPAND = 0;
     } 
     else {
         T_SUPPORT = atoi(argv[2]);
         T_CONFIDENCE = atoi(argv[3]);
+	T_NUMB_EXPAND = atoi(argv[4]);
     }
     p->parse();
     return 0;
